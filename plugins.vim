@@ -31,7 +31,7 @@ call dein#add('mhartington/deoplete-typescript')
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pretty colors.
-call dein#add('rakr/vim-two-firewatch', { 'script_type': 'colors' })
+call dein#add('rakr/vim-two-firewatch')
 " Airline! For the winningest.
 call dein#add('vim-airline/vim-airline')
 " Wakatime trakcer.

@@ -1,9 +1,11 @@
 " Plugin setup.
 " Required:
-set runtimepath^=~/dev/~installs/dein/repos/github.com/Shougo/dein.vim
+let deinbasepath = expand('<sfile>:p:h') . "/plugins"
+let deinlocation = deinbasepath . "/repos/github.com/Shougo/dein.vim"
+let &runtimepath .= ',' . deinlocation
 
 " Required:
-call dein#begin(expand('~/dev/~installs/dein'))
+call dein#begin(deinbasepath)
 
 " Let dein manage dein
 " Required:

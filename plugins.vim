@@ -21,7 +21,8 @@ call dein#add('Shougo/neopairs.vim')
 " Tmux?!?! (HOLY SHIT THIS IS COOL. Automatically complete from nearby Tmux panes.)
 call dein#add('wellle/tmux-complete.vim')
 " GitHub?! (It'll actually complete from GitHub itself.)
-call dein#add('SevereOverfl0w/deoplete-github') " Requires fugitive and rhubarb
+"call dein#add('SevereOverfl0w/deoplete-github') " Requires fugitive and rhubarb
+" ^^ Currently broke af.
 " C/C++/Objective-C clang_complete source.
 call dein#add('Rip-Rip/clang_complete', { 'build': 'make install' })
 " Elixir source.

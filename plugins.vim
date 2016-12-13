@@ -39,6 +39,7 @@ call dein#add('vim-airline/vim-airline')
 call dein#add('wakatime/vim-wakatime')
 " Syntax highlighting for (almost) everything, but *fastly*.
 call dein#add('sheerun/vim-polyglot')
+let g:polyglot_disabled = [] " This list is used to disabled specific syntaxes elsewhere.
 " Racket syntax highlighting.
 call dein#add('wlangstroth/vim-racket')
 " Syntax highlighting inside of ES6 template strings.
@@ -99,7 +100,7 @@ call dein#add('easymotion/vim-easymotion')
 call dein#add('osyo-manga/vim-over')
 " Wildfire - quickly select the nearest text object.
 call dein#add('gcmt/wildfire.vim')
-" Neomake - because it's better than syntastic
+" Neomake - because it's better than syntastic.
 call dein#add('neomake/neomake')
 " Matchit - better %.
 call dein#add('matchit.zip')

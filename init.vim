@@ -24,22 +24,22 @@ inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<tab>"
 " Press <C-j> <C-k> to move between completions.
 inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <silent><expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-" Press <CR> to trigger completion selection?
+" Press <CR> (enter) to trigger completion selection.
 inoremap <silent> <CR> <C-r>=<SID>select_completion_on_cr()<CR>
 function! s:select_completion_on_cr() abort
   return deoplete#close_popup() . "\<CR>"
 endfunction
 
 " Things like textwidth, wrapping, shiftwidth, ...
-syntax on " Yes, syntax highlighting.
+syntax on                 " Yes, syntax highlighting.
 filetype plugin indent on " Yes, filetype detection, automatic indentation, etc.
-set mouse=a " I don't know what this does.
-set mousehide " Or this.
-scriptencoding utf-8 " Use UTF-8!
+set mouse=a               " I don't know what this does.
+set mousehide             " Or this.
+scriptencoding utf-8      " Use UTF-8!
 
-set tw=100 wrap nolist " TextWidth: 100 chars. Wrap lines. No "list" - no line break.
-set sw=2 ts=2 sts=2 et " ShiftWidth = Tabstop = SoftTabstop = 2. Expand tabs to spaces.
-set autoindent " Indent automatically.
+set tw=100 wrap nolist    " TextWidth: 100 chars. Wrap lines. No "list" - no line break.
+set sw=2 ts=2 sts=2 et    " ShiftWidth = Tabstop = SoftTabstop = 2. Expand tabs to spaces.
+set autoindent            " Indent automatically.
 
 " Simple clipboard setup because nvim has good defaults.
 " Set system (X win) clipboard to be default clipboard.
@@ -72,6 +72,7 @@ set iskeyword-=-
 au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 
 " Restore cursor to previous file position when re-entering a file.
+" Is this slow? Might slow down vim start time.
 function! ResumeCursorPosition()
   if line("'\"") <= line("$")
     silent! normal! g`"
@@ -85,36 +86,24 @@ augroup resumeCursorPosition
 augroup END
 
 " Tell vim to automagically keep backups of files.
-" set backup
+" set backup " Takes a bunch of disk space and sometimes slows down vim startup.
 
 " Plz persist undo history!
 set undofile
 set undolevels=5000
 set undoreload=10000
 
-" set showmode " Display the current mode? I don't think I need this to be explicit here.
-" These appear to have to do with vim's weird default line stylings. Neovim doesn't need these.
-" highlight clear SignColumn
-" highlight clear LineNr
-
-" Defines the "ruler" - lower right hand info bar. Line no / total lines, etc.
-" Stolen wholesale from spf13 .vimrc.
-" I don't think I need this. Airline styles its own ruler.
-" set ruler
-" set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
-" set showcmd
-
-set number " Show line numbers!
+set number     " Show line numbers!
 set ignorecase " Case-insensitive search.
-set smartcase " Case sensitive when part of the term is uppercase.
+set smartcase  " Case sensitive when part of the term is uppercase.
 " Wildmenu is the medu you get when in command mode. Test using <esc>:color <tab> to see the menu.
-set wildmenu " Show a list instead of just completing commands.
-set wildmode=list:longest,full " View mode: show a big list for wildmenu.
-set scrolloff=1 " Keep a number of lines above and below the cursor at all times.
-set list " Display invisible characters using the below rules.
+set wildmenu                                   " Show a list instead of just completing commands.
+set wildmode=list:longest,full                 " View mode: show a big list for wildmenu.
+set scrolloff=1                                " Keep a number of lines above and below the cursor at all times.
+set list                                       " Display invisible characters using the below rules.
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace.
 
-set autoindent " Keep the indentation of the previous line.
+set autoindent   " Keep the indentation of the previous line.
 set nojoinspaces " When joining lines: compress spaces into 1.
 set splitright   " Vsplits go right.
 set splitbelow   " Hsplits go below.
@@ -196,7 +185,7 @@ nnoremap <Leader>. :lnext <CR>
 nnoremap <Leader>m :lprev <CR>
 nnoremap <Leader>x :lclose <CR>
 
-" Neomake configuration for TypeScript
+" Neomake configuration for TypeScript.
 " Tell tsc where to look for tsconfig!
 function! SetupNeomakeTSC()
   let g:neomake_typescript_tsc_maker = {

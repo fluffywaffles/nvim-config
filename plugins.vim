@@ -101,6 +101,9 @@ call dein#add('gcmt/wildfire.vim')
 call dein#add('neomake/neomake')
 " Matchit - better %.
 call dein#add('matchit.zip')
+" FZF. Per https://github.com/Shougo/dein.vim/issues/74.
+call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Currently DISABLED plugins.

@@ -30,6 +30,9 @@ function! s:select_completion_on_cr() abort
   return deoplete#close_popup() . "\<CR>"
 endfunction
 
+" Map Ctrl+P in Normal Mode to FZF gitfiles.
+nnoremap <C-p> :GFiles<CR>
+
 " Things like textwidth, wrapping, shiftwidth, ...
 syntax on                 " Yes, syntax highlighting.
 filetype plugin indent on " Yes, filetype detection, automatic indentation, etc.

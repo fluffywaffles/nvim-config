@@ -41,6 +41,8 @@ call dein#add('wakatime/vim-wakatime')
 call dein#add('sheerun/vim-polyglot')
 " Racket syntax highlighting.
 call dein#add('wlangstroth/vim-racket')
+" Syntax highlighting inside of ES6 template strings.
+call dein#add('Quramy/vim-js-pretty-template')
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This is the shrine to tpope. Hi HATERS http://tpo.pe

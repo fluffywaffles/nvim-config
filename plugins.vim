@@ -107,6 +107,11 @@ call dein#add('matchit.zip')
 " FZF. Per https://github.com/Shougo/dein.vim/issues/74.
 call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
 call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+" Handlebars mode.
+call add(g:polyglot_disabled, 'handlebars') " Disable polyglot syntax plugin in favor of this one.
+call dein#add('mustache/vim-mustache-handlebars')
+" Ember development plugin. (Adds a lot of features, particularly leader bindings for shortcuts.)
+call dein#add('dsawardekar/ember.vim')
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Currently DISABLED plugins.

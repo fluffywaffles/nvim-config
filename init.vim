@@ -41,6 +41,7 @@ set mousehide             " Or this.
 scriptencoding utf-8      " Use UTF-8!
 
 set tw=100 wrap nolist    " TextWidth: 100 chars. Wrap lines. No "list" - no line break.
+set colorcolumn=+1        " Light up the column +1 after TextWidth.
 set sw=2 ts=2 sts=2 et    " ShiftWidth = Tabstop = SoftTabstop = 2. Expand tabs to spaces.
 set autoindent            " Indent automatically.
 

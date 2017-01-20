@@ -99,7 +99,7 @@ set undoreload=10000
 set number     " Show line numbers!
 set ignorecase " Case-insensitive search.
 set smartcase  " Case sensitive when part of the term is uppercase.
-" Wildmenu is the medu you get when in command mode. Test using <esc>:color <tab> to see the menu.
+" Wildmenu is the menu you get when in command mode. Test using <esc>:color <tab> to see the menu.
 set wildmenu                                   " Show a list instead of just completing commands.
 set wildmode=list:longest,full                 " View mode: show a big list for wildmenu.
 set scrolloff=1                                " Keep a number of lines above and below the cursor at all times.

@@ -85,7 +85,8 @@ function! ResumeCursorPosition()
 endfunction
 
 augroup resumeCursorPosition
-  autocmd! BufWinEnter * call ResumeCursorPosition()
+  autocmd!
+  autocmd BufWinEnter * call ResumeCursorPosition()
 augroup END
 
 " Tell vim to automagically keep backups of files.
@@ -233,7 +234,9 @@ function! SetupNeomakeTSC()
 endfunction
 
 augroup typescript
-  autocmd! FileType typescript call SetupNeomakeTSC()
-  autocmd! BufEnter *.ts call SetupNeomakeTSC()
+  autocmd!
+  autocmd FileType typescript call SetupNeomakeTSC()
+  autocmd BufEnter *.ts call SetupNeomakeTSC()
+  autocmd FileType typescript :TSStart
 augroup END
 

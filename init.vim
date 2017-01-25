@@ -73,7 +73,8 @@ set iskeyword-=#
 set iskeyword-=-
 
 " Sets the cursor to first col when you open a new commit message.
-au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+autocmd FileType gitcommit
+autocmd! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 
 " Restore cursor to previous file position when re-entering a file.
 " Is this slow? Might slow down vim start time.
@@ -85,8 +86,7 @@ function! ResumeCursorPosition()
 endfunction
 
 augroup resumeCursorPosition
-  autocmd!
-  autocmd BufWinEnter * call ResumeCursorPosition()
+  autocmd! BufWinEnter * call ResumeCursorPosition()
 augroup END
 
 " Tell vim to automagically keep backups of files.

@@ -50,8 +50,8 @@ set autoindent            " Indent automatically.
 " http://vim.wikia.com/wiki/Accessing_the_system_clipboard#Using_the_clipboard_as_the_default_register
 set clipboard+=unnamedplus
 
-" Automatically change to the working directory when open a file (but not a URI?).
-autocmd BufEnter * if bufname("") !~ "^\[A-Za-z-0-9]*://" | lcd %:p:h
+" Automatically change to the working directory when you edit a file. (Unsure why the regex.)
+autocmd BufWrite,TextChanged,TextChangedI * if bufname("") !~ "^\[A-Za-z-0-9]*://" | lcd %:p:h
 
 " Write file when you leave a buffer.
 set autowrite

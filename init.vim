@@ -20,6 +20,7 @@ let maplocalleader = '_' " How is this different? I don't think I need this line
 " Tell deoplete to work on startup and to be case-sensitive when using caps.
 let g:deoplete#enable_at_startup=1
 let g:deoplete#enable_smart_case=1
+set completeopt-=preview " Don't open that weird little pane/window at the bottom of the screen.
 " Complete files from the CWD of the current file, not of the project.
 " DISABLE because behavior is not as expected.
 " let g:deoplete#file#enable_buffer_path=1

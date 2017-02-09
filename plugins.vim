@@ -44,6 +44,12 @@ let g:polyglot_disabled = [] " This list is used to disabled specific syntaxes e
 call dein#add('wlangstroth/vim-racket')
 " Syntax highlighting inside of ES6 template strings.
 call dein#add('Quramy/vim-js-pretty-template')
+" Highlight hexcode colors.
+call dein#add('chrisbra/Colorizer')
+" Self-explanatory.
+let g:colorizer_auto_filetype='css,html'
+" Sets <Leader>cC to toggle on/off, <Leader>cT to cycle contrast mode, <Leader>cF toggle fg/bg.
+let g:colorizer_auto_map = 1
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This is the shrine to tpope. Hi HATERS http://tpo.pe

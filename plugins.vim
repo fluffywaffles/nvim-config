@@ -116,12 +116,12 @@ call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 " Handlebars mode.
 call add(g:polyglot_disabled, 'handlebars') " Disable polyglot syntax plugin in favor of this one.
 call dein#add('mustache/vim-mustache-handlebars')
-" Ember development plugin. (Adds a lot of features, particularly leader bindings for shortcuts.)
-call dein#add('dsawardekar/ember.vim')
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Currently DISABLED plugins.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ember development plugin. (Adds a lot of features, particularly leader bindings for shortcuts.)
+" call dein#add('dsawardekar/ember.vim')
 " Tsuquyomi - TypeScript omnicompletion magic. (deoplete-typescript does not depend on it any more.)
 " call dein#add('Quramy/tsuquyomi') " Requires vimproc
 " let g:tsuquyomi_disable_quickfix=1 " Don't check syntax

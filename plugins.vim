@@ -116,6 +116,15 @@ call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 " Handlebars mode.
 call add(g:polyglot_disabled, 'handlebars') " Disable polyglot syntax plugin in favor of this one.
 call dein#add('mustache/vim-mustache-handlebars')
+" Vim Tmux Navigator - Seamless Tmux navigation!
+call dein#add('christoomey/vim-tmux-navigator')
+" Make the keymappings match my Tmux configuration.
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <C-a><C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-a><C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-a><C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-a><C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-a><C-\> :TmuxNavigatePrevious<cr>
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Currently DISABLED plugins.

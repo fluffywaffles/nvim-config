@@ -133,12 +133,6 @@ endfunction
 
 autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 
-" Easier window movement. (No maximize. Add <C-W>_ to maximize.)
-map <C-J> <C-W>j
-map <C-K> <C-W>k
-map <C-L> <C-W>l
-map <C-H> <C-W>h
-
 " Wrapped lines goes down/up to next row, rather than next line in file.
 noremap j gj
 noremap k gk

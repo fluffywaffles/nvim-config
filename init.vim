@@ -56,7 +56,8 @@ set autoindent            " Indent automatically.
 set clipboard+=unnamedplus
 
 " Automatically change to the working directory when you edit a file. (Unsure why the regex.)
-autocmd BufWrite,TextChanged,TextChangedI * if bufname("") !~ "^\[A-Za-z-0-9]*://" | lcd %:p:h
+"autocmd BufEnter * if bufname("") !~ "^\[A-Za-z-0-9]*://" | lcd %:p:h
+set autochdir
 
 " Write file when you leave a buffer.
 set autowrite

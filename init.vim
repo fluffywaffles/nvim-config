@@ -51,6 +51,13 @@ set colorcolumn=+1        " Light up the column +1 after TextWidth.
 set sw=2 ts=2 sts=2 et    " ShiftWidth = Tabstop = SoftTabstop = 2. Expand tabs to spaces.
 set autoindent            " Indent automatically.
 
+" Save folds to disk!
+augroup AutoSaveFolds
+  autocmd!
+  autocmd BufWinLeave *.* mkview
+  autocmd BufWinEnter *.* silent! loadview
+augroup END
+
 " Simple clipboard setup because nvim has good defaults.
 " Set system (X win) clipboard to be default clipboard.
 " http://vim.wikia.com/wiki/Accessing_the_system_clipboard#Using_the_clipboard_as_the_default_register

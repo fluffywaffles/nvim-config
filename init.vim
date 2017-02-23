@@ -248,18 +248,8 @@ augroup typescript
 augroup END
 
 " Can we create a GitAg like GitFiles using FZF? I think so.
-" Let's just cd into git root before running fzf#vim#ag.
-function! s:fwfull_fzf_gitag(...)
-  " Get git project root...
-  silent let git_project_dir = systemlist('git rev-parse --show-toplevel')[0]
-  " Save current window dir...
-  silent let curpwd = expand('%:p:h')
-  " Move to git project root...
-  exe "lcd " . git_project_dir
-  " Call ag...
-  call call('fzf#vim#ag', a:000)
-  " Restore original dir...
-  exe "lcd " . curpwd
-endfunction
-command! -bang -nargs=* GitAg call s:fwfull_fzf_gitag(<q-args>, <bang>0)
+" See https://github.com/junegunn/fzf.vim/issues/321 ! I asked Junegunn and he gave me this.
+command! -bang -nargs=* GitAg call fzf#vim#ag(<q-args>, {
+    \ 'dir': systemlist('git rev-parse --show-toplevel')[0]
+  \ }, <bang>0)
 

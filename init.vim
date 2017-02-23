@@ -253,3 +253,6 @@ command! -bang -nargs=* GitAg call fzf#vim#ag(<q-args>, {
     \ 'dir': systemlist('git rev-parse --show-toplevel')[0]
   \ }, <bang>0)
 
+" Let's make a mapping that runs GitAg with word-under-cursor when I hit C-k.
+nmap <C-k> "zyiw:exe "GitAg " . @z . ""<CR>
+

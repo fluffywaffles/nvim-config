@@ -199,14 +199,7 @@ nnoremap <Leader>x :lclose <CR>
 " Neomake configuration for TypeScript.
 " Tell tsc where to look for tsconfig!
 function! SetupNeomakeTSC()
-  let g:neomake_typescript_tsc_maker = {
-    \ 'errorformat':
-      \ '%E%f %#(%l\,%c): error %m,' .
-      \ '%E%f %#(%l\,%c): %m,' .
-      \ '%Eerror %m,' .
-      \ '%C%\s%\+%m',
-    \ 'append_file': 0
-    \ }
+  let g:neomake_typescript_tsc_maker = neomake#makers#ft#typescript#tsc()
 
   " If there's a tsconfig here, just use that.
   silent let can_init = system('tsc --init')
@@ -223,7 +216,7 @@ function! SetupNeomakeTSC()
     silent let git_project_dir = systemlist('git rev-parse --show-toplevel')[0]
     silent let find_tsconfig = system('test -e ' . git_project_dir . '/config/tsconfig.json')
     if v:shell_error == 0
-      let g:neomake_typescript_tsc_maker.args = [ '-p', git_project_dir.'/config', '--noEmit' ]
+      let g:neomake_typescript_tsc_maker.args = [ '-p', git_project_dir.'/config', '--noEmit', '--pretty', 'false' ]
       return
     endif
     " That failed - try looking in the 'config' folder of the nearest parent (depth <=5) having a
@@ -233,7 +226,7 @@ function! SetupNeomakeTSC()
       silent let find_tsconfig = system('test -e '.dots.'/config/tsconfig.json')
       if v:shell_error == 0
         silent let real_path = systemlist('realpath '.dots.'/config')[0]
-        let g:neomake_typescript_tsc_maker.args = [ '-p', real_path, '--noEmit' ]
+        let g:neomake_typescript_tsc_maker.args = [ '--project', real_path, '--noEmit', '--pretty', 'false' ]
         return
       endif
     endfor

@@ -4,7 +4,7 @@ call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/vimproc.vim', { 'build': 'make' })
 " Context filetype. I don't perfectly understand what this does, but Shougo recommends it.
 call dein#add('Shougo/context_filetype.vim')
-"
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Completion Engine - Deoplete and all sources.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -29,7 +29,7 @@ call dein#add('Rip-Rip/clang_complete', { 'build': 'make install' })
 call dein#add('awetzel/elixir.nvim', { 'build': 'yes \| ./install.sh' })
 " TypeScript source. Compare to Tsuquyomi?
 call dein#add('mhartington/deoplete-typescript')
-"
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pretty colors.
 call dein#add('rakr/vim-two-firewatch')
@@ -50,7 +50,7 @@ call dein#add('chrisbra/Colorizer')
 let g:colorizer_auto_filetype='css,html'
 " Sets <Leader>cC to toggle on/off, <Leader>cT to cycle contrast mode, <Leader>cF toggle fg/bg.
 let g:colorizer_auto_map = 1
-"
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This is the shrine to tpope. Hi HATERS http://tpo.pe
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -81,7 +81,7 @@ call dein#add('tpope/vim-obsession') " Used by tmux-resurrect.
 call dein#add('tpope/vim-sleuth')
 " Tbone - Tmux mappings for lots of things, but mostly Tyank and Tput to access its clipboard.
 call dein#add('tpope/vim-tbone')
-"
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Git gutter - +/- in sidebar gutter.
 call dein#add('airblade/vim-gitgutter')
@@ -125,10 +125,13 @@ nnoremap <silent> <C-a><C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-a><C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-a><C-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <C-a><C-\> :TmuxNavigatePrevious<cr>
-"
+" Vim-autoclose - autoclose pairs of ('" etc.
+call dein#add('Townk/vim-autoclose')
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Currently DISABLED plugins.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Ember development plugin. (Adds a lot of features, particularly leader bindings for shortcuts.)
 " call dein#add('dsawardekar/ember.vim')
 " Tsuquyomi - TypeScript omnicompletion magic. (deoplete-typescript does not depend on it any more.)

@@ -1,8 +1,10 @@
 " Unite - the UI thing that Shougo did. It's cool but hard to explain/understand.
-call dein#add('Shougo/unite.vim')
+" call dein#add('Shougo/unite.vim')
+" Denite - the asynchronou successor to Unite
+call dein#add('Shougo/denite.nvim')
 " vimproc - the async thing that Shougo did. (Do I need this for anything anymore?)
 call dein#add('Shougo/vimproc.vim', { 'build': 'make' })
-" Context filetype. I don't perfectly understand what this does, but Shougo recommends it.
+" Context filetype. Applies filetype for completion in nested code, e.g. JS fenced in HTML
 call dein#add('Shougo/context_filetype.vim')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -29,13 +31,15 @@ call dein#add('Rip-Rip/clang_complete', { 'build': 'make install' })
 call dein#add('awetzel/elixir.nvim', { 'build': 'yes \| ./install.sh' })
 " TypeScript source. Compare to Tsuquyomi?
 call dein#add('mhartington/deoplete-typescript')
+" Java completion
+call dein#add('artur-shaik/vim-javacomplete2')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pretty colors.
 call dein#add('rakr/vim-two-firewatch')
 " Airline! For the winningest.
 call dein#add('vim-airline/vim-airline')
-" Wakatime trakcer.
+" Wakatime tracker.
 call dein#add('wakatime/vim-wakatime')
 " Syntax highlighting for (almost) everything, but *fastly*.
 call dein#add('sheerun/vim-polyglot')
@@ -50,6 +54,8 @@ call dein#add('chrisbra/Colorizer')
 let g:colorizer_auto_filetype='css,html'
 " Sets <Leader>cC to toggle on/off, <Leader>cT to cycle contrast mode, <Leader>cF toggle fg/bg.
 let g:colorizer_auto_map = 1
+" Nice indentation guides.
+call dein#add('nathanaelkane/vim-indent-guides')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This is the shrine to tpope. Hi HATERS http://tpo.pe
@@ -108,8 +114,6 @@ call dein#add('osyo-manga/vim-over')
 call dein#add('gcmt/wildfire.vim')
 " Neomake - because it's better than syntastic.
 call dein#add('neomake/neomake')
-" Matchit - better %.
-call dein#add('matchit.zip')
 " FZF. Per https://github.com/Shougo/dein.vim/issues/74.
 call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
 call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })

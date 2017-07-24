@@ -2,9 +2,9 @@
 set nocompatible
 
 " Tru Colors (the truest).
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 " dein is the name of the "asynchronous dark-powered plugin manager" by Shuogo.
 " Let's have plugins.
@@ -25,8 +25,10 @@ set completeopt-=preview " Don't open that weird little pane/window at the botto
 " DISABLE because behavior is not as expected.
 " let g:deoplete#file#enable_buffer_path=1
 
-" Press <Tab> to cycle between completions when completions are available.
-inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<tab>"
+" Press <Tab> to cycle through completions when completions are available.
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" Press <Shift-Tab> to cycle backward through completions when completions are available.
+inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Press <C-j> <C-k> to move between completions.
 inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <silent><expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
@@ -184,6 +186,9 @@ hi Search guibg='FAF8F5' guifg='896724' gui=underline
 " Make parens match in a way that's less confusing.
 " This MUST come after the `colors` set, or it gets overwritten.
 hi MatchParen gui=reverse
+
+set guicursor=n-v-c:block-Cursor
+set guicursor+=i:ver100-iCursor
 
 " Prettier Airline.
 let g:Powerline_symbols='fancy'

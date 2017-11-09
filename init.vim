@@ -254,3 +254,4 @@ command! -bang -nargs=* GitAg call fzf#vim#ag(<q-args>, {
 " Let's make a mapping that runs GitAg with word-under-cursor when I hit C-k.
 nmap <C-k> "zyiw:exe "GitAg " . @z . ""<CR>
 
+au Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|REFACTOR\|OPTIMIZE\|NOTE\|QUESTION\)')

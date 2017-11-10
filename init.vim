@@ -2,9 +2,7 @@
 set nocompatible
 
 " Tru Colors (the truest).
-" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
-" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 " dein is the name of the "asynchronous dark-powered plugin manager" by Shuogo.
 " Let's have plugins.

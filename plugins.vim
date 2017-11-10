@@ -124,11 +124,11 @@ call dein#add('mustache/vim-mustache-handlebars')
 call dein#add('christoomey/vim-tmux-navigator')
 " Make the keymappings match my Tmux configuration.
 let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <C-a><C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-a><C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-a><C-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-a><C-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <C-a><C-\> :TmuxNavigatePrevious<cr>
+nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <M-\> :TmuxNavigatePrevious<cr>
 " Vim-autoclose - autoclose pairs of ('" etc.
 call dein#add('Townk/vim-autoclose')
 

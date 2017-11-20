@@ -26,7 +26,7 @@ call dein#add('wellle/tmux-complete.vim')
 "call dein#add('SevereOverfl0w/deoplete-github') " Requires fugitive and rhubarb
 " ^^ Currently broke af.
 " C/C++/Objective-C clang_complete source.
-call dein#add('Rip-Rip/clang_complete', { 'build': 'make install' })
+" call dein#add('Rip-Rip/clang_complete', { 'build': 'make install' })
 " Elixir source.
 call dein#add('awetzel/elixir.nvim', { 'build': 'yes \| ./install.sh' })
 " TypeScript source. Compare to Tsuquyomi?

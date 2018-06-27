@@ -49,11 +49,22 @@ call dein#add('rakr/vim-two-firewatch')
 call dein#add('vim-airline/vim-airline')
 " Wakatime tracker.
 call dein#add('wakatime/vim-wakatime')
-" Syntax highlighting for (almost) everything, but *fastly*.
-call dein#add('sheerun/vim-polyglot')
-let g:polyglot_disabled = [] " This list is used to disabled specific syntaxes elsewhere.
+" Javascript syntax highlighting.
+call dein#add('pangloss/vim-javascript')
+" TypeScript syntax highlighting.
+call dein#add('leafgarland/typescript-vim')
+" YAJS - better js syntax.
+call dein#add('othree/yajs')
+" Update the builtin HTML syntax files.
+call dein#add('othree/html5.vim')
+" Pug (jade) syntax highlighting.
+call dein#add('digitaltoad/vim-pug')
+" Stylus syntax highlighting.
+call dein#add('wavded/vim-stylus')
 " Racket syntax highlighting.
 call dein#add('wlangstroth/vim-racket')
+" Tmux configuration syntax highlighting.
+call dein#add('tmux-plugins/vim-tmux')
 " Syntax highlighting inside of ES6 template strings.
 call dein#add('Quramy/vim-js-pretty-template')
 " Highlight hexcode colors.

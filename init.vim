@@ -4,7 +4,7 @@ set nocompatible
 " Tru Colors (the truest).
 set termguicolors
 
-" dein is the name of the "asynchronous dark-powered plugin manager" by Shuogo.
+" dein is Shougo's \"asynchronous dark-powered plugin manager\"
 " Let's have plugins.
 source ~/.config/nvim/setup-dein.vim
 source ~/.config/nvim/plugins.vim
@@ -12,116 +12,91 @@ source ~/.config/nvim/plugins.vim
 call dein#end()
 
 " Set <Leader>
-let mapleader = ','
-let maplocalleader = '_' " How is this different? I don't think I need this line.
+let mapleader = ' '
+let maplocalleader = '_' " What is local leader?
 
-" Tell deoplete to work on startup and to be case-sensitive when using caps.
+" Deoplete configuration
+" Tell deoplete to run on startup and be case-sensitive when using caps.
 let g:deoplete#enable_at_startup=1
 let g:deoplete#enable_smart_case=1
-set completeopt-=preview " Don't open that weird little pane/window at the bottom of the screen.
 " Complete files from the CWD of the current file, not of the project.
-" DISABLE because behavior is not as expected.
-" let g:deoplete#file#enable_buffer_path=1
+let g:deoplete#file#enable_buffer_path=1
+" Don't show the preview window during completions.
+set completeopt-=preview
 
-" Press <Tab> to cycle through completions when completions are available.
-inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" Press <Shift-Tab> to cycle backward through completions when completions are available.
+" Press (<Shift>)<Tab> to cycle through completions.
+inoremap <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Press <C-j> <C-k> to move between completions.
 inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <silent><expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-" Press <CR> (enter) to trigger completion selection.
-inoremap <silent> <CR> <C-r>=<SID>select_completion_on_cr()<CR>
-function! s:select_completion_on_cr() abort
-  return deoplete#close_popup() . "\<CR>"
-endfunction
+
+augroup general
+  " Clear general autocmds so they don't get duplicated!
+  autocmd!
+  " Make GitGutter update frequently without lowering updatetime, which
+  " causes overzealous redraws.
+  autocmd BufWritePre,VimEnter,BufEnter * :GitGutter
+augroup END
 
 " Map Ctrl+P in Normal Mode to FZF gitfiles.
 nnoremap <C-p> :GFiles<CR>
 
 " Things like textwidth, wrapping, shiftwidth, ...
 syntax on                 " Yes, syntax highlighting.
-filetype plugin indent on " Yes, filetype detection, automatic indentation, etc.
-set mouse=a               " I don't know what this does.
-set mousehide             " Or this.
+filetype plugin indent on " Yes, filetype detection, indentation, etc.
+set mouse=a               " Yes, enable mouse in all four modes.
 scriptencoding utf-8      " Use UTF-8!
 
-set tw=100 wrap nolist    " TextWidth: 100 chars. Wrap lines. No "list" - no line break.
-set colorcolumn=+1        " Light up the column +1 after TextWidth.
-set sw=2 ts=2 sts=2 et    " ShiftWidth = Tabstop = SoftTabstop = 2. Expand tabs to spaces.
-set autoindent            " Indent automatically.
+set tw=74           " Column width: 74 characters.
+set wrap            " Force hard-wrap lines after 74 characters.
+set colorcolumn=+1  " Light up the column +1 after TextWidth.
+set sw=2 ts=2 sts=2 " ShiftWidth = Tabstop = SoftTabstop = 2.
+set expandtab       " Expand tabs into spaces.
+set autoindent      " Indent automatically.
+set smartindent     " Better auto-indent new code blocks.
 
-" Be more directory.
-set autochdir
+set autochdir    " Be more directory.
+set autowrite    " Write file when you leave a buffer.
+set history=5000 " Store bunches of history.
+set nospell      " No spellchecking!
+set hidden       " Don't unload a buffer when leaving, just hide it.
 
-" Save folds to disk!
-augroup AutoSaveFolds
-  autocmd!
-  autocmd BufWinLeave *.* mkview
-  autocmd BufWinEnter *.* silent! loadview
-augroup END
-
-" Simple clipboard setup because nvim has good defaults.
-" Set system (X win) clipboard to be default clipboard.
-" http://vim.wikia.com/wiki/Accessing_the_system_clipboard#Using_the_clipboard_as_the_default_register
-set clipboard+=unnamedplus
-
-" Automatically change window local director to the working directory when you edit a file.
-autocmd BufEnter * if bufname("") !~ "^\[A-Za-z-0-9]*://" | lcd %:p:h
-
-" Write file when you leave a buffer.
-set autowrite
-" This has something to do with vim messages? I think?
-" It has to do with status messages. See:
-" http://vimdoc.sourceforge.net/htmldoc/options.html#'shortmess'
-set shortmess+=filmnrxoOtT
-" Apparently adds a "virtual" character to every line... hm.
-" set virtualedit=onemore
-" Store bunches of history.
-set history=5000
-" No spellchecking!!!
-set nospell
-" Hide buffers so you can switch w/o save.
-set hidden
-" Set some "end of word" designators to make navigation easier.
-set iskeyword-=.
-set iskeyword-=#
-set iskeyword-=-
-
-" Sets the cursor to first col when you open a new commit message.
-autocmd FileType gitcommit autocmd! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
-
-" Restore cursor to previous file position when re-entering a file.
-" Is this slow? Might slow down vim start time.
-function! ResumeCursorPosition()
-  if line("'\"") <= line("$")
-    silent! normal! g`"
-    return 1
-  endif
-endfunction
-
-augroup resumeCursorPosition
-  autocmd!
-  autocmd BufWinEnter * call ResumeCursorPosition()
-augroup END
-
-" Tell vim to automagically keep backups of files.
-" set backup " Takes a bunch of disk space and sometimes slows down vim startup.
-
-" Plz persist undo history!
-set undofile
-set undolevels=5000
-set undoreload=10000
+set undofile         " Plz keep
+set undolevels=5000  " A lot of
+set undoreload=10000 " Undo history!
 
 set number     " Show line numbers!
 set ignorecase " Case-insensitive search.
 set smartcase  " Case sensitive when part of the term is uppercase.
-" Wildmenu is the menu you get when in command mode. Test using <esc>:color <tab> to see the menu.
-set wildmenu                                   " Show a list instead of just completing commands.
-set wildmode=list:longest,full                 " View mode: show a big list for wildmenu.
-set scrolloff=1                                " Keep a number of lines above and below the cursor at all times.
-set list                                       " Display invisible characters using the below rules.
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace.
+
+set scrolloff=1 " Keep 1 line of paddding above and below the cursor.
+set list        " Display invisible characters given in listchars.
+ " Highlights problematic whitespace: tabs, trailing characters, etc.
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+
+" Wildmenu is the completion menu you get when in command mode.
+" Test using <esc>:color <tab> to see the menu.
+set wildmenu                    " Show a list instead of just completing.
+set wildmode=list:longest,full  " View mode: show a big list for wildmenu.
+
+" This has something to do with vim messages? I think?
+" It has to do with status messages. See:
+" http://vimdoc.sourceforge.net/htmldoc/options.html#'shortmess'
+set shortmess+=filmnrxoOtT
+
+" Automatically change window local directory to the working directory
+" when you edit a file.
+" NOTE(jordan): replaced by autochdir?
+" autocmd BufEnter * if bufname("") !~ "^\[A-Za-z-0-9]*://" | lcd %:p:h
+
+" NOTE(jordan): smartindent isn't perfect. Old attempts to improve it:
+" inoremap {<CR> <ESC>"xDa{<CR>}<ESC>O<C-r>x
+" inoremap {<CR> {<CR>}<ESC>O
+
+" Sets the cursor to first col when you open a new commit message.
+autocmd FileType gitcommit
+  \ autocmd! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 
 set autoindent   " Keep the indentation of the previous line.
 set nojoinspaces " When joining lines: compress spaces into 1.
@@ -130,15 +105,15 @@ set splitbelow   " Hsplits go below.
 
 " Stolen wholesale from spf13's .vimrc. Does what it says.
 function! StripTrailingWhitespace()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " do the business:
-    %s/\s\+$//e
-    " clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " do the business:
+  %s/\s\+$//e
+  " clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
 endfunction
 
 autocmd BufWritePre <buffer> call StripTrailingWhitespace()
@@ -177,19 +152,17 @@ cmap w!! w !sudo tee % >/dev/null
 source ~/.config/nvim/airline/themes/twofirewatch.vim
 let g:two_firewatch_italics=1
 let g:airline_theme='twofirewatch'
-colors two-firewatch
+color two-firewatch
 set bg=dark
 
-" Make search higlighting better. Keep default bg/fg and underline instead of whatever.
+" These `hi` commands MUST come after `color` is set! They overwrite some
+" of the behavior of twofirewatch.
+
+" Make search higlighting better by underlining matches.
 " NOTE: this is specific to twofirewatch. Colors are taken from the theme.
 hi Search guibg='FAF8F5' guifg='896724' gui=underline
-
 " Make parens match in a way that's less confusing.
-" This MUST come after the `colors` set, or it gets overwritten.
 hi MatchParen gui=reverse
-
-set guicursor=n-v-c:block-Cursor
-set guicursor+=i:ver100-iCursor
 
 " Prettier Airline.
 let g:Powerline_symbols='fancy'
@@ -198,61 +171,59 @@ let g:airline_powerline_fonts=1
 " Neomake configuration.
 " Open location list when make has errors, but don't move the cursor.
 let g:neomake_open_list=2
-nnoremap <Leader>. :lnext <CR>
-nnoremap <Leader>m :lprev <CR>
-nnoremap <Leader>x :lclose <CR>
 
-" Neomake configuration for TypeScript.
-" Tell tsc where to look for tsconfig!
-function! SetupNeomakeTSC()
-  let g:neomake_typescript_tsc_maker = neomake#makers#ft#typescript#tsc()
-
-  " If there's a tsconfig here, just use that.
-  silent let can_init = system('tsc --init')
-  " Use the TS error code for "tsconfig.json already exists"
-  if can_init =~ "error TS5054"
-    " It seems there was a tsconfig! Don't manually look elsewhere.
-    " `silent!` means try to unlet and don't complain no matter what.
-    silent! unlet g:neomake_typescript_tsc_maker
-    return
-  else
-    " Remove our dummy tsconfig
-    silent let rm = system('rm ./tsconfig.json')
-    " Try looking in the top-level 'config' folder of the repo.
-    silent let git_project_dir = systemlist('git rev-parse --show-toplevel')[0]
-    silent let find_tsconfig = system('test -e ' . git_project_dir . '/config/tsconfig.json')
-    if v:shell_error == 0
-      let g:neomake_typescript_tsc_maker.args = [ '-p', git_project_dir.'/config', '--noEmit', '--pretty', 'false' ]
-      return
-    endif
-    " That failed - try looking in the 'config' folder of the nearest parent (depth <=5) having a
-    " package.json file in it.
-    for depth in [ 1, 2, 3, 4, 5 ]
-      let dots = repeat('..', depth)
-      silent let find_tsconfig = system('test -e '.dots.'/config/tsconfig.json')
-      if v:shell_error == 0
-        silent let real_path = systemlist('realpath '.dots.'/config')[0]
-        let g:neomake_typescript_tsc_maker.args = [ '--project', real_path, '--noEmit', '--pretty', 'false' ]
-        return
-      endif
-    endfor
-  endif
+function! JsLocalMappings ()
+  call JsTsLocalMappings()
+  " tern_for_vim bindings
+  nnoremap <silent> K :TernType<CR>
+  nnoremap <silent> gd :TernDef<CR>
 endfunction
+
+function! TsLocalMappings ()
+  call JsTsLocalMappings()
+endfunction
+
+function! JsTsLocalMappings ()
+  " remap ' to ` to encourage using template strings, just hit 2x to escape
+  inoremap <buffer> ' `
+  inoremap <buffer> '' '
+  " map K to something reasonable
+  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+endfunction
+
+augroup javascript
+  autocmd!
+  autocmd FileType javascript call JsLocalMappings()
+augroup END
 
 augroup typescript
   autocmd!
-  autocmd FileType typescript call SetupNeomakeTSC()
-  autocmd BufEnter *.ts call SetupNeomakeTSC()
-  autocmd FileType typescript :TSStart
+  autocmd FileType typescript call TsLocalMappings()
 augroup END
 
 " Can we create a GitAg like GitFiles using FZF? I think so.
-" See https://github.com/junegunn/fzf.vim/issues/321 ! I asked Junegunn and he gave me this.
+" See https://github.com/junegunn/fzf.vim/issues/321 ! I asked Junegunn
+" and he gave me this.
 command! -bang -nargs=* GitAg call fzf#vim#ag(<q-args>, {
     \ 'dir': systemlist('git rev-parse --show-toplevel')[0]
   \ }, <bang>0)
 
-" Let's make a mapping that runs GitAg with word-under-cursor when I hit C-k.
+" Run GitAg with word-under-cursor when I hit C-k.
 nmap <C-k> "zyiw:exe "GitAg " . @z . ""<CR>
 
-au Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|REFACTOR\|OPTIMIZE\|NOTE\|QUESTION\)')
+au Syntax * call matchadd('Todo', '\W\zs\IDEA')
+au Syntax * call matchadd('Todo', '\W\zs\NOTE')
+au Syntax * call matchadd('Todo', '\W\zs\TODO')
+au Syntax * call matchadd('Todo', '\W\zs\FIXME')
+au Syntax * call matchadd('Todo', '\W\zs\FAILING')
+au Syntax * call matchadd('Todo', '\W\zs\OPTIMIZE')
+au Syntax * call matchadd('Todo', '\W\zs\QUESTION')
+au Syntax * call matchadd('Todo', '\W\zs\REFACTOR')
+au Syntax * call matchadd('Todo', '\W\zs\DEPRECATED')
+
+" Show me what I am doing
+set showcmd
+
+" Use <CR>/<BS> to go down 30 / up 30
+map <CR> 30gj
+map <BS> 30gk

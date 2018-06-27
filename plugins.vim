@@ -26,8 +26,13 @@ call dein#add('Shougo/neco-syntax')
 " Not sure -- but Shougo recommends it for use with Deoplete.
 call dein#add('Shougo/neoinclude.vim')
 " JS source. See its configuration in Github before using.
-" call dein#add('carlitux/deoplete-ternjs') " Requires tern to be instaled globally
-" Tmux?!?! (HOLY SHIT THIS IS COOL. Automatically complete from nearby Tmux panes.)
+call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm i -g tern' })
+let g:deoplete#sources#ternjs#types = 1            " Show types in output
+let g:deoplete#sources#ternjs#case_insensitive = 1 " Ignore case
+let g:deoplete#sources#ternjs#filetypes = [
+    \ 'javascript',
+    \ ]
+" Tmux?! (THIS IS COOL. Automatically complete from nearby Tmux panes.)
 call dein#add('wellle/tmux-complete.vim')
 " GitHub?! (It'll actually complete from GitHub itself.)
 "call dein#add('SevereOverfl0w/deoplete-github') " Requires fugitive and rhubarb

@@ -1,10 +1,6 @@
-" Unite - the UI thing that Shougo did. It's cool but hard to explain/understand.
-" call dein#add('Shougo/unite.vim')
-" Denite - the asynchronou successor to Unite
+" Denite - the asynchronous successor to Unite.
 call dein#add('Shougo/denite.nvim')
-" vimproc - the async thing that Shougo did. (Do I need this for anything anymore?)
-call dein#add('Shougo/vimproc.vim', { 'build': 'make' })
-" Context filetype. Applies filetype for completion in nested code, e.g. JS fenced in HTML
+" Context filetype. Applies filetype in nested code, e.g. JS fenced in HTML.
 call dein#add('Shougo/context_filetype.vim')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

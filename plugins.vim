@@ -23,8 +23,8 @@ call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/neco-vim')
 " Syntax-based. (Loads completion from syntax files.)
 call dein#add('Shougo/neco-syntax')
-" Complete autopairs when accepting a completion that starts with a ({['" etc.
-call dein#add('Shougo/neopairs.vim')
+" Not sure -- but Shougo recommends it for use with Deoplete.
+call dein#add('Shougo/neoinclude.vim')
 " JS source. See its configuration in Github before using.
 " call dein#add('carlitux/deoplete-ternjs') " Requires tern to be instaled globally
 " Tmux?!?! (HOLY SHIT THIS IS COOL. Automatically complete from nearby Tmux panes.)

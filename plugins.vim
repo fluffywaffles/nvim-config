@@ -34,17 +34,13 @@ let g:deoplete#sources#ternjs#filetypes = [
     \ ]
 " Tmux?! (THIS IS COOL. Automatically complete from nearby Tmux panes.)
 call dein#add('wellle/tmux-complete.vim')
-" GitHub?! (It'll actually complete from GitHub itself.)
-"call dein#add('SevereOverfl0w/deoplete-github') " Requires fugitive and rhubarb
-" ^^ Currently broke af.
+" TODO: lazyload the following completion sources. (See dein docs.)
 " C/C++/Objective-C clang_complete source.
 " call dein#add('Rip-Rip/clang_complete', { 'build': 'make install' })
-" Elixir source.
-call dein#add('awetzel/elixir.nvim', { 'build': 'yes \| ./install.sh' })
-" TypeScript source. Compare to Tsuquyomi?
+" TypeScript source.
 call dein#add('mhartington/deoplete-typescript')
 " Java completion
-call dein#add('artur-shaik/vim-javacomplete2')
+" call dein#add('artur-shaik/vim-javacomplete2')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pretty colors.

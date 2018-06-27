@@ -75,6 +75,7 @@ let g:colorizer_auto_filetype='css,html'
 let g:colorizer_auto_map = 1
 " Nice indentation guides.
 call dein#add('nathanaelkane/vim-indent-guides')
+let g:indent_guides_enable_on_vim_startup = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This is the shrine to tpope. Hi HATERS http://tpo.pe

@@ -95,9 +95,7 @@ call dein#add('tpope/vim-characterize')
 call dein#add('tpope/vim-eunuch')
 " Commentary - comment and uncomment things using `gc`.
 call dein#add('tpope/vim-commentary')
-" Speeddating - <C-x> and <C-a> for Date-formatted strings.
-call dein#add('tpope/vim-speeddating')
-" Fugitive - the \"dangerously good\" vim git plugin. (Other plugins use it.)
+" Fugitive - the \"dangerously good\" git plugin. (Other plugins use it.)
 call dein#add('tpope/vim-fugitive')
 " Rhubarb - adds GitHub specific stuff to Fugitive.
 call dein#add('tpope/vim-rhubarb')
@@ -111,10 +109,6 @@ call dein#add('tpope/vim-tbone')
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Git gutter - +/- in sidebar gutter.
 call dein#add('airblade/vim-gitgutter')
-" Ack.vim - use ag for searching stuff.
-call dein#add('mileszs/ack.vim')
-" This config is copied wholesale from spf13. Might want to rethink it later.
-let g:ackprog='ag --nogroup --nocolor --column --smart-case'
 " Multiple cursors!!!!!!
 call dein#add('terryma/vim-multiple-cursors')
 " Don't let multiple cursors break deoplete!
@@ -128,18 +122,11 @@ endfunction
 call dein#add('bling/vim-bufferline')
 " Easymotion! <leader><leader> where art thou?
 call dein#add('easymotion/vim-easymotion')
-" Preview substitutions (%s, s)
-call dein#add('osyo-manga/vim-over')
-" Wildfire - quickly select the nearest text object.
-call dein#add('gcmt/wildfire.vim')
 " Neomake - because it's better than syntastic.
 call dein#add('neomake/neomake')
 " FZF. Per https://github.com/Shougo/dein.vim/issues/74.
 call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
 call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-" Handlebars mode.
-call add(g:polyglot_disabled, 'handlebars') " Disable polyglot syntax plugin in favor of this one.
-call dein#add('mustache/vim-mustache-handlebars')
 " Vim Tmux Navigator - Seamless Tmux navigation!
 call dein#add('christoomey/vim-tmux-navigator')
 " Make the keymappings match my Tmux configuration.

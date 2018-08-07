@@ -184,6 +184,13 @@ function! JsTsLocalMappings ()
   inoremap <buffer> '' '
   " map K to something reasonable
   nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+  " shorthand for pipelining functions
+  inoremap <C-Space>pf ᐅᶠ
+  inoremap <C-Space>pd ᐅdo
+  inoremap <C-Space>pi ᐅif
+  inoremap <C-Space>pl ᐅlog
+  inoremap <C-Space>pw ᐅwhen
+  inoremap <C-Space>pe ᐅeffect
 endfunction
 
 augroup javascript

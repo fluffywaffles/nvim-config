@@ -31,13 +31,8 @@ inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <silent><expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
-augroup general
-  " Clear general autocmds so they don't get duplicated!
-  autocmd!
-  " Make GitGutter update frequently without lowering updatetime, which
-  " causes overzealous redraws.
-  autocmd BufWritePre,VimEnter,BufEnter * :GitGutter
-augroup END
+" Look, let's be reasonable. Don't go too fast, but don't be so damn slow.
+set updatetime=750
 
 " Map Ctrl+P in Normal Mode to FZF gitfiles.
 nnoremap <C-p> :GFiles<CR>

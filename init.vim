@@ -129,7 +129,7 @@ command! -bang QA qa<bang>
 command! -bang Qa qa<bang>
 
 " Find merge conflict markers. (Need to remember to use this!)
-map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+map <leader>gc /\v^[<\|=>]{7}( .*\|$)<CR>
 
 " Visual shifting (does not exit Visual mode, much better).
 vnoremap < <gv

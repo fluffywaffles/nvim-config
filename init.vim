@@ -163,6 +163,10 @@ hi MatchParen gui=reverse
 let g:Powerline_symbols='fancy'
 let g:airline_powerline_fonts=1
 
+" Faster Airline.
+let g:airline#extensions#disable_rtp_load = 1    " load later
+let g:airline_extensions = ['branch', 'bufferline', 'hunks', 'wordcount', 'whitespace']
+
 " Neomake configuration.
 " Open location list when make has errors, but don't move the cursor.
 let g:neomake_open_list=2

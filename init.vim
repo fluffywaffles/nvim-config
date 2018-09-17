@@ -53,6 +53,7 @@ set sw=2 ts=2 sts=2 " ShiftWidth = Tabstop = SoftTabstop = 2.
 set expandtab       " Expand tabs into spaces.
 set autoindent      " Indent automatically.
 set smartindent     " Better auto-indent new code blocks.
+set cursorline      " Highlights the line the cursor is on. Pretty.
 
 set autochdir    " Be more directory.
 set autowrite    " Write file when you leave a buffer.

@@ -236,3 +236,9 @@ set showcmd
 " Use <CR>/<BS> to go down 30 / up 30
 map <CR> 30gj
 map <BS> 30gk
+
+" Bags
+augroup sizebag
+  autocmd!
+  autocmd VimResized * :redraw
+augroup END

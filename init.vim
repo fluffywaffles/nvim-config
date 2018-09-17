@@ -56,7 +56,7 @@ set smartindent     " Better auto-indent new code blocks.
 
 set autochdir    " Be more directory.
 set autowrite    " Write file when you leave a buffer.
-set history=5000 " Store bunches of history.
+set history=1000 " Store bunches of history.
 set nospell      " No spellchecking!
 set hidden       " Don't unload a buffer when leaving, just hide it.
 

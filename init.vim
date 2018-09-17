@@ -234,9 +234,9 @@ au Syntax * call matchadd('Todo', '\W\zs\DEPRECATED')
 " Show me what I am doing
 set showcmd
 
-" Use <CR>/<BS> to go down 30 / up 30
-map <CR> 30gj
-map <BS> 30gk
+" Use <CR>/<BS> to scroll down 30 / up 30
+map <CR> 30<c-e>
+map <BS> 30<c-y>
 
 " Bags
 augroup sizebag

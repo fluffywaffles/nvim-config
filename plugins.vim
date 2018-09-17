@@ -3,42 +3,42 @@ call dein#add('Shougo/denite.nvim')
 " Context filetype. Applies filetype in nested code, e.g. JS in HTML.
 call dein#add('Shougo/context_filetype.vim')
 " LanguageClient-neovim - support language server protocol.
-call dein#add('autozimu/LanguageClient-neovim', {
-    \ 'rev': 'next',
-    \ 'build': 'bash install.sh',
-    \ })
-let g:LanguageClient_serverCommands = {}
-" Add ternjs
+" call dein#add('autozimu/LanguageClient-neovim', {
+"   \ 'rev': 'next',
+"   \ 'build': 'bash install.sh',
+"   \ })
+" let g:LanguageClient_serverCommands = {}
+" Add ternjs :TernDef, :TernJump, :TernRename, etc.
 call dein#add('ternjs/tern_for_vim')
 " Use configuration taken from https://github.com/carlitux/deoplete-ternjs
 let g:tern#command = [ 'tern' ]
-let g:tern#arguments = [ '--persistent' ]
+" let g:tern#arguments = [ '--persistent' ]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Completion Engine - Deoplete and all sources.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Deoplete - because YCM is a PITA.
 call dein#add('Shougo/deoplete.nvim')
-" Vim commands.
-call dein#add('Shougo/neco-vim')
-" Syntax-based. (Loads completion from syntax files.)
+" Syntax completion source for deoplete. (Loads from syntax files.)
 call dein#add('Shougo/neco-syntax')
-" Not sure -- but Shougo recommends it for use with Deoplete.
+" Vim completion source for deoplete.
+call dein#add('Shougo/neco-vim')
+" Import/include/file path completion source for deoplete.
 call dein#add('Shougo/neoinclude.vim')
 " JS source. See its configuration in Github before using.
 call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm i -g tern' })
 let g:deoplete#sources#ternjs#types = 1            " Show types in output
 let g:deoplete#sources#ternjs#case_insensitive = 1 " Ignore case
 let g:deoplete#sources#ternjs#filetypes = [
-    \ 'javascript',
-    \ ]
+  \ 'javascript',
+  \ ]
 " Tmux?! (THIS IS COOL. Automatically complete from nearby Tmux panes.)
 call dein#add('wellle/tmux-complete.vim')
 " TODO: lazyload the following completion sources. (See dein docs.)
 " C/C++/Objective-C clang_complete source.
 " call dein#add('Rip-Rip/clang_complete', { 'build': 'make install' })
 " TypeScript source.
-call dein#add('mhartington/deoplete-typescript')
+" call dein#add('mhartington/deoplete-typescript')
 " Java completion
 " call dein#add('artur-shaik/vim-javacomplete2')
 
@@ -51,8 +51,6 @@ call dein#add('wakatime/vim-wakatime')
 call dein#add('pangloss/vim-javascript')
 " TypeScript syntax highlighting.
 call dein#add('leafgarland/typescript-vim')
-" YAJS - better js syntax.
-call dein#add('othree/yajs')
 " Update the builtin HTML syntax files.
 call dein#add('othree/html5.vim')
 " Pug (jade) syntax highlighting.
@@ -111,10 +109,10 @@ call dein#add('airblade/vim-gitgutter')
 call dein#add('terryma/vim-multiple-cursors')
 " Don't let multiple cursors break deoplete!
 function! Multiple_cursors_before()
-    let b:deoplete_disable_auto_complete = 1
+  let b:deoplete_disable_auto_complete = 1
 endfunction
 function! Multiple_cursors_after()
-    let b:deoplete_disable_auto_complete = 0
+  let b:deoplete_disable_auto_complete = 0
 endfunction
 " Show list of buffers in the statusline.
 call dein#add('bling/vim-bufferline')
@@ -134,30 +132,29 @@ nnoremap <C-a><C-l> :TmuxNavigateRight<CR>
 nnoremap <C-a><C-h> :TmuxNavigateLeft<CR>
 " Mundo - visualize the vim undotree.
 call dein#add('simnalamburt/vim-mundo')
-
-" Not yet configured
-" Easy Align - CONFLICTS with characterize
-" call dein#add('junegunn/vim-easy-align') " operator: ga
-"
+" Tabular - for to align all of the things! (But what about smart tabs?
+call dein#add('godlygeek/tabular')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pretty colors.
 call dein#add('rakr/vim-two-firewatch')
-call dein#add('ayu-theme/ayu-vim')
-call dein#add('chriskempson/tomorrow-theme')
-call dein#add('morhetz/gruvbox')
-call dein#add('mhartington/oceanic-next')
-call dein#add('mhartington/oceanic-next')
-call dein#add('vim-scripts/chlordane.vim')
-call dein#add('jnurmine/Zenburn')
-call dein#add('junegunn/seoul256.vim')
-call dein#add('arcticicestudio/nord-vim')
-call dein#add('tomasr/molokai')
+" call dein#add('ayu-theme/ayu-vim')
+" call dein#add('chriskempson/tomorrow-theme')
+" call dein#add('morhetz/gruvbox')
+" call dein#add('mhartington/oceanic-next')
+" call dein#add('mhartington/oceanic-next')
+" call dein#add('vim-scripts/chlordane.vim')
+" call dein#add('jnurmine/Zenburn')
+" call dein#add('junegunn/seoul256.vim')
+" call dein#add('arcticicestudio/nord-vim')
+" call dein#add('tomasr/molokai')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Currently DISABLED plugins.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" YAJS - better js syntax.
+" call dein#add('othree/yajs')
 " Syntax highlighting for (almost) everything, but *fastly*.
 " NOTE: can't highlight typescript to save its life.
 " call dein#add('sheerun/vim-polyglot')
@@ -182,9 +179,6 @@ call dein#add('tomasr/molokai')
 " WebAPI and Gist.vim - gist it und rapido.
 " call dein#add('mattn/webapi-vim')
 " call dein#add('mattn/gist-vim')
-" Tabular - for to align all of the things! (But what about smart tabs?
-" Other alternatives?)
-" call dein#add('godlygeek/tabular')
 " Tmuxline - makes Tmux look like Airline. (does not work.)
 " call dein#add('edkolev/tmuxline.vim')
 " Additional Airline themes.
@@ -204,9 +198,9 @@ call dein#add('tomasr/molokai')
 " Set up server command for javascript files.
 " NOTE: tern is better.
 " let g:LanguageClient_serverCommands = {
-"     \ 'javascript': [ 'javascript-typescript-stdio' ],
-"     \ 'javascript.jsx': [ 'javascript-typescript-stdio' ],
-"     \ }
+"   \ 'javascript': [ 'javascript-typescript-stdio' ],
+"   \ 'javascript.jsx': [ 'javascript-typescript-stdio' ],
+"   \ }
 " Autopairs - better than Townk/autoclose? NOTE: not good enough, still
 " annoying
 " call dein#add('jiangmiao/auto-pairs')

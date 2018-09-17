@@ -61,8 +61,8 @@ set nospell      " No spellchecking!
 set hidden       " Don't unload a buffer when leaving, just hide it.
 
 set undofile         " Plz keep
-set undolevels=5000  " A lot of
-set undoreload=10000 " Undo history!
+set undolevels=500   " A lot of
+set undoreload=1000  " Undo history!
 
 set number     " Show line numbers!
 set ignorecase " Case-insensitive search.
@@ -131,7 +131,7 @@ command! -bang Q q<bang>
 command! -bang QA qa<bang>
 command! -bang Qa qa<bang>
 
-" Find merge conflict markers. (Need to remember to use this!)
+" Find merge conflict markers.
 map <leader>gc /\v^[<\|=>]{7}( .*\|$)<CR>
 
 " Visual shifting (does not exit Visual mode, much better).
@@ -147,9 +147,7 @@ vnoremap . :normal .<CR>
 cmap w!! w !sudo tee % >/dev/null
 
 " Colors.
-source ~/.config/nvim/airline/themes/twofirewatch.vim
 let g:two_firewatch_italics=1
-let g:airline_theme='twofirewatch'
 color two-firewatch
 set bg=dark
 
@@ -163,12 +161,14 @@ hi Search guibg='FAF8F5' guifg='896724' gui=underline
 hi MatchParen gui=reverse
 
 " Prettier Airline.
-let g:Powerline_symbols='fancy'
-let g:airline_powerline_fonts=1
+" let g:Powerline_symbols='fancy'
+" let g:airline_powerline_fonts=1
+" source ~/.config/nvim/airline/themes/twofirewatch.vim
+" let g:airline_theme='twofirewatch'
 
 " Faster Airline.
-let g:airline#extensions#disable_rtp_load = 1    " load later
-let g:airline_extensions = ['branch', 'bufferline', 'hunks', 'wordcount', 'whitespace']
+" let g:airline#extensions#disable_rtp_load = 1    " load later
+" let g:airline_extensions = ['branch', 'bufferline', 'hunks', 'wordcount', 'whitespace']
 
 " Neomake configuration.
 " Open location list when make has errors, but don't move the cursor.

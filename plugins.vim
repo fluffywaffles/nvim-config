@@ -44,7 +44,7 @@ call dein#add('wellle/tmux-complete.vim')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline! For the winningest.
-call dein#add('vim-airline/vim-airline')
+" call dein#add('vim-airline/vim-airline')
 " Wakatime tracker.
 call dein#add('wakatime/vim-wakatime')
 " Javascript syntax highlighting.

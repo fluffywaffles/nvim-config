@@ -34,7 +34,7 @@ inoremap <silent><expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 " Look, let's be reasonable. Don't go too fast, but don't be so damn slow.
 set updatetime=500
 
- " Don't redraw during macro execution, register stuff, etc. Faster, vim!
+" Don't redraw during macro execution, register stuff, etc. Faster, vim!
 set lazyredraw
 
 " Map Ctrl+P in Normal Mode to FZF gitfiles.
@@ -70,7 +70,7 @@ set smartcase  " Case sensitive when part of the term is uppercase.
 
 set scrolloff=1 " Keep 1 line of paddding above and below the cursor.
 set list        " Display invisible characters given in listchars.
- " Highlights problematic whitespace: tabs, trailing characters, etc.
+" Highlights problematic whitespace: tabs, trailing characters, etc.
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 
 " Wildmenu is the completion menu you get when in command mode.

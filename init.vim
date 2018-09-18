@@ -238,7 +238,7 @@ set showcmd
 map <CR> 30<c-e>
 map <BS> 30<c-y>
 
-" Bags
+" Bad bad bags
 augroup sizebag
   autocmd!
   autocmd VimResized * :redraw

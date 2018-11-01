@@ -218,6 +218,11 @@ command! -bang -nargs=* GitAg call fzf#vim#ag(<q-args>, {
     \ 'dir': systemlist('git rev-parse --show-toplevel')[0]
   \ }, <bang>0)
 
+" Okay let's do an SvnAg because Clang and LLVM are subversion projects
+command! -bang -nargs=* SvnAg call fzf#vim#ag(<q-args>, {
+    \ 'dir': systemlist('svn info --show-item wc-root')[0]
+  \ }, <bang>0)
+
 " Run GitAg with word-under-cursor when I hit C-k.
 nmap <C-k> "zyiw:exe "GitAg " . @z . ""<CR>
 

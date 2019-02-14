@@ -3,11 +3,21 @@ call dein#add('Shougo/denite.nvim')
 " Context filetype. Applies filetype in nested code, e.g. JS in HTML.
 call dein#add('Shougo/context_filetype.vim')
 " LanguageClient-neovim - support language server protocol.
-" call dein#add('autozimu/LanguageClient-neovim', {
-"   \ 'rev': 'next',
-"   \ 'build': 'bash install.sh',
-"   \ })
-" let g:LanguageClient_serverCommands = {}
+call dein#add('autozimu/LanguageClient-neovim', {
+  \ 'rev'   : 'next',
+  \ 'build' : 'bash install.sh',
+  \ })
+let g:LanguageClient_serverCommands = {
+  \ 'cpp': [
+  \   '/usr/bin/cquery',
+  \   '--logfile=/tmp/cq.log',
+  \   '--init={
+  \       "cacheDirectory": "/tmp/cquery",
+  \       "completion": { "filterAndSort": false }
+  \     }'
+  \   ]
+  \ }
+
 " Add ternjs :TernDef, :TernJump, :TernRename, etc.
 call dein#add('ternjs/tern_for_vim')
 " Use configuration taken from https://github.com/carlitux/deoplete-ternjs

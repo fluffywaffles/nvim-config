@@ -4,7 +4,7 @@ set nocompatible
 " Tru Colors (the truest).
 set termguicolors
 
-" dein is Shougo's \"asynchronous dark-powered plugin manager\"
+" dein is Shougo's "asynchronous dark-powered plugin manager"
 " Let's have plugins.
 source ~/.config/nvim/setup-dein.vim
 source ~/.config/nvim/plugins.vim
@@ -12,8 +12,8 @@ source ~/.config/nvim/plugins.vim
 call dein#end()
 
 " Set <Leader>
-let mapleader = ' '
-let maplocalleader = '_' " What is local leader?
+let mapleader      = ' '
+let maplocalleader = '_' " <LocalLeader> is for buffer-local mappings.
 
 " Deoplete configuration
 " Tell deoplete to run on startup and be case-sensitive when using caps.
@@ -139,8 +139,7 @@ map <leader>gc /\v^[<\|=>]{7}( .*\|$)<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" Not sure why I care about this?
-" Answer: Allow using the repeat operator with a visual selection (!)
+" Allow using the repeat operator with a visual selection (!)
 " http://stackoverflow.com/a/8064607/127816
 vnoremap . :normal .<CR>
 

@@ -250,6 +250,7 @@ au Syntax * call matchadd('Todo', '\W\zs\OPTIMIZE')
 au Syntax * call matchadd('Todo', '\W\zs\QUESTION')
 au Syntax * call matchadd('Todo', '\W\zs\REFACTOR')
 au Syntax * call matchadd('Todo', '\W\zs\DEPRECATED')
+au Syntax * call matchadd('Todo', '\W\zs\EXPLANATION')
 
 " Show me what I am doing
 set showcmd

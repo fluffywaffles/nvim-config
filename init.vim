@@ -100,6 +100,16 @@ set shortmess+=aoOtT
 map ]] /\%({\\|}\)$<CR>
 map [[ ?\%({\\|}\)$<CR>
 
+" Retaining characterize output
+function! CharacterizeRetain()
+  redir => l:info
+  " NOTE(jordan): this is wonky; special keys have to be string + escape.
+  silent! exe "normal \<Plug>(characterize)"
+  redir END
+  call confirm(l:info)
+endfunction
+nnoremap <silent> ga :call CharacterizeRetain()<CR>
+
 " Automatically change window local directory to the working directory
 " when you edit a file.
 " NOTE(jordan): replaced by autochdir?

@@ -260,3 +260,60 @@ augroup sizebag
   autocmd!
   autocmd VimResized * :redraw
 augroup END
+
+" Make for to save my view oh Lord oh Lord oh Glory
+function! s:SaviorSaveMe ()
+  echom "Savior saves!"
+  let hereIAmLord = s:SaviorTellMeWhereToGo()
+  echom "Our Savior speaks life unto: " . hereIAmLord
+  exe "mksession! " . fnameescape(hereIAmLord)
+endfunction
+
+function! s:SaviorResurrect ()
+  let hereIAmLord = s:SaviorTellMeWhereToGo()
+  echom "Our Savior shines His light upon: " . hereIAmLord
+  if hereIAmLord == ""
+    echom "Ahem, uh... The Resurrection is postponed per inclement wetter"
+    return
+  endif
+  if !isdirectory(expand("%:p"))
+    echom "Our Savior sees that your heart wants not The Resurrection"
+  elseif !filereadable(hereIAmLord)
+    echom "The chosen has left the Path; but Our Savior will find them"
+  else
+    echom "Our Savior lives!"
+    exe 'source ' . hereIAmLord
+  endif
+  autocmd! savior BufEnter
+endfunction
+
+function! s:SaviorTellMeWhereToGo ()
+  let foundation = s:SaviorBeMyRock()
+  if foundation == ""
+    return ""
+  else
+    return foundation . "/.session.vim"
+  endif
+endfunction
+
+function! s:SaviorBeMyRock ()
+  try
+    let git_root = systemlist('git rev-parse --show-toplevel')[0]
+    echom "Our Savior shall your good session save!"
+    if git_root != ""
+      return git_root
+    else
+      return expand("%:p:h")
+    endif
+  catch
+    echom "Our Savior cannot reach here, for heretics mislead him"
+  endtry
+endfunction
+
+augroup savior
+  autocmd!
+  " NOTE: the good Lord touches only the faithful, whom he knows by his ~
+  autocmd VimLeavePre ~/* call s:SaviorSaveMe()
+  autocmd VimEnter    ~/* nested call s:SaviorResurrect()
+augroup END
+" </s>

@@ -96,7 +96,7 @@ call dein#add('tpope/vim-fugitive')
 " Rhubarb - adds GitHub specific stuff to Fugitive.
 call dein#add('tpope/vim-rhubarb')
 " Obsession - automatic session save/restore.
-call dein#add('tpope/vim-obsession')
+" call dein#add('tpope/vim-obsession')
 " Sleuth - auto-detect and set shiftwidth and tabstop.
 call dein#add('tpope/vim-sleuth')
 " Tbone - Tmux mappings; mostly Tyank and Tput to access its clipboard.

@@ -84,6 +84,9 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 
 set conceallevel=1 " Show set conceal character or » for concealed syntax.
 
+set exrc    " Source an .exrc or .nvimrc, if any, in the cwd.
+set secure  " Setting 'exrc' is safer; disallows autocmd & displays maps.
+
 " Wildmenu is the completion menu you get when in command mode.
 " Test using <esc>:color <tab> to see the menu.
 set wildmenu                    " Show a list instead of just completing.

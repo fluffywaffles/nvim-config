@@ -32,7 +32,7 @@ inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <silent><expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " Look, let's be reasonable. Don't go too fast, but don't be so damn slow.
-set updatetime=500
+set updatetime=200
 
 " Don't redraw during macro execution, register stuff, etc. Faster, vim!
 set lazyredraw

@@ -55,6 +55,12 @@ set autoindent      " Indent automatically.
 set smartindent     " Better auto-indent new code blocks.
 set cursorline      " Highlights the line the cursor is on. Pretty.
 
+" From :h 'smartindent': “If you don't want # to unindent, use this.”
+inoremap # X#
+" cindent is dumb as hell. Extra-definitely disable it, with prejudice.
+autocmd FileType c   set nocindent
+autocmd FileType cpp set nocindent
+
 set autochdir    " Be more directory.
 set autowrite    " Write file when you leave a buffer.
 set history=1000 " Store bunches of history.

@@ -82,6 +82,8 @@ set list        " Display invisible characters given in listchars.
 " Highlights problematic whitespace: tabs, trailing characters, etc.
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 
+set conceallevel=1 " Show set conceal character or » for concealed syntax.
+
 " Wildmenu is the completion menu you get when in command mode.
 " Test using <esc>:color <tab> to see the menu.
 set wildmenu                    " Show a list instead of just completing.

@@ -186,16 +186,6 @@ hi Search guibg='FAF8F5' guifg='896724' gui=underline
 " Make parens match in a way that's less confusing.
 hi MatchParen gui=reverse
 
-" Prettier Airline.
-" let g:Powerline_symbols='fancy'
-" let g:airline_powerline_fonts=1
-" source ~/.config/nvim/airline/themes/twofirewatch.vim
-" let g:airline_theme='twofirewatch'
-
-" Faster Airline.
-" let g:airline#extensions#disable_rtp_load = 1    " load later
-" let g:airline_extensions = ['branch', 'bufferline', 'hunks', 'wordcount', 'whitespace']
-
 " Neomake configuration.
 " Open location list when make has errors, but don't move the cursor.
 let g:neomake_open_list=2

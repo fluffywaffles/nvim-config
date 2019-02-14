@@ -92,10 +92,8 @@ set secure  " Setting 'exrc' is safer; disallows autocmd & displays maps.
 set wildmenu                    " Show a list instead of just completing.
 set wildmode=list:longest,full  " View mode: show a big list for wildmenu.
 
-" This has something to do with vim messages? I think?
-" It has to do with status messages. See:
-" http://vimdoc.sourceforge.net/htmldoc/options.html#'shortmess'
-set shortmess+=filmnrxoOtT
+" This has to do with status messages. See :h 'shortmess' for details.
+set shortmess+=aoOtT
 
 " Automatically change window local directory to the working directory
 " when you edit a file.

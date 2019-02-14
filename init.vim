@@ -95,6 +95,11 @@ set wildmode=list:longest,full  " View mode: show a big list for wildmenu.
 " This has to do with status messages. See :h 'shortmess' for details.
 set shortmess+=aoOtT
 
+" Adapted from ":help [["
+" To use ]] and [[ as: "go to next/previous section open/close"
+map ]] /\%({\\|}\)$<CR>
+map [[ ?\%({\\|}\)$<CR>
+
 " Automatically change window local directory to the working directory
 " when you edit a file.
 " NOTE(jordan): replaced by autochdir?

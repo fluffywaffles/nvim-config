@@ -67,6 +67,8 @@ set history=1000 " Store bunches of history.
 set nospell      " No spellchecking!
 set hidden       " Don't unload a buffer when leaving, just hide it.
 
+set clipboard+=unnamedplus " Always put things in '*' and '+'.
+
 set undofile         " Plz keep
 set undolevels=500   " A lot of
 set undoreload=1000  " Undo history!

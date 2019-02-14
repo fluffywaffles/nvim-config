@@ -255,10 +255,6 @@ au Syntax * call matchadd('Todo', '\W\zs\EXPLANATION')
 " Show me what I am doing
 set showcmd
 
-" Use <CR>/<BS> to scroll down 30 / up 30
-map <CR> 30<c-e>
-map <BS> 30<c-y>
-
 " Bad bad bags
 augroup sizebag
   autocmd!

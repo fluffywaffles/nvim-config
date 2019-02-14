@@ -20,9 +20,9 @@ let maplocalleader = '_' " <LocalLeader> is for buffer-local mappings.
 let g:deoplete#enable_at_startup=1
 let g:deoplete#enable_smart_case=1
 " Complete files from the CWD of the current file, not of the project.
-let g:deoplete#file#enable_buffer_path=1
-" Don't show the preview window during completions.
-set completeopt-=preview
+call deoplete#custom#source('file', 'enable_buffer_path', 1)
+" When completion is done, close the preview window.
+autocmd CompleteDone * silent! pclose!
 
 " Press (<Shift>)<Tab> to cycle through completions.
 inoremap <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"

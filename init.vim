@@ -108,7 +108,9 @@ function! CharacterizeRetain()
   redir END
   call confirm(l:info)
 endfunction
-nnoremap <silent> ga :call CharacterizeRetain()<CR>
+" NOTE(jordan): must use autocmd in order to overwrite plugin...
+" NOTE(jordan): could also use `after/` directory, but seems less obvious.
+autocmd VimEnter *.* nmap <silent> ga :call CharacterizeRetain()<CR>
 
 " Automatically change window local directory to the working directory
 " when you edit a file.

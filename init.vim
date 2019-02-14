@@ -317,3 +317,7 @@ augroup savior
   autocmd VimEnter    ~/* nested call s:SaviorResurrect()
 augroup END
 " </s>
+
+" Persistent per-file folds.
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent! loadview

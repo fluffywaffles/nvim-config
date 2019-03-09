@@ -7,6 +7,8 @@ call dein#add('autozimu/LanguageClient-neovim', {
   \ 'rev'   : 'next',
   \ 'build' : 'bash install.sh',
   \ })
+" Don't update too fast; I like to have a little time to type
+let g:LanguageClient_changeThrottle = 0.5
 let g:LanguageClient_serverCommands = {
   \ 'cpp': [
   \   '/usr/bin/cquery',

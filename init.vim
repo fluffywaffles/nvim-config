@@ -110,6 +110,26 @@ endfunction
 " NOTE(jordan): could also use `after/` directory, but seems less obvious.
 autocmd VimEnter *.* nmap <silent> ga :call CharacterizeRetain()<CR>
 
+" Automatically bind "goto definition" and "get info" to LangClient, when
+" one is applicable for the current file type.
+function! BindToLangClientIfServerExists()
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
+    nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+    nnoremap <buffer> <silent> <Leader>ee :call LanguageClient#explainErrorAtPoint()<CR>
+  endif
+endfunction
+function! SendDidChangeLangClientIfServerExists()
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    call LanguageClient#textDocument_didChange()
+  endif
+endfunction
+augroup LangClient
+  autocmd FileType * call BindToLangClientIfServerExists()
+  autocmd CursorHold *.* call SendDidChangeLangClientIfServerExists()
+augroup END
+
 " Automatically change window local directory to the working directory
 " when you edit a file.
 " NOTE(jordan): replaced by autochdir?

@@ -119,11 +119,11 @@ call dein#add('airblade/vim-gitgutter')
 " Multiple cursors!!!!!!
 call dein#add('terryma/vim-multiple-cursors')
 " Don't let multiple cursors break deoplete!
-function! Multiple_cursors_before()
-  let b:deoplete_disable_auto_complete = 1
+function! g:Multiple_cursors_before()
+  call deoplete#custom#buffer_option('auto_complete', v:false)
 endfunction
-function! Multiple_cursors_after()
-  let b:deoplete_disable_auto_complete = 0
+function! g:Multiple_cursors_after()
+  call deoplete#custom#buffer_option('auto_complete', v:true)
 endfunction
 " Show list of buffers in the statusline.
 call dein#add('bling/vim-bufferline')

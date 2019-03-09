@@ -82,8 +82,6 @@ set list        " Display invisible characters given in listchars.
 " Highlights problematic whitespace: tabs, trailing characters, etc.
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 
-set conceallevel=1 " Show set conceal character or » for concealed syntax.
-
 set exrc    " Source an .exrc or .nvimrc, if any, in the cwd.
 set secure  " Setting 'exrc' is safer; disallows autocmd & displays maps.
 

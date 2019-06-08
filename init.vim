@@ -81,6 +81,8 @@ set number     " Show line numbers!
 set ignorecase " Case-insensitive search.
 set smartcase  " Case sensitive when part of the term is uppercase.
 
+map <Leader>n :set number!<CR>
+
 set scrolloff=1 " Keep 1 line of paddding above and below the cursor.
 set list        " Display invisible characters given in listchars.
 " Highlights problematic whitespace: tabs, trailing characters, etc.

@@ -40,6 +40,9 @@ set lazyredraw
 " Map Ctrl+P in Normal Mode to FZF gitfiles.
 nnoremap <C-p> :GFiles<CR>
 
+" Show the outcome of :s in realtime before committing
+set inccommand=nosplit
+
 " Things like textwidth, wrapping, shiftwidth, ...
 syntax on                 " Yes, syntax highlighting.
 filetype plugin indent on " Yes, filetype detection, indentation, etc.

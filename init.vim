@@ -57,6 +57,7 @@ set expandtab       " Expand tabs into spaces.
 set autoindent      " Indent automatically.
 set smartindent     " Better auto-indent new code blocks.
 set cursorline      " Highlights the line the cursor is on. Pretty.
+set signcolumn=yes  " Always show the signcolumn. Reduces jitter.
 
 " From :h 'smartindent': “If you don't want # to unindent, use this.”
 inoremap # X#

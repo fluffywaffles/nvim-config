@@ -41,7 +41,7 @@ set lazyredraw
 nnoremap <C-p> :GFiles<CR>
 
 " Show the outcome of :s in realtime before committing
-set inccommand=nosplit
+set inccommand=split
 
 " Things like textwidth, wrapping, shiftwidth, ...
 syntax on                 " Yes, syntax highlighting.

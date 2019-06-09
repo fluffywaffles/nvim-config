@@ -134,13 +134,6 @@ call dein#add('neomake/neomake')
 " FZF. Per https://github.com/Shougo/dein.vim/issues/74.
 call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
 call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-" Vim Tmux Navigator - Seamless Tmux navigation!
-call dein#add('christoomey/vim-tmux-navigator')
-let g:tmux_navigator_no_mappings = 1
-nnoremap <C-a><C-j> :TmuxNavigateDown<CR>
-nnoremap <C-a><C-k> :TmuxNavigateUp<CR>
-nnoremap <C-a><C-l> :TmuxNavigateRight<CR>
-nnoremap <C-a><C-h> :TmuxNavigateLeft<CR>
 " Mundo - visualize the vim undotree.
 call dein#add('simnalamburt/vim-mundo')
 " Tabular - for to align all of the things! (But what about smart tabs?
@@ -216,3 +209,10 @@ call dein#add('rakr/vim-two-firewatch')
 " annoying
 " call dein#add('jiangmiao/auto-pairs')
 "
+" Vim Tmux Navigator - Seamless Tmux navigation!
+" call dein#add('christoomey/vim-tmux-navigator')
+" let g:tmux_navigator_no_mappings = 1
+" nnoremap <C-a><C-j> :TmuxNavigateDown<CR>
+" nnoremap <C-a><C-k> :TmuxNavigateUp<CR>
+" nnoremap <C-a><C-l> :TmuxNavigateRight<CR>
+" nnoremap <C-a><C-h> :TmuxNavigateLeft<CR>

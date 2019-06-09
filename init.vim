@@ -15,14 +15,27 @@ call dein#end()
 let mapleader      = ' '
 let maplocalleader = '_' " <LocalLeader> is for buffer-local mappings.
 
+let g:python3_host_prog = '/usr/sbin/python' " Tell vim where python3 is.
+
 " Deoplete configuration
 " Tell deoplete to run on startup and be case-sensitive when using caps.
 let g:deoplete#enable_at_startup=1
 let g:deoplete#enable_smart_case=1
 " Complete files from the CWD of the current file, not of the project.
 call deoplete#custom#source('file', 'enable_buffer_path', 1)
+call deoplete#custom#option('prev_completion_mode', 'filter')
+call deoplete#custom#option('refresh_always', v:false)
+call deoplete#custom#option('auto_complete_delay', 100)
+call deoplete#custom#option('auto_refresh_delay', 5)
+call deoplete#custom#option('num_processes', 0) " 0 = unlimited.
+call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 " When completion is done, close the preview window.
 autocmd CompleteDone * silent! pclose!
+
+" NOTE: enable debugging sources in deoplete.
+call deoplete#custom#option('profile', v:true)
+call deoplete#enable_logging('DEBUG', 'deoplete.log')
+call deoplete#custom#source('jedi', 'is_debug_enabled', 1)
 
 " Press (<Shift>)<Tab> to cycle through completions.
 inoremap <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -32,7 +45,7 @@ inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <silent><expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " Look, let's be reasonable. Don't go too fast, but don't be so damn slow.
-set updatetime=200
+set updatetime=100
 
 " Don't redraw during macro execution, register stuff, etc. Faster, vim!
 set lazyredraw
@@ -77,7 +90,7 @@ set undofile         " Plz keep
 set undolevels=500   " A lot of
 set undoreload=1000  " Undo history!
 
-set number     " Show line numbers!
+set nonumber   " Don't line numbers!
 set ignorecase " Case-insensitive search.
 set smartcase  " Case sensitive when part of the term is uppercase.
 
@@ -87,9 +100,6 @@ set scrolloff=1 " Keep 1 line of paddding above and below the cursor.
 set list        " Display invisible characters given in listchars.
 " Highlights problematic whitespace: tabs, trailing characters, etc.
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
-
-set exrc    " Source an .exrc or .nvimrc, if any, in the cwd.
-set secure  " Setting 'exrc' is safer; disallows autocmd & displays maps.
 
 " Wildmenu is the completion menu you get when in command mode.
 " Test using <esc>:color <tab> to see the menu.

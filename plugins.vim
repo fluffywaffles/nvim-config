@@ -38,9 +38,9 @@ call dein#add('Shougo/neco-vim')
 " Import/include/file path completion source for deoplete.
 call dein#add('Shougo/neoinclude.vim')
 " JS source. See its configuration in Github before using.
-call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm i -g tern' })
-call deoplete#custom#source('ternjs', 'types', 1) " Show types
-call deoplete#custom#source('ternjs', 'filetypes', [ 'javascript' ])
+" call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm i -g tern' })
+" call deoplete#custom#source('ternjs', 'types', 1) " Show types
+" call deoplete#custom#source('ternjs', 'filetypes', [ 'javascript' ])
 " Tmux?! (THIS IS COOL. Automatically complete from nearby Tmux panes.)
 call dein#add('wellle/tmux-complete.vim')
 " TODO: lazyload the following completion sources. (See dein docs.)

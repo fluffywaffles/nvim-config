@@ -33,9 +33,9 @@ call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 autocmd CompleteDone * silent! pclose!
 
 " NOTE: enable debugging sources in deoplete.
-call deoplete#custom#option('profile', v:true)
-call deoplete#enable_logging('DEBUG', 'deoplete.log')
-call deoplete#custom#source('jedi', 'is_debug_enabled', 1)
+" call deoplete#custom#option('profile', v:true)
+" call deoplete#enable_logging('DEBUG', 'deoplete.log')
+" call deoplete#custom#source('jedi', 'is_debug_enabled', 1)
 
 " Press (<Shift>)<Tab> to cycle through completions.
 inoremap <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"

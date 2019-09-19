@@ -290,6 +290,17 @@ function! TsLocalMappings ()
   call JsTsLocalMappings()
 endfunction
 
+function! SetupTsserverPath ()
+  let l:git_root = systemlist('git rev-parse --show-toplevel')[0]
+  let l:tsconfig = findfile("tsconfig.json", ".;" . l:git_root)
+  let l:ts_root  = fnamemodify(l:tsconfig, ":p:h")
+  echom "ts_root: " . l:ts_root
+  let l:tsserver = l:ts_root . "/node_modules/.bin/tsserver"
+  if (filereadable(l:tsserver))
+    let g:nvim_typescript#server_path = l:tsserver
+  endif
+endfunction
+
 function! JsTsLocalMappings ()
   " remap ' to ` to encourage using template strings, just hit 2x to escape
   inoremap <buffer> ' `
@@ -313,6 +324,8 @@ augroup END
 augroup typescript
   autocmd!
   autocmd FileType typescript call TsLocalMappings()
+  autocmd FileType typescript call SetupTsserverPath()
+  autocmd BufEnter *.ts call SetupTsserverPath()
 augroup END
 
 " Can we create a GitAg like GitFiles using FZF? I think so.

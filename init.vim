@@ -114,8 +114,8 @@ set shortmess+=aoOtT
 
 " Adapted from ":help [["
 " To use ]] and [[ as: "go to next/previous section open/close"
-map ]] /\%({\\|}\)$<CR>
-map [[ ?\%({\\|}\)$<CR>
+map ]] /\%({\\|}\)<CR>
+map [[ ?\%({\\|}\)<CR>
 
 " Retaining characterize output
 function! CharacterizeRetain()

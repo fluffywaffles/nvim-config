@@ -305,8 +305,6 @@ function! JsTsLocalMappings ()
   " remap ' to ` to encourage using template strings, just hit 2x to escape
   inoremap <buffer> ' `
   inoremap <buffer> '' '
-  " map K to something reasonable
-  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
   " shorthand for pipelining functions
   inoremap <C-Space><C-p><C-f> ᐅ
   inoremap <C-Space><C-p><C-d> ᐅdo

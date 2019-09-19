@@ -1,14 +1,11 @@
-" Denite - the asynchronous successor to Unite.
-call dein#add('Shougo/denite.nvim')
-" Context filetype. Applies filetype in nested code, e.g. JS in HTML.
-call dein#add('Shougo/context_filetype.vim')
-" LanguageClient-neovim - support language server protocol.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Completion and IDE - Deoplete, sources, language-specific plugins.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LanguageClient-neovim - language server protocol client.
 call dein#add('autozimu/LanguageClient-neovim', {
   \ 'rev'   : 'next',
   \ 'build' : 'bash install.sh',
   \ })
-" Don't update too fast; I like to have a little time to type
-let g:LanguageClient_changeThrottle = 0.5
 let g:LanguageClient_serverCommands = {
   \ 'cpp': [
   \   '/usr/bin/cquery',
@@ -19,16 +16,6 @@ let g:LanguageClient_serverCommands = {
   \     }'
   \   ]
   \ }
-
-" Add ternjs :TernDef, :TernJump, :TernRename, etc.
-call dein#add('ternjs/tern_for_vim')
-" Use configuration taken from https://github.com/carlitux/deoplete-ternjs
-let g:tern#command = [ 'tern' ]
-" let g:tern#arguments = [ '--persistent' ]
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Completion Engine - Deoplete and all sources.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Deoplete - because YCM is a PITA.
 call dein#add('Shougo/deoplete.nvim')
 " Syntax completion source for deoplete. (Loads from syntax files.)
@@ -37,28 +24,29 @@ call dein#add('Shougo/neco-syntax')
 call dein#add('Shougo/neco-vim')
 " Import/include/file path completion source for deoplete.
 call dein#add('Shougo/neoinclude.vim')
-" JS source. See its configuration in Github before using.
-" call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm i -g tern' })
-" call deoplete#custom#source('ternjs', 'types', 1) " Show types
-" call deoplete#custom#source('ternjs', 'filetypes', [ 'javascript' ])
-" Tmux?! (THIS IS COOL. Automatically complete from nearby Tmux panes.)
+" Tmux - complete from nearby tmux panes.
 call dein#add('wellle/tmux-complete.vim')
-" TODO: lazyload the following completion sources. (See dein docs.)
-" C/C++/Objective-C clang_complete source.
-" call dein#add('Rip-Rip/clang_complete', { 'build': 'make install' })
-" TypeScript source.
-" call dein#add('mhartington/deoplete-typescript')
-" Java completion
-" call dein#add('artur-shaik/vim-javacomplete2')
+" Add ternjs :TernDef, :TernJump, :TernRename, etc.
+" Use configuration taken from https://github.com/carlitux/deoplete-ternjs
+" call dein#add('ternjs/tern_for_vim')
+" let g:tern#command = [ 'tern' ]
+" TypeScript completion & commands (e.g. :TSDef, :TSRename, ...)
+call dein#add('mhartington/nvim-typescript', {
+  \ 'build': './install.sh',
+  \ })
+let g:nvim_typescript#diagnostics_enable=1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Airline! For the winningest.
-" call dein#add('vim-airline/vim-airline')
-" Wakatime tracker.
-call dein#add('wakatime/vim-wakatime')
+" Pretty colors.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call dein#add('rakr/vim-two-firewatch')
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Syntax plugins.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Javascript syntax highlighting.
 call dein#add('pangloss/vim-javascript')
-" TypeScript syntax highlighting.
+" Alternative to yats.
 call dein#add('leafgarland/typescript-vim')
 " Update the builtin HTML syntax files.
 call dein#add('othree/html5.vim')
@@ -73,16 +61,17 @@ call dein#add('tmux-plugins/vim-tmux')
 " Syntax highlighting inside of ES6 template strings.
 call dein#add('Quramy/vim-js-pretty-template') " :JsPreTempl
 " Highlight hexcode colors.
-call dein#add('chrisbra/Colorizer')
-" Self-explanatory.
-let g:colorizer_auto_filetype='stylus,css,html'
 " <Leader>cC toggle, <Leader>cT cycle contrast, <Leader>cF cycle fg/bg.
-let g:colorizer_auto_map = 1
+call dein#add('chrisbra/Colorizer')
+let g:colorizer_auto_map      = 1
+let g:colorizer_auto_filetype = 'stylus,css,html'
 " Nice indentation guides.
 call dein#add('nathanaelkane/vim-indent-guides')
 let g:indent_guides_enable_on_vim_startup = 1
 " LLVM TableGen and .ll syntax
 call dein#add(expand('<sfile>:p:h') . '/llvm')
+" Ember Handlebars
+call dein#add('joukevandermaas/vim-ember-hbs')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This is the shrine to tpope. Hi HATERS http://tpo.pe
@@ -102,18 +91,24 @@ call dein#add('tpope/vim-characterize')
 call dein#add('tpope/vim-eunuch')
 " Commentary - comment and uncomment things using `gc`.
 call dein#add('tpope/vim-commentary')
-" Fugitive - the \"dangerously good\" git plugin. (Other plugins use it.)
+" Fugitive - the \"dangerously good\" git plugin. (:Gblame is from here.)
 call dein#add('tpope/vim-fugitive')
 " Rhubarb - adds GitHub specific stuff to Fugitive.
 call dein#add('tpope/vim-rhubarb')
-" Obsession - automatic session save/restore.
-" call dein#add('tpope/vim-obsession')
 " Sleuth - auto-detect and set shiftwidth and tabstop.
 call dein#add('tpope/vim-sleuth')
 " Tbone - Tmux mappings; mostly Tyank and Tput to access its clipboard.
 call dein#add('tpope/vim-tbone')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Miscellaneous.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Denite - the asynchronous successor to Unite.
+call dein#add('Shougo/denite.nvim')
+" Context filetype. Applies filetype in nested code, e.g. JS in HTML.
+call dein#add('Shougo/context_filetype.vim')
+" Wakatime tracker.
+call dein#add('wakatime/vim-wakatime')
 " Git gutter - +/- in sidebar gutter.
 call dein#add('airblade/vim-gitgutter')
 " Multiple cursors!!!!!!
@@ -140,12 +135,12 @@ call dein#add('simnalamburt/vim-mundo')
 call dein#add('godlygeek/tabular')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pretty colors.
-call dein#add('rakr/vim-two-firewatch')
+" Currently UNUSED colors. (No reason to load them.)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " call dein#add('ayu-theme/ayu-vim')
 " call dein#add('chriskempson/tomorrow-theme')
 " call dein#add('morhetz/gruvbox')
-" call dein#add('mhartington/oceanic-next')
 " call dein#add('mhartington/oceanic-next')
 " call dein#add('vim-scripts/chlordane.vim')
 " call dein#add('jnurmine/Zenburn')
@@ -154,9 +149,8 @@ call dein#add('rakr/vim-two-firewatch')
 " call dein#add('tomasr/molokai')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Currently DISABLED plugins.
+" Currently DISABLED syntax.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " YAJS - better js syntax.
 " call dein#add('othree/yajs')
 " Syntax highlighting for (almost) everything, but *fastly*.
@@ -165,12 +159,19 @@ call dein#add('rakr/vim-two-firewatch')
 " let g:polyglot_disabled = []
 " (Improved) CPP syntax highlighting.
 " call dein#add('octol/vim-cpp-enhanced-highlight')
-" Alternative to typescript-vim. (does not work.)
+" TypeScript syntax highlighting.
 " call dein#add('HerringtonDarkholme/yats.vim')
-" Elixir syntax highlighting. (replaced by polyglot.)
+" Elixir syntax highlighting.
 " call dein#add('elixir-lang/vim-elixir')
-" Stylus syntax highlighting. (replaced by polyglot.)
-" call dein#add('wavded/vim-stylus')
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Currently DISABLED plugins.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Obsession - automatic session save/restore.
+" call dein#add('tpope/vim-obsession')
+" Airline! For the winningest.
+" call dein#add('vim-airline/vim-airline')
 " Syntastic - because I am not my own best keeper
 " call dein#add('scrooloose/syntastic')
 " Tagbar - for visualizing an outline of a file via ctags.
@@ -208,11 +209,3 @@ call dein#add('rakr/vim-two-firewatch')
 " Autopairs - better than Townk/autoclose? NOTE: not good enough, still
 " annoying
 " call dein#add('jiangmiao/auto-pairs')
-"
-" Vim Tmux Navigator - Seamless Tmux navigation!
-" call dein#add('christoomey/vim-tmux-navigator')
-" let g:tmux_navigator_no_mappings = 1
-" nnoremap <C-a><C-j> :TmuxNavigateDown<CR>
-" nnoremap <C-a><C-k> :TmuxNavigateUp<CR>
-" nnoremap <C-a><C-l> :TmuxNavigateRight<CR>
-" nnoremap <C-a><C-h> :TmuxNavigateLeft<CR>

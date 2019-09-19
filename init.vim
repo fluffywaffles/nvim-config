@@ -117,17 +117,27 @@ set shortmess+=aoOtT
 map ]] /\%({\\|}\)<CR>
 map [[ ?\%({\\|}\)<CR>
 
-" Retaining characterize output
-function! CharacterizeRetain()
-  redir => l:info
-  " NOTE(jordan): this is wonky; special keys have to be string + escape.
-  silent! exe "normal \<Plug>(characterize)"
+" Retaining output in a world with updatetime=small
+function! Retain(command)
+  redir => b:retained_output
+  exe a:command
+endfunction
+function! Retrieve()
   redir END
-  call confirm(l:info)
+  call confirm(b:retained_output)
+endfunction
+" You can't increase updatetime, because plugins break
+" You can't expect plugin authors to use `echom` because plugins suck
+" The only recourse is to hack your way around it.
+function! CharacterizeRetain()
+  " NOTE(jordan): this is wonky; special keys have to be string + escape.
+  call Retain("normal \<Plug>(characterize)")
+  " NOTE(jordan): characterize is synchronous, we can Retrieve right away
+  call Retrieve()
 endfunction
 " NOTE(jordan): must use autocmd in order to overwrite plugin...
 " NOTE(jordan): could also use `after/` directory, but seems less obvious.
-autocmd VimEnter *.* nmap <silent> ga :call CharacterizeRetain()<CR>
+autocmd VimEnter *.* nmap ga :call CharacterizeRetain()<CR>
 
 " Automatically bind "goto definition" and "get info" to LangClient, when
 " one is applicable for the current file type.

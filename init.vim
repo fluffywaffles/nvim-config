@@ -26,12 +26,12 @@ noremap<Leader>t  :Tabularize/
 let g:deoplete#enable_at_startup=1
 let g:deoplete#enable_smart_case=1
 " Complete files from the CWD of the current file, not of the project.
+" call deoplete#custom#option('refresh_always', v:false)
+" call deoplete#custom#option('auto_refresh_delay', 5)
 call deoplete#custom#source('file', 'enable_buffer_path', 1)
 call deoplete#custom#option('prev_completion_mode', 'filter')
-call deoplete#custom#option('refresh_always', v:false)
-call deoplete#custom#option('auto_complete_delay', 100)
-call deoplete#custom#option('auto_refresh_delay', 5)
-call deoplete#custom#option('num_processes', 0) " 0 = unlimited.
+call deoplete#custom#option('auto_complete_delay', 200)
+call deoplete#custom#option('num_processes', 3) " 0 = unlimited.
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 " When completion is done, close the preview window.
 autocmd CompleteDone * silent! pclose!
@@ -44,9 +44,6 @@ autocmd CompleteDone * silent! pclose!
 " Press (<Shift>)<Tab> to cycle through completions.
 inoremap <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" Press <C-j> <C-k> to move between completions.
-inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <silent><expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " Look, let's be reasonable. Don't go too fast, but don't be so damn slow.
 set updatetime=100

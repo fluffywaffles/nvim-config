@@ -177,6 +177,8 @@ endfunction
 " NOTE(jordan): could also use `after/` directory, but seems less obvious.
 autocmd VimEnter *.* nmap ga :call CharacterizeRetain()<CR>
 
+nnoremap <Leader>fp :call confirm(expand("%:p"))<CR>
+
 " Automatically bind "goto definition" and "get info" to LangClient, when
 " one is applicable for the current file type.
 function! BindToLangClientIfServerExists()

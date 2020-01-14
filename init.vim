@@ -220,7 +220,7 @@ set splitbelow   " Hsplits go below.
 
 " Stolen wholesale from spf13's .vimrc. Does what it says.
 function! StripTrailingWhitespace()
-  " Preparation: save last search, and cursor position.
+  " Preparation: save last search and cursor position.
   let _s=@/
   let l = line(".")
   let c = col(".")

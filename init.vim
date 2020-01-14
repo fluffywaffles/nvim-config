@@ -365,5 +365,5 @@ augroup sizebag
 augroup END
 
 " Persistent per-file folds.
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent! loadview
+" autocmd BufWinLeave *.* mkview
+" autocmd BufWinEnter *.* silent! loadview

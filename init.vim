@@ -18,8 +18,9 @@ let maplocalleader = '_' " <LocalLeader> is for buffer-local mappings.
 let g:python3_host_prog = '/usr/sbin/python' " Tell vim where python3 is.
 
 " Plugin mappings
-nmap   <Leader>gg :GitGutterToggle<CR>
-noremap<Leader>t  :Tabularize/
+nmap    <Leader>gg :GitGutterToggle<CR>
+noremap <Leader>t  :Tabularize/
+nmap    <Leader>/  :nohl<CR>
 
 " Deoplete configuration
 " Tell deoplete to run on startup and be case-sensitive when using caps.

@@ -366,6 +366,8 @@ augroup sizebag
   autocmd VimResized * :redraw
 augroup END
 
+" NOTE(jordan): this seems to introduce weird behavior. :(
 " Persistent per-file folds.
+" set viewoptions="folds,cursor,curdir"
 " autocmd BufWinLeave *.* mkview
 " autocmd BufWinEnter *.* silent! loadview

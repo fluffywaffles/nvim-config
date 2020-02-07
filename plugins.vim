@@ -79,6 +79,8 @@ let g:indent_guides_enable_on_vim_startup = 1
 call dein#add(expand('<sfile>:p:h') . '/llvm')
 " Ember Handlebars
 call dein#add('joukevandermaas/vim-ember-hbs')
+" Terraform
+call dein#add('hashivim/vim-terraform')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This is the shrine to tpope. Hi HATERS http://tpo.pe

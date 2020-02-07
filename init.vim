@@ -176,7 +176,7 @@ function! CharacterizeRetain()
 endfunction
 " NOTE(jordan): must use autocmd in order to overwrite plugin...
 " NOTE(jordan): could also use `after/` directory, but seems less obvious.
-autocmd VimEnter *.* nmap ga :call CharacterizeRetain()<CR>
+autocmd VimEnter * nmap ga :call CharacterizeRetain()<CR>
 
 nnoremap <Leader>fp :call confirm(expand("%:p"))<CR>
 

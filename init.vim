@@ -29,9 +29,9 @@ let g:deoplete#enable_smart_case=1
 " Complete files from the CWD of the current file, not of the project.
 " call deoplete#custom#option('refresh_always', v:false)
 " call deoplete#custom#option('auto_refresh_delay', 5)
+" call deoplete#custom#option('auto_complete_delay', 200)
 call deoplete#custom#source('file', 'enable_buffer_path', 1)
 call deoplete#custom#option('prev_completion_mode', 'filter')
-call deoplete#custom#option('auto_complete_delay', 200)
 call deoplete#custom#option('num_processes', 3) " 0 = unlimited.
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 " When completion is done, close the preview window.

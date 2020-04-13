@@ -22,6 +22,16 @@ nmap    <Leader>gg :GitGutterToggle<CR>
 noremap <Leader>t  :Tabularize/
 nmap    <Leader>/  :nohl<CR>
 
+" Frequently spammed shortcuts
+map <Leader>w  :w<CR>
+map <Leader>x  :x<CR>
+map <Leader>h  0
+map <Leader>l  $
+map <Leader>j  G
+map <Leader>k  gg
+map <Leader>a  A
+map <Leader>i  I
+
 " Deoplete configuration
 " Tell deoplete to run on startup and be case-sensitive when using caps.
 let g:deoplete#enable_at_startup=1

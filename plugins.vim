@@ -215,6 +215,12 @@ call dein#add('godlygeek/tabular')
 "   \ 'javascript': [ 'javascript-typescript-stdio' ],
 "   \ 'javascript.jsx': [ 'javascript-typescript-stdio' ],
 "   \ }
-" Autopairs - better than Townk/autoclose? NOTE: not good enough, still
-" annoying
+" Autopairs - better than Townk/autoclose?
 " call dein#add('jiangmiao/auto-pairs')
+" let g:AutoPairsShortcutBackInsert = "<C-q><C-q>"
+" let g:AutoPairsShortcutToggle     = "<C-q><C-t>"
+" let g:AutoPairsShortcutFastWrap   = "<C-q><C-w>"
+" let g:AutoPairsShortcutJump       = "<C-q><C-j>"
+" let g:AutoPairsFlyMode            = 0
+" let g:AutoPairsMultilineClose     = 0
+" autocmd FileType typescript let b:AutoPairs = AutoPairsDefine({ '<': '>' })

@@ -125,8 +125,10 @@ set shortmess+=aoOtTc
 
 " Adapted from ":help [["
 " To use ]] and [[ as: "go to next/previous section open/close"
-map ]] /\%({\\|}\)<CR>:nohl<CR>
-map [[ ?\%({\\|}\)<CR>:nohl<CR>
+map  ]] /\%({\\|}\)<CR>:nohl<CR>
+map  [[ ?\%({\\|}\)<CR>:nohl<CR>
+vmap ]] /\%({\\|}\)<CR>
+vmap [[ ?\%({\\|}\)<CR>
 
 " Add the git root to vim's file path if in a git repo
 function! AddGitRootToPath()

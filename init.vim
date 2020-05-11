@@ -24,6 +24,7 @@ nmap    <Leader>/  :nohl<CR>
 
 " Frequently spammed shortcuts
 map <Leader>w  :w<CR>
+map <Leader>e  :e<CR>
 map <Leader>x  :x<CR>
 map <Leader>h  0
 map <Leader>l  $

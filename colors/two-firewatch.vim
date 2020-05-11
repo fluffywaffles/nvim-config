@@ -255,7 +255,8 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256
     let s:syntax_accent           = '447EBB'
     let s:syntax_gutter           = 'EAE1D2'
     let s:syntax_selection        = 'E5DDCB'
-    let s:syntax_fold_bg          = 'd1cec7'
+    let s:syntax_rule_fg          = 'D1CEC7'
+    let s:syntax_fold_bg          = 'D1CEC7'
     let s:syntax_cursor_line      = 'F3EFE7'
   else
     "let s:uno_1 = 'd6e9ff'
@@ -282,7 +283,8 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256
     let s:syntax_accent           = '56b6c2'
     let s:syntax_gutter           = '636d83'
     let s:syntax_selection        = '3e4452'
-    let s:syntax_fold_bg          = '5c6370'
+    let s:syntax_rule_fg          = '5c6370'
+    let s:syntax_fold_bg          = '333943'
     let s:syntax_cursor_line      = '2c323c'
   endif
 
@@ -298,11 +300,11 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256
   call <sid>X('CursorLine',   '',               s:syntax_cursor_line, '')
   call <sid>X('Directory',    s:uno_1,          '',                   '')
   call <sid>X('ErrorMsg',     s:syntax_accent,  s:syntax_bg,          'none')
-  call <sid>X('VertSplit',    s:syntax_fold_bg, '',                   'none')
-  call <sid>X('Folded',       s:syntax_fg,      '333943',             '')
+  call <sid>X('VertSplit',    s:syntax_rule_fg, '',                   'none')
+  call <sid>X('Folded',       s:syntax_fg,      s:syntax_fold_bg,     '')
   call <sid>X('FoldColumn',   s:uno_3,          s:syntax_cursor_line, '')
   call <sid>X('IncSearch',    s:syntax_bg,      s:uno_4,              '')
-  call <sid>X('LineNr',       s:syntax_fold_bg, '',                   '')
+  call <sid>X('LineNr',       s:syntax_rule_fg, '',                   '')
   call <sid>X('CursorLineNr', s:uno_2,          '',                   'none')
   call <sid>X('MatchParen',   s:syntax_bg,      s:syntax_accent,      '')
   call <sid>X('Italic',       '',               '',                   'italic')
@@ -315,7 +317,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256
   call <sid>X('PMenuThumb',   '',               s:uno_1,              '')
   call <sid>X('Question',     s:syntax_accent,  '',                   '')
   call <sid>X('Search',       s:syntax_bg,      s:uno_4,              '')
-  call <sid>X('SpecialKey',   s:syntax_fold_bg, '',                   '')
+  call <sid>X('SpecialKey',   s:syntax_rule_fg, '',                   '')
   call <sid>X('StatusLine',   s:syntax_fg,      s:syntax_cursor_line, 'none')
   call <sid>X('StatusLineNC', s:uno_4,          '',                   '')
   call <sid>X('TabLine',      s:uno_4,          '',                   '')

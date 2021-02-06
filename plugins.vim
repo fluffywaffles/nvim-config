@@ -140,7 +140,7 @@ call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
 call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 " Mundo - visualize the vim undotree.
 call dein#add('simnalamburt/vim-mundo')
-" Tabular - for to align all of the things! (But what about smart tabs?
+" Tabular - for to align all of the things!
 call dein#add('godlygeek/tabular')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -179,26 +179,13 @@ call dein#add('godlygeek/tabular')
 
 " Obsession - automatic session save/restore.
 " call dein#add('tpope/vim-obsession')
-" Airline! For the winningest.
-" call dein#add('vim-airline/vim-airline')
 " Syntastic - because I am not my own best keeper
 " call dein#add('scrooloose/syntastic')
 " Tagbar - for visualizing an outline of a file via ctags.
 " call dein#add('majutsushi/tagbar') " Requires ctags
-" NERD tree?
-" call dein#add('scrooloose/nerdtree')
-" Very opinionated NERDtree defaults (incl. ONE tree in ALL instances.)
-" https://github.com/jistr/vim-nerdtree-tabs
-" call dein#add('jistr/vim-nerdtree-tabs')
 " WebAPI and Gist.vim - gist it und rapido.
 " call dein#add('mattn/webapi-vim')
 " call dein#add('mattn/gist-vim')
-" Tmuxline - makes Tmux look like Airline. (does not work.)
-" call dein#add('edkolev/tmuxline.vim')
-" Additional Airline themes.
-" call dein#add('vim-airline/vim-airline-themes')
-" Ack.vim - use ag for searching stuff.
-" call dein#add('mileszs/ack.vim')
 " Wildfire - quickly select the nearest text object.
 " NOTE(jordan): this cruddy thing maps like a motherfucker and won't be
 " overridden.
@@ -209,12 +196,6 @@ call dein#add('godlygeek/tabular')
 " Complete autopairs when accepting a completion that starts with a ({['"
 " etc. NOTE: obsoleted by the good autopairs plugin
 " call dein#add('Shougo/neopairs.vim')
-" Set up server command for javascript files.
-" NOTE: tern is better.
-" let g:LanguageClient_serverCommands = {
-"   \ 'javascript': [ 'javascript-typescript-stdio' ],
-"   \ 'javascript.jsx': [ 'javascript-typescript-stdio' ],
-"   \ }
 " Autopairs - better than Townk/autoclose?
 " call dein#add('jiangmiao/auto-pairs')
 " let g:AutoPairsShortcutBackInsert = "<C-q><C-q>"

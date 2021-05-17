@@ -14,7 +14,8 @@ let g:LanguageClient_serverCommands = {
   \       "cacheDirectory": "/tmp/cquery",
   \       "completion": { "filterAndSort": false }
   \     }'
-  \   ]
+  \   ],
+  \ 'go': [ '~/go/bin/gopls' ]
   \ }
 " Deoplete - because YCM is a PITA.
 call dein#add('Shougo/deoplete.nvim')

@@ -312,8 +312,9 @@ function! JsLocalMappings ()
   nnoremap <silent> gd :TernDef<CR>
 endfunction
 
-function! TsLocalMappings ()
+function! TSConfigure ()
   call JsTsLocalMappings()
+  let &makeprg = "npx tsc"
 endfunction
 
 function! SetupTsserverPath ()
@@ -349,10 +350,8 @@ augroup END
 
 augroup typescript
   autocmd!
-  autocmd FileType typescript call TsLocalMappings()
+  autocmd FileType typescript call TSConfigure()
   autocmd FileType typescript call SetupTsserverPath()
-  " autocmd BufEnter *.ts call SetupTsserverPath()
-  let &makeprg = "npx tsc"
 augroup END
 
 " Can we create a GitAg like GitFiles using FZF? I think so.

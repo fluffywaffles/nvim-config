@@ -69,7 +69,7 @@ inoremap <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Look, let's be reasonable. Don't go too fast, but don't be so damn slow.
-set updatetime=10
+set updatetime=100
 
 " Don't redraw during macro execution, register stuff, etc. Faster, vim!
 set lazyredraw

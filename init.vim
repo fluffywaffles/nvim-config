@@ -210,8 +210,9 @@ function! BindToLangClientIfServerExists()
   if has_key(g:LanguageClient_serverCommands, &filetype)
     nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
     nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
     nnoremap <buffer> <silent> <Leader>ee :call LanguageClient#explainErrorAtPoint()<CR>
+    nnoremap <buffer> <silent> <Leader>rn :call LanguageClient_textDocument_rename()<CR>
+    nnoremap <buffer> <silent> <Leader>rf :call LanguageClient_textDocument_references()<CR>
   endif
 endfunction
 function! SendDidChangeLangClientIfServerExists()

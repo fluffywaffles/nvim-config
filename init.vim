@@ -33,17 +33,28 @@ map <Leader>k  gg
 map <Leader>a  A
 map <Leader>i  I
 
+"
 " Deoplete configuration
-" Tell deoplete to run on startup and be case-sensitive when using caps.
+"
+
+" Tell deoplete to run on startup
 let g:deoplete#enable_at_startup=1
-let g:deoplete#enable_smart_case=1
-" Complete files from the CWD of the current file, not of the project.
+
+
+" num_processes: if set to 1, disabled; 0, unlimited
+"   Parallel completion increases completion speed, but increases screen
+"   flicker; especially in combination with { refresh_always: v:true }
+"   (which is the default value for 'refresh_always').
+call deoplete#custom#option('num_processes', 1)
+
+" alternative parallel completion configuration for faster completion:
+" NOTE: works quite nicely on a half-decent OS, but it's murder on a mac.
 " call deoplete#custom#option('refresh_always', v:false)
-" call deoplete#custom#option('auto_refresh_delay', 5)
-" call deoplete#custom#option('auto_complete_delay', 200)
+" call deoplete#custom#option('num_processes', 3)
+
+" Complete files from the cwd of the current file, not of the project.
 call deoplete#custom#source('file', 'enable_buffer_path', 1)
-call deoplete#custom#option('prev_completion_mode', 'filter')
-call deoplete#custom#option('num_processes', 3) " 0 = unlimited.
+" Don't default filtering by first character / string prefix; use fuzzy.
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 " When completion is done, close the preview window.
 autocmd CompleteDone * silent! pclose!

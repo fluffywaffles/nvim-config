@@ -349,19 +349,28 @@ augroup typescript
   autocmd FileType typescript call TSConfigure()
 augroup END
 
-function GolangReconfigure()
+function GolangConfigure()
   set textwidth=100                        " more characters per line
   set noexpandtab                          " don't expand tabs to spaces
   set tabstop=2 softtabstop=2 shiftwidth=2 " tabs render as 2 spaces
   let g:neomake_go_enabled_makers = [ 'go' ]
 endfunction
 
+function GoLint()
+  let l:pane_cmds = [
+        \ 'tmux set-option -p remain-on-exit on',
+        \ 'zsh -ic \"devenv repo lint go.git\"',
+        \ ]
+  execute 'Tmux' 'split-window' '-d' "'" . join(l:pane_cmds, ' && ') . "'"
+endfunction
+
 augroup golang
   autocmd!
-  autocmd FileType go nnoremap <Leader>gf :%!gofmt<CR>
-  autocmd FileType go inoremap <C-g><C-f> <C-O>:%!gofmt<CR>
-  autocmd FileType go call GolangReconfigure()
-  command! Lint :Tmux split-window 'tmux set-option -p remain-on-exit failed && zsh -ic \"devenv repo lint go.git\"'
+  autocmd FileType go nnoremap <Leader>gl       :call GoLint()<CR>
+  autocmd FileType go nnoremap <Leader>gf       :call LanguageClient_textDocument_formatting()<CR>
+  autocmd FileType go inoremap <C-g><C-f>  <C-O>:call LanguageClient_textDocument_formatting()<CR>
+  autocmd FileType go call GolangConfigure()
+  command! Lint :call GoLint()
 augroup END
 
 " Can we create a GitAg like GitFiles using FZF? I think so.

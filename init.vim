@@ -302,19 +302,18 @@ hi MatchParen gui=reverse
 " Open location list when make has errors, but don't move the cursor.
 let g:neomake_open_list=2
 
-function! JsLocalMappings ()
+" Language-specific autocmds.
+function! JSConfigure()
   call JsTsLocalMappings()
-  " tern_for_vim bindings
-  nnoremap <silent> K :TernType<CR>
-  nnoremap <silent> gd :TernDef<CR>
 endfunction
 
-function! TSConfigure ()
+function! TSConfigure()
   call JsTsLocalMappings()
+  call SetupTsserverPath()
   let &makeprg = "npx tsc"
 endfunction
 
-function! SetupTsserverPath ()
+function! SetupTsserverPath()
   let l:git_root = systemlist('git rev-parse --show-toplevel')[0]
   let l:tsconfig = findfile("tsconfig.json", ".;" . l:git_root)
   let l:ts_root  = fnamemodify(l:tsconfig, ":p:h")
@@ -325,7 +324,7 @@ function! SetupTsserverPath ()
   endif
 endfunction
 
-function! JsTsLocalMappings ()
+function! JsTsLocalMappings()
   " remap ' to ` to encourage using template strings, just hit 2x to escape
   inoremap <buffer> ' `
   inoremap <buffer> '' '
@@ -342,13 +341,12 @@ endfunction
 
 augroup javascript
   autocmd!
-  autocmd FileType javascript call JsLocalMappings()
+  autocmd FileType javascript call JSConfigure()
 augroup END
 
 augroup typescript
   autocmd!
   autocmd FileType typescript call TSConfigure()
-  autocmd FileType typescript call SetupTsserverPath()
 augroup END
 
 function GolangReconfigure()

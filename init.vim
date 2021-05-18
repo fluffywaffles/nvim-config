@@ -34,6 +34,34 @@ noremap <Leader>i  I
 noremap <Leader>/  :nohl<CR>
 
 "
+" GitGutter configuration
+"
+" Turn off default mappings
+let g:gitgutter_map_keys = 0
+" Preview ? hunk under cursor
+nnoremap ghp <Plug>(GitGutterPreviewHunk)
+" Undo hunk under cursor
+nnoremap ghu <Plug>(GitGutterUndoHunk)
+" Fold all unchanged lines
+nnoremap ghf :GitGutterFold<CR>
+" Load all hunks into list of links in quickfix
+command! Gchanges GitGutterQuickFix | cope
+nnoremap gqf :Gchanges<CR>
+" Hunk navigation
+nnoremap ]c  <Plug>(GitGutterPrevHunk)
+nnoremap [c  <Plug>(GitGutterNextHunk)
+" Hunk textobjects?!
+omap ic <Plug>(GitGutterTextObjectInnerPending)
+omap ac <Plug>(GitGutterTextObjectOuterPending)
+xmap ic <Plug>(GitGutterTextObjectInnerVisual)
+xmap ac <Plug>(GitGutterTextObjectOuterVisual)
+" Update GitGutter on buffer write
+augroup GitGutter
+  autocmd!
+  autocmd BufWritePost *.* GitGutter
+augroup END
+
+"
 " Deoplete configuration
 "
 
@@ -69,7 +97,7 @@ inoremap <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Look, let's be reasonable. Don't go too fast, but don't be so damn slow.
-set updatetime=100
+set updatetime=5000
 
 " Don't redraw during macro execution, register stuff, etc. Faster, vim!
 set lazyredraw

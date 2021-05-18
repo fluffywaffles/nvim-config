@@ -18,20 +18,20 @@ let maplocalleader = '_' " <LocalLeader> is for buffer-local mappings.
 let g:python3_host_prog = '/usr/sbin/python' " Tell vim where python3 is.
 
 " Plugin mappings
-nmap    <Leader>gg :GitGutterToggle<CR>
+noremap <Leader>gg :GitGutterToggle<CR>
 noremap <Leader>t  :Tabularize/
-nmap    <Leader>/  :nohl<CR>
 
 " Frequently spammed shortcuts
-map <Leader>w  :w<CR>
-map <Leader>e  :e<CR>
-map <Leader>x  :x<CR>
-map <Leader>h  0
-map <Leader>l  $
-map <Leader>j  G
-map <Leader>k  gg
-map <Leader>a  A
-map <Leader>i  I
+noremap <Leader>w  :w<CR>
+noremap <Leader>e  :e<CR>
+noremap <Leader>x  :x<CR>
+noremap <Leader>h  0
+noremap <Leader>l  $
+noremap <Leader>j  G
+noremap <Leader>k  gg
+noremap <Leader>a  A
+noremap <Leader>i  I
+noremap <Leader>/  :nohl<CR>
 
 "
 " Deoplete configuration
@@ -243,17 +243,14 @@ set nojoinspaces " When joining lines: compress spaces into 1.
 set splitright   " Vsplits go right.
 set splitbelow   " Hsplits go below.
 
-" Stolen wholesale from spf13's .vimrc. Does what it says.
+" Stolen and simplified from spf13.
 function! StripTrailingWhitespace()
-  " Preparation: save last search and cursor position.
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  " do the business:
+  let previous_search=@/
+  let row = line(".")
+  let col = col(".")
   %s/\s\+$//e
-  " clean up: restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
+  let @/=previous_search
+  call cursor(row, col)
 endfunction
 
 autocmd BufWritePre <buffer> call StripTrailingWhitespace()

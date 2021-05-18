@@ -381,7 +381,6 @@ command! -bang -nargs=* SvnAg call fzf#vim#ag(<q-args>, {
 " Run GitAg with word-under-cursor when I hit C-k.
 nmap <C-k> "zyiw:exe "GitAg " . @z . ""<CR>
 
-au Syntax * call matchadd('Todo', '\W\zs\HACK')
 au Syntax * call matchadd('Todo', '\W\zs\IDEA')
 au Syntax * call matchadd('Todo', '\W\zs\NOTE')
 au Syntax * call matchadd('Todo', '\W\zs\TODO')

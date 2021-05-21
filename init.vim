@@ -66,7 +66,6 @@ augroup END
 " Tell deoplete to run on startup
 let g:deoplete#enable_at_startup=1
 
-
 " num_processes: if set to 1, disabled; 0, unlimited
 "   Parallel completion increases completion speed, but increases screen
 "   flicker; especially in combination with { refresh_always: v:true }

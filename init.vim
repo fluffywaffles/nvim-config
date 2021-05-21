@@ -29,8 +29,6 @@ noremap <Leader>h  0
 noremap <Leader>l  $
 noremap <Leader>j  G
 noremap <Leader>k  gg
-noremap <Leader>a  A
-noremap <Leader>i  I
 noremap <Leader>/  :nohl<CR>
 
 "

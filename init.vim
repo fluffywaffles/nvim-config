@@ -37,17 +37,17 @@ noremap <Leader>/  :nohl<CR>
 " Turn off default mappings
 let g:gitgutter_map_keys = 0
 " Preview ? hunk under cursor
-nnoremap ghp <Plug>(GitGutterPreviewHunk)
+nmap <Leader>ghp <Plug>(GitGutterPreviewHunk)
 " Undo hunk under cursor
-nnoremap ghu <Plug>(GitGutterUndoHunk)
+nmap <Leader>ghu <Plug>(GitGutterUndoHunk)
 " Fold all unchanged lines
 nnoremap ghf :GitGutterFold<CR>
 " Load all hunks into list of links in quickfix
 command! Gchanges GitGutterQuickFix | cope
-nnoremap gqf :Gchanges<CR>
+nnoremap <Leader>gqf :Gchanges<CR>
 " Hunk navigation
-nnoremap ]c  <Plug>(GitGutterPrevHunk)
-nnoremap [c  <Plug>(GitGutterNextHunk)
+nmap ]c  <Plug>(GitGutterNextHunk)
+nmap [c  <Plug>(GitGutterPrevHunk)
 " Hunk textobjects?!
 omap ic <Plug>(GitGutterTextObjectInnerPending)
 omap ac <Plug>(GitGutterTextObjectOuterPending)

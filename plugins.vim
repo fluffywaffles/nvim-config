@@ -27,11 +27,6 @@ call dein#add('Shougo/neco-vim')
 call dein#add('Shougo/neoinclude.vim')
 " Tmux - complete from nearby tmux panes.
 call dein#add('wellle/tmux-complete.vim')
-" Add ternjs :TernDef, :TernJump, :TernRename, etc.
-" Use configuration taken from https://github.com/carlitux/deoplete-ternjs
-" call dein#add('ternjs/tern_for_vim')
-" let g:tern#command = [ 'tern' ]
-
 " zshcompsys completion within zsh files
 " NOTE(jordan): requires module zsh/zpty to have been zmodload-ed
 call dein#add('deoplete-plugins/deoplete-zsh')

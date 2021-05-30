@@ -75,12 +75,11 @@ let g:colorizer_auto_map      = 1
 let g:colorizer_auto_filetype = 'stylus,css,html'
 " Nice indentation guides.
 call dein#add('nathanaelkane/vim-indent-guides')
-let g:indent_guides_enable_on_vim_startup = 1
-" Disable indent guides in manpages opened using :Man.
+" Enable indent_guides except on manpages opened with :Man.
 augroup manpage_indent_guides
   autocmd!
-  autocmd BufAdd,BufEnter    man://* :call indent_guides#disable()
-  autocmd BufLeave,BufUnload man://* :call indent_guides#enable()
+  autocmd BufAdd,BufEnter *       :call indent_guides#enable()
+  autocmd BufAdd,BufEnter man://* :call indent_guides#disable()
 augroup END
 " LLVM TableGen and .ll syntax
 call dein#add(expand('<sfile>:p:h') . '/llvm')

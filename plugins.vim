@@ -31,6 +31,11 @@ call dein#add('wellle/tmux-complete.vim')
 " Use configuration taken from https://github.com/carlitux/deoplete-ternjs
 " call dein#add('ternjs/tern_for_vim')
 " let g:tern#command = [ 'tern' ]
+
+" zshcompsys completion within zsh files
+" NOTE(jordan): requires module zsh/zpty to have been zmodload-ed
+call dein#add('deoplete-plugins/deoplete-zsh')
+
 "
 " NOTE(jordan): nvim-typescript tries to typecheck python files, plaintext
 " files, and anything I load into a buffer when a TypeScript file *was*

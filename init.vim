@@ -76,6 +76,35 @@ call deoplete#custom#option('num_processes', 1)
 call deoplete#custom#source('vim',    'min_pattern_length', 1)
 call deoplete#custom#source('syntax', 'min_pattern_length', 1)
 
+" When vim starts or gets resized, set max widths for completion menu
+autocmd VimEnter,VimResized * call UpdateMaxMenuWidth()
+" With the exception of stupidly small clients, UpdateMaxMenuWidth() will
+" ensure that most of the information for a completion candidate fits the
+" popup, prioritizing abbreviation over kind over menu information.
+function! UpdateMaxMenuWidth()
+  let s:breakpoint = 60
+  let s:twelfths = &columns / 12
+  if &columns < s:breakpoint
+    " the vim pane is tiny, prioritize the abbreviation and kind
+    " at 60 cols worst case: 50 cols abbr, 10 cols kind, no menu
+    " minimum usable width is 24 cols, only shows abbr, VERY small pane
+    let b:abbr_width = max([10 * s:twelfths, 24])
+    let b:kind_width = max([2  * s:twelfths,  6]) " [syntax] worst: [s..x]
+    let b:menu_width = max([8  * s:twelfths,  0])
+  else
+    " the vim pane is large, reserve half of it for menu information
+    " at 60 cols worst case: 20 cols abbr, 10 cols kind, 30 cols menu
+    let b:abbr_width = 4 * s:twelfths
+    let b:kind_width = 2 * s:twelfths
+    let b:menu_width = 6 * s:twelfths
+  endif
+  " abbr, kind, and menu strings are displayed in the popup window
+  call deoplete#custom#source('_', 'max_abbr_width', b:abbr_width)
+  call deoplete#custom#source('_', 'max_kind_width', b:kind_width)
+  call deoplete#custom#source('_', 'max_menu_width', b:menu_width)
+  echom "columns " . &columns . " abbr_width " . b:abbr_width . " kind_width " . b:kind_width . " menu_width " . b:menu_width
+endfunction
+
 " Alternative parallel completion configuration for faster completion:
 " NOTE: works quite nicely on a half-decent OS, but it's murder on a mac.
 if has('unix')

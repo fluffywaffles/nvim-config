@@ -132,6 +132,9 @@ inoremap <expr> <C-X><C-X> deoplete#manual_complete()
 " Press (<Shift>)<Tab> to cycle through completions.
 inoremap <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <silent><expr> <C-L>   pumvisible()
+      \ ? deoplete#complete_common_string()
+      \ : "\<C-L>"
 
 " Don't redraw during macro execution, register stuff, etc. Faster, vim!
 set lazyredraw

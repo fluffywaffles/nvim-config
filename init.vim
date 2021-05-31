@@ -166,7 +166,7 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 " Wildmenu is the completion menu you get when in command mode.
 " Test using <esc>:color <tab> to see the menu.
 set wildmenu                    " Show a list instead of just completing.
-set wildmode=list:longest,full  " View mode: show a big list for wildmenu.
+set wildmode=list:longest,full  " Complete common prefix and list options.
 
 " This has to do with status messages. See :h 'shortmess' for details.
 set shortmess+=aoOtTc

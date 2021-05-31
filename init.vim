@@ -127,6 +127,8 @@ set completeopt=menuone,preview
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')
 " call deoplete#custom#source('jedi', 'is_debug_enabled', 1)
 
+" manually trigger completion with CTRL-X_CTRL-X
+inoremap <expr> <C-X><C-X> deoplete#manual_complete()
 " Press (<Shift>)<Tab> to cycle through completions.
 inoremap <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"

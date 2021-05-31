@@ -178,44 +178,6 @@ map  [[ ?\%({\\|}\)<CR>:nohl<CR>
 vmap ]] /\%({\\|}\)<CR>
 vmap [[ ?\%({\\|}\)<CR>
 
-" Add the git root to vim's file path if in a git repo
-function! AddGitRootToPath()
-  let l:git_root = systemlist('git rev-parse --show-toplevel')[0]
-  if v:shell_error
-    return
-  endif
-  if stridx(&path, l:git_root . ',') == -1
-    exe "setlocal path=" . l:git_root . ',' . &path
-  endif
-endfunction
-
-" Add subfolders to vim's file path if in a git repo
-function! AddGitRootSubfoldersToPath()
-  let l:git_root = systemlist('git rev-parse --show-toplevel')[0]
-  if v:shell_error
-    return
-  endif
-  let l:git_root_listing = systemlist('ls -d ' . l:git_root . '/*')
-  if v:shell_error
-    return
-  endif
-  let l:path_update = ''
-  for item in l:git_root_listing
-    if isdirectory(item) && stridx(&path, item . ',') == -1
-      let l:path_update .= item . ','
-    endif
-  endfor
-  if strlen(l:path_update) > 0
-    exe "setlocal path=" . l:path_update . ',' . &path
-  endif
-endfunction
-
-augroup AddRootsToPath
-  autocmd!
-  autocmd BufEnter */dev/better/* call AddGitRootToPath()
-  autocmd BufEnter */dev/better/* call AddGitRootSubfoldersToPath()
-augroup END
-
 " Retaining output in a world with updatetime=small
 function! Retain(command)
   redir => b:retained_output

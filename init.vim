@@ -89,6 +89,9 @@ call deoplete#custom#source('file', 'enable_buffer_path', 1)
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 " When completion is done, close the preview window.
 autocmd CompleteDone * silent! pclose!
+" Show a completion menu, even if only one candidate, and show additional
+" information in a popup preview window
+set completeopt=menuone,preview
 
 " NOTE: enable debugging sources in deoplete.
 " call deoplete#custom#option('profile', v:true)

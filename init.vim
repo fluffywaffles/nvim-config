@@ -300,8 +300,8 @@ command! -bang Q q<bang>
 command! -bang QA qa<bang>
 command! -bang Qa qa<bang>
 
-" Find merge conflict markers.
-map <leader>gc /\v^[<\|=>]{7}( .*\|$)<CR>
+" Load merge conflicts into quickfix list.
+map <Leader>gc :Git mergetool<CR>
 
 " Visual shifting (does not exit Visual mode, much better).
 vnoremap < <gv

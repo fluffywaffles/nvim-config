@@ -72,7 +72,11 @@ let g:deoplete#enable_at_startup=1
 "   (which is the default value for 'refresh_always').
 call deoplete#custom#option('num_processes', 1)
 
-" alternative parallel completion configuration for faster completion:
+" Start completing syntax / viml after 1 character instead of 2
+call deoplete#custom#source('vim',    'min_pattern_length', 1)
+call deoplete#custom#source('syntax', 'min_pattern_length', 1)
+
+" Alternative parallel completion configuration for faster completion:
 " NOTE: works quite nicely on a half-decent OS, but it's murder on a mac.
 if has('unix')
   call deoplete#custom#option('num_processes', 3)

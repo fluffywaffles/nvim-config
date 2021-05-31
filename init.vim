@@ -124,10 +124,15 @@ set linebreak       " Force wrapping line-breaks on word boundaries.
 set colorcolumn=+1  " Light up the column +1 after TextWidth.
 set sw=2 ts=2 sts=2 " ShiftWidth = Tabstop = SoftTabstop = 2.
 set expandtab       " Expand tabs into spaces.
-set autoindent      " Indent automatically.
+set autoindent      " Keep the indentation of the previous line.
 set smartindent     " Better auto-indent new code blocks.
 set cursorline      " Highlights the line the cursor is on. Pretty.
 set signcolumn=yes  " Always show the signcolumn. Reduces jitter.
+
+
+set nojoinspaces " When joining lines: compress spaces into 1.
+set splitright   " Vsplits go right.
+set splitbelow   " Hsplits go below.
 
 " From :h 'smartindent': “If you don't want # to unindent, use this.”
 inoremap # X#
@@ -268,11 +273,6 @@ augroup END
 " Sets the cursor to first col when you open a new commit message.
 autocmd FileType gitcommit
   \ autocmd! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
-
-set autoindent   " Keep the indentation of the previous line.
-set nojoinspaces " When joining lines: compress spaces into 1.
-set splitright   " Vsplits go right.
-set splitbelow   " Hsplits go below.
 
 " Stolen and simplified from spf13.
 function! StripTrailingWhitespace()

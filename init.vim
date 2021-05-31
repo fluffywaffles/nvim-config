@@ -74,8 +74,10 @@ call deoplete#custom#option('num_processes', 1)
 
 " alternative parallel completion configuration for faster completion:
 " NOTE: works quite nicely on a half-decent OS, but it's murder on a mac.
-" call deoplete#custom#option('refresh_always', v:false)
-" call deoplete#custom#option('num_processes', 3)
+if has('unix')
+  call deoplete#custom#option('num_processes', 3)
+  call deoplete#custom#option('refresh_always', v:false)
+endif
 
 " Complete files from the cwd of the current file, not of the project.
 call deoplete#custom#source('file', 'enable_buffer_path', 1)

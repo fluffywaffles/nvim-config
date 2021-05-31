@@ -31,6 +31,9 @@ noremap <Leader>j  G
 noremap <Leader>k  gg
 noremap <Leader>/  :nohl<CR>
 
+" gF will go to an embedded line number, like: file.txt:13
+noremap gf gF
+
 "
 " GitGutter configuration
 "

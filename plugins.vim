@@ -25,6 +25,8 @@ call dein#add('Shougo/neco-syntax')
 call dein#add('Shougo/neco-vim')
 " Import/include/file path completion source for deoplete.
 call dein#add('Shougo/neoinclude.vim')
+" Echodoc - another Shuogo special - print documentation in completions
+call dein#add('Shougo/echodoc.vim')
 " Tmux - complete from nearby tmux panes.
 call dein#add('wellle/tmux-complete.vim')
 " zshcompsys completion within zsh files

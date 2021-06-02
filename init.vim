@@ -245,11 +245,26 @@ function! BindToLangClientIfServerExists()
   if has_key(g:LanguageClient_serverCommands, &filetype)
     nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
     nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <buffer> <silent> <C-W>d     :call GoToDefinitionInSplit()<CR>
+    nnoremap <buffer> <silent> <C-w><C-d> :call GoToDefinitionInSplit()<CR>
     nnoremap <buffer> <silent> <Leader>ee :call LanguageClient#explainErrorAtPoint()<CR>
     nnoremap <buffer> <silent> <Leader>rn :call LanguageClient_textDocument_rename()<CR>
     nnoremap <buffer> <silent> <Leader>rf :call LanguageClient_textDocument_references()<CR>
   endif
 endfunction
+
+function GoToDefinitionInSplit()
+  let cols = winwidth(0)
+  let rows = winheight(0)
+  echom "width" cols "height" (rows * 2) "height > width" (rows * 2) > cols
+  if (rows * 2) > cols
+    split
+  else
+    vsplit
+  endif
+  call LanguageClient_textDocument_definition()
+endfunction
+
 function! SendDidChangeLangClientIfServerExists()
   if has_key(g:LanguageClient_serverCommands, &filetype)
     call LanguageClient#textDocument_didChange()

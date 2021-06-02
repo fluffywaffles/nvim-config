@@ -16,6 +16,7 @@ let g:LanguageClient_serverCommands = {
   \     }'
   \   ],
   \ 'go': [ '~/go/bin/gopls' ],
+  \ 'rust': [ '~/.cargo/bin/rustup', 'run', 'nightly', 'rust-analyzer' ],
   \ }
 " Deoplete - because YCM is a PITA.
 call dein#add('Shougo/deoplete.nvim')

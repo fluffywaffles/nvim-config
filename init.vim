@@ -59,7 +59,7 @@ xmap ac <Plug>(GitGutterTextObjectOuterVisual)
 " Update GitGutter on buffer write
 augroup GitGutter
   autocmd!
-  autocmd BufWritePost *.* GitGutter
+  autocmd BufWritePost * GitGutter
 augroup END
 
 "

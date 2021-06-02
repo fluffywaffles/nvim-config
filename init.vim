@@ -247,9 +247,12 @@ function! BindToLangClientIfServerExists()
     nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
     nnoremap <buffer> <silent> <C-W>d     :call GoToDefinitionInSplit()<CR>
     nnoremap <buffer> <silent> <C-w><C-d> :call GoToDefinitionInSplit()<CR>
+    nnoremap <buffer> <silent> <Leader>gi :call LanguageClient_textDocument_implementation()<CR>
+    nnoremap <buffer> <silent> <Leader>gt :call LanguageClient_textDocument_typeDefinition()<CR>
     nnoremap <buffer> <silent> <Leader>ee :call LanguageClient#explainErrorAtPoint()<CR>
     nnoremap <buffer> <silent> <Leader>rn :call LanguageClient_textDocument_rename()<CR>
     nnoremap <buffer> <silent> <Leader>rf :call LanguageClient_textDocument_references()<CR>
+    nnoremap <buffer> <silent> <Leader>ca :call LanguageClient_textDocument_codeAction()<CR>
   endif
 endfunction
 

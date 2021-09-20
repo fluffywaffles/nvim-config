@@ -34,19 +34,6 @@ call dein#add('wellle/tmux-complete.vim')
 " NOTE(jordan): requires module zsh/zpty to have been zmodload-ed
 call dein#add('deoplete-plugins/deoplete-zsh')
 
-"
-" NOTE(jordan): nvim-typescript tries to typecheck python files, plaintext
-" files, and anything I load into a buffer when a TypeScript file *was*
-" open in the last-focused vim window; it's needlessly slow; and it is
-" buggy as all heck and has been for months. I'm out. Run tsc -w in a tmux
-" pane; get completion from something else. (Tsuquyomi?)
-"
-" TypeScript completion & commands (e.g. :TSDef, :TSRename, ...)
-call dein#add('mhartington/nvim-typescript', {
-  \ 'build': './install.sh',
-  \ })
-" let g:nvim_typescript#diagnostics_enable=1
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pretty colors.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

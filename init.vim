@@ -1,25 +1,31 @@
-" Be SO nocompatible.
+" Turn off vi compatability and turn on various basic vim features.
 set nocompatible
 
-" Tru Colors (the truest).
+" Turn on true color mode, enabling millions of colors in terminal vim.
 set termguicolors
 
-" dein is Shougo's "asynchronous dark-powered plugin manager"
-" Let's have plugins.
+" Source plugin manager setup for dein.nvim.
+" Dein is Shougo's 'asynchronous dark-powered plugin manager'.
 source ~/.config/nvim/setup-dein.vim
+" Source plugin configurations.
 source ~/.config/nvim/plugins.vim
-" THIS HAS TO COME AFTER PLUGINS.
+" Notify dein that no more plugins will be `dein#add(...)`ed.
 call dein#end()
 
-" Set <Leader>
-let mapleader      = ' '
-let maplocalleader = '_' " <LocalLeader> is for buffer-local mappings.
-
+" Set up python for the various plugins and neovim features that need it.
 let g:python3_host_prog = '/usr/sbin/python' " Tell vim where python3 is.
 
-" Plugin mappings
-noremap <Leader>gg :GitGutterToggle<CR>
-noremap <Leader>t  :Tabularize/
+" Set <Leader> to space.
+" Ensure the spacebar is loud and clicky for maximum satisfaction.
+let mapleader = ' '
+" <LocalLeader> should not be the same as <Leader>.
+" Generally only used by plugin authors so as to avoid mapping conflicts
+" with user-defined maps that use <Leader>.
+let maplocalleader = '_'
+
+"
+" Vanilla neovim global mappings.
+"
 
 " Frequently spammed shortcuts
 noremap <Leader>w  :w<CR>
@@ -35,32 +41,44 @@ noremap <Leader>/  :nohl<CR>
 noremap gf gF
 
 "
+" Plugin-dependent global settings.
+"
+
 " GitGutter configuration
 "
-" Turn off default mappings
-let g:gitgutter_map_keys = 0
-" Preview ? hunk under cursor
-nmap <Leader>ghp <Plug>(GitGutterPreviewHunk)
-" Undo hunk under cursor
-nmap <Leader>ghu <Plug>(GitGutterUndoHunk)
-" Fold all unchanged lines
-nnoremap ghf :GitGutterFold<CR>
-" Load all hunks into list of links in quickfix
-command! Gchanges GitGutterQuickFix | cope
-nnoremap <Leader>gqf :Gchanges<CR>
-" Hunk navigation
-nmap ]c  <Plug>(GitGutterNextHunk)
-nmap [c  <Plug>(GitGutterPrevHunk)
-" Hunk textobjects?!
-omap ic <Plug>(GitGutterTextObjectInnerPending)
-omap ac <Plug>(GitGutterTextObjectOuterPending)
-xmap ic <Plug>(GitGutterTextObjectInnerVisual)
-xmap ac <Plug>(GitGutterTextObjectOuterVisual)
-" Update GitGutter on buffer write
-augroup GitGutter
-  autocmd!
-  autocmd BufWritePost * GitGutter
-augroup END
+if dein#check_install('vim-gitgutter')
+  noremap <Leader>gg :GitGutterToggle<CR>
+  " Turn off default mappings
+  let g:gitgutter_map_keys = 0
+  " Preview ? hunk under cursor
+  nmap <Leader>ghp <Plug>(GitGutterPreviewHunk)
+  " Undo hunk under cursor
+  nmap <Leader>ghu <Plug>(GitGutterUndoHunk)
+  " Fold all unchanged lines
+  nnoremap ghf :GitGutterFold<CR>
+  " Load all hunks into list of links in quickfix
+  command! Gchanges GitGutterQuickFix | cope
+  nnoremap <Leader>gqf :Gchanges<CR>
+  " Hunk navigation
+  nmap ]c  <Plug>(GitGutterNextHunk)
+  nmap [c  <Plug>(GitGutterPrevHunk)
+  " Hunk textobjects?!
+  omap ic <Plug>(GitGutterTextObjectInnerPending)
+  omap ac <Plug>(GitGutterTextObjectOuterPending)
+  xmap ic <Plug>(GitGutterTextObjectInnerVisual)
+  xmap ac <Plug>(GitGutterTextObjectOuterVisual)
+  " Update GitGutter on buffer write
+  augroup GitGutter
+    autocmd!
+    autocmd BufWritePost * GitGutter
+  augroup END
+endif
+
+" Tabular
+"
+if dein#check_install('tabular')
+  noremap <Leader>t  :Tabularize/
+endif
 
 "
 " Deoplete configuration

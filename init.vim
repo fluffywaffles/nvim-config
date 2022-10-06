@@ -36,6 +36,7 @@ noremap <Leader>l  $
 noremap <Leader>j  G
 noremap <Leader>k  gg
 noremap <Leader>/  :nohl<CR>
+noremap <Leader>cqf :call setqflist([])<CR>
 
 " gF will go to an embedded line number, like: file.txt:13
 noremap gf gF

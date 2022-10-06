@@ -390,13 +390,20 @@ function! TSConfigure()
 endfunction
 
 function! SetupTsserverPath()
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    return
+  endif
   let l:git_root = systemlist('git rev-parse --show-toplevel')[0]
   let l:tsconfig = findfile("tsconfig.json", ".;" . l:git_root)
   let l:ts_root  = fnamemodify(l:tsconfig, ":p:h")
-  echom "ts_root: " . l:ts_root
-  let l:tsserver = l:ts_root . "/node_modules/.bin/tsserver"
-  if (filereadable(l:tsserver))
-    let g:nvim_typescript#server_path = l:tsserver
+  let l:tslib_path = l:ts_root . "/node_modules/typescript/lib"
+  echom "tslib_path: " . l:tslib_path
+  if (filereadable(l:tslib_path . "/tsserver.js"))
+    let g:LanguageClient_serverCommands[&filetype] = [
+          \ '~/.yarn/bin/typescript-language-server',
+          \ '--stdio',
+          \ '--tsserver-path=' . l:tslib_path,
+          \ ]
   endif
 endfunction
 

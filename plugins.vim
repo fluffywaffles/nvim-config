@@ -56,8 +56,6 @@ call dein#add('wavded/vim-stylus')
 call dein#add('wlangstroth/vim-racket')
 " Tmux configuration syntax highlighting.
 call dein#add('tmux-plugins/vim-tmux')
-" Syntax highlighting inside of ES6 template strings.
-call dein#add('Quramy/vim-js-pretty-template') " :JsPreTempl
 " Highlight hexcode colors.
 " <Leader>cC toggle, <Leader>cT cycle contrast, <Leader>cF cycle fg/bg.
 call dein#add('chrisbra/Colorizer')
@@ -73,8 +71,6 @@ augroup manpage_indent_guides
 augroup END
 " LLVM TableGen and .ll syntax
 call dein#add(expand('<sfile>:p:h') . '/llvm')
-" Ember Handlebars
-call dein#add('joukevandermaas/vim-ember-hbs')
 " Terraform
 call dein#add('hashivim/vim-terraform')
 
@@ -108,8 +104,6 @@ call dein#add('tpope/vim-tbone')
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Miscellaneous.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Denite - the asynchronous successor to Unite.
-call dein#add('Shougo/denite.nvim')
 " Context filetype. Applies filetype in nested code, e.g. JS in HTML.
 call dein#add('Shougo/context_filetype.vim')
 " Wakatime tracker.
@@ -127,10 +121,6 @@ function! g:Multiple_cursors_after()
 endfunction
 " Show list of buffers in the statusline.
 call dein#add('bling/vim-bufferline')
-" Easymotion! <leader><leader> where art thou?
-call dein#add('easymotion/vim-easymotion')
-" Neomake - because it's better than syntastic.
-call dein#add('neomake/neomake')
 " FZF. Per https://github.com/Shougo/dein.vim/issues/74.
 call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
 call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })

@@ -70,6 +70,10 @@ let g:indent_guides_exclude_filetypes = [ 'help', 'man' ]
 call dein#add(expand('<sfile>:p:h') . '/llvm')
 " Terraform
 call dein#add('hashivim/vim-terraform')
+" Elixir syntax highlighting.
+call dein#add('elixir-lang/vim-elixir')
+" Solidity syntax highlighting.
+call dein#add('ethereum/vim-solidity')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This is the shrine to tpope. Hi HATERS http://tpo.pe

@@ -301,6 +301,7 @@ function! SendDidChangeLangClientIfServerExists()
   endif
 endfunction
 augroup LangClient
+  autocmd!
   autocmd FileType * call BindToLangClientIfServerExists()
   autocmd CursorHold *.* call SendDidChangeLangClientIfServerExists()
 augroup END

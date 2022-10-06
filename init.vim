@@ -408,7 +408,7 @@ function! SetupTsserverPath()
 endfunction
 
 function! JsTsLocalMappings()
-  " remap ' to ` to encourage using template strings, just hit 2x to escape
+  " remap ' to ` to encourage using template strings, hit 2x to escape
   inoremap <buffer> ' `
   inoremap <buffer> '' '
   " shorthand for fallible functions

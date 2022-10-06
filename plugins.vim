@@ -96,7 +96,7 @@ call dein#add('tpope/vim-characterize')
 call dein#add('tpope/vim-eunuch')
 " Commentary - comment and uncomment things using `gc`.
 call dein#add('tpope/vim-commentary')
-" Fugitive - the \"dangerously good\" git plugin. (:Gblame is from here.)
+" Fugitive - the \"dangerously good\" git plugin. (:G blame is from here.)
 call dein#add('tpope/vim-fugitive')
 " Rhubarb - adds GitHub specific stuff to Fugitive.
 call dein#add('tpope/vim-rhubarb')
@@ -114,9 +114,9 @@ call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/context_filetype.vim')
 " Wakatime tracker.
 call dein#add('wakatime/vim-wakatime')
-" Git gutter - +/- in sidebar gutter.
+" Git gutter —— +/- in sidebar gutter.
 call dein#add('airblade/vim-gitgutter')
-" Multiple cursors!!!!!!
+" Multiple cursors with <C-n>.
 call dein#add('terryma/vim-multiple-cursors')
 " Don't let multiple cursors break deoplete!
 function! g:Multiple_cursors_before()
@@ -156,36 +156,14 @@ call dein#add('godlygeek/tabular')
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Currently DISABLED syntax.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" YAJS - better js syntax.
-" call dein#add('othree/yajs')
-" Syntax highlighting for (almost) everything, but *fastly*.
-" NOTE: can't highlight typescript to save its life.
-" call dein#add('sheerun/vim-polyglot')
-" let g:polyglot_disabled = []
+
 " (Improved) CPP syntax highlighting.
 " call dein#add('octol/vim-cpp-enhanced-highlight')
-" TypeScript syntax highlighting.
-" call dein#add('HerringtonDarkholme/yats.vim')
-" Elixir syntax highlighting.
-" call dein#add('elixir-lang/vim-elixir')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Currently DISABLED plugins.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Obsession - automatic session save/restore.
-" call dein#add('tpope/vim-obsession')
-" Syntastic - because I am not my own best keeper
-" call dein#add('scrooloose/syntastic')
-" Tagbar - for visualizing an outline of a file via ctags.
-" call dein#add('majutsushi/tagbar') " Requires ctags
-" WebAPI and Gist.vim - gist it und rapido.
-" call dein#add('mattn/webapi-vim')
-" call dein#add('mattn/gist-vim')
-" Wildfire - quickly select the nearest text object.
-" NOTE(jordan): this cruddy thing maps like a motherfucker and won't be
-" overridden.
-" call dein#add('gcmt/wildfire.vim')
 " Vim-autoclose - autoclose pairs of ('" etc. NOTE: breaks <Esc> to end
 " completion for deoplete.
 " call dein#add('Townk/vim-autoclose')

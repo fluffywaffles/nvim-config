@@ -123,7 +123,7 @@ endfunction
 " Show list of buffers in the statusline.
 call dein#add('bling/vim-bufferline')
 " FZF. Per https://github.com/Shougo/dein.vim/issues/74.
-call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+call dein#add('junegunn/fzf', { 'build': './install --all --no-update-rc', 'merged': 0 })
 call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 " Mundo - visualize the vim undotree.
 call dein#add('simnalamburt/vim-mundo')

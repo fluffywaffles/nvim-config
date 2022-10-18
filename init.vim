@@ -394,8 +394,7 @@ function! SetupTsserverPath()
   if has_key(g:LanguageClient_serverCommands, &filetype)
     return
   endif
-  let l:git_root = systemlist('git rev-parse --show-toplevel')[0]
-  let l:tsconfig = findfile("tsconfig.json", ".;" . l:git_root)
+  let l:tsconfig = findfile("tsconfig.json", ".;")
   let l:ts_root  = fnamemodify(l:tsconfig, ":p:h")
   let l:tslib_path = l:ts_root . "/node_modules/typescript/lib"
   echom "tslib_path: " . l:tslib_path

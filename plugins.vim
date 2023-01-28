@@ -15,7 +15,6 @@ let g:LanguageClient_serverCommands = {
   \       "completion": { "filterAndSort": false }
   \     }'
   \   ],
-  \ 'go': [ '~/go/bin/gopls' ],
   \ 'rust': [ '~/.cargo/bin/rustup', 'run', 'nightly', 'rust-analyzer' ],
   \ }
 " Deoplete - because YCM is a PITA.

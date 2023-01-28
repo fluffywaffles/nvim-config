@@ -139,8 +139,8 @@ endfunction
 " Alternative parallel completion configuration for faster completion:
 " NOTE: works quite nicely on a half-decent OS, but it's murder on a mac.
 if has('unix')
-  call deoplete#custom#option('num_processes', 3)
-  call deoplete#custom#option('refresh_always', v:false)
+  " use as many processes as there are completion sources
+  call deoplete#custom#option('num_processes', 0)
 endif
 
 " Complete files from the cwd of the current file, not of the project.

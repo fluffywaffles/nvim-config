@@ -73,6 +73,8 @@ call dein#add('hashivim/vim-terraform')
 call dein#add('elixir-lang/vim-elixir')
 " Solidity syntax highlighting.
 call dein#add('ethereum/vim-solidity')
+" Markdown syntax highlighting, including code fences.
+call dein#add('preservim/vim-markdown')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This is the shrine to tpope. Hi HATERS http://tpo.pe

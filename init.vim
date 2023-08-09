@@ -183,11 +183,11 @@ call deoplete#custom#option('keyword_patterns', {
 \})
 
 " When vim starts or gets resized, set max widths for completion menu
-autocmd VimEnter,VimResized * call UpdateMaxMenuWidth()
-" With the exception of stupidly small clients, UpdateMaxMenuWidth() will
-" ensure that most of the information for a completion candidate fits the
-" popup, prioritizing abbreviation over kind over menu information.
-function! UpdateMaxMenuWidth()
+autocmd VimEnter,VimResized * call UpdateDeopleteMenuWidth()
+" With the exception of stupidly small clients, UpdateDeopleteMenuWidth()
+" will ensure that most of the information for a completion candidate fits
+" the popup, prioritizing abbreviation over kind over menu information.
+function! UpdateDeopleteMenuWidth()
   let s:breakpoint = 60
   let s:twelfths = &columns / 12
   if &columns < s:breakpoint

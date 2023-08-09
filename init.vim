@@ -117,7 +117,7 @@ if s:is_installed(['vim-gitgutter'])
   noremap <Leader>gg :GitGutterToggle<CR>
   " Turn off default mappings
   let g:gitgutter_map_keys = 0
-  " Preview ? hunk under cursor
+  " Preview hunk under cursor
   nmap <Leader>ghp <Plug>(GitGutterPreviewHunk)
   " Undo hunk under cursor
   nmap <Leader>ghu <Plug>(GitGutterUndoHunk)

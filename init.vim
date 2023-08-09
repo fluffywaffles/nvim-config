@@ -37,6 +37,7 @@ noremap <Leader>j  G
 noremap <Leader>k  gg
 noremap <Leader>/  :nohl<CR>
 noremap <Leader>rc :source ~/.config/nvim/init.vim<CR>
+noremap <Leader>fp  :echom expand("%:p")<CR>
 noremap <Leader>cqf :call setqflist([])<CR>
 
 " Adapted from ":help [["

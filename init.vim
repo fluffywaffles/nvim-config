@@ -415,17 +415,6 @@ au Syntax * call matchadd('Todo', '\W\zs\EXPLANATION')
 " Open location list when make has errors, but don't move the cursor.
 let g:neomake_open_list=2
 
-" Language-specific autocmds.
-function! JSConfigure()
-  call JsTsLocalMappings()
-endfunction
-
-function! TSConfigure()
-  call JsTsLocalMappings()
-  call SetupTypescriptLSP()
-  let &makeprg = "npx tsc"
-endfunction
-
 let g:LanguageClient_loggingFile = '/home/fluffywaffles/lsp.log'
 
 function! SetupTypescriptLSP()
@@ -460,25 +449,10 @@ function! SetupTypescriptLSP()
   endif
 endfunction
 
-function! JsTsLocalMappings()
-  " remap ' to ` to encourage using template strings, hit 2x to escape
-  inoremap <buffer> ' `
-  inoremap <buffer> '' '
-  " shorthand for fallible functions
-  inoremap <C-Space><C-f> ƒ
-  " shorthand for pipelining functions
-  inoremap <C-Space><C-p><C-f> ᐅ
-  inoremap <C-Space><C-p><C-d> ᐅdo
-  inoremap <C-Space><C-p><C-i> ᐅif
-  inoremap <C-Space><C-p><C-l> ᐅlog
-  inoremap <C-Space><C-p><C-w> ᐅwhen
-  inoremap <C-Space><C-p><C-e> ᐅeffect
+function! TSConfigure()
+  call SetupTypescriptLSP()
+  let &makeprg = "npx tsc"
 endfunction
-
-augroup javascript
-  autocmd!
-  autocmd FileType javascript call JSConfigure()
-augroup END
 
 augroup typescript
   autocmd!

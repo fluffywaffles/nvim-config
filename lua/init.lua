@@ -10,6 +10,16 @@ local paq_config = {
 paq:setup(paq_config) {
   -- let paq manage itself
   'savq/paq-nvim',
+  -- coq-y autocompletion, very boisterous
+  { 'ms-jpq/coq_nvim',
+    -- automatically run coq.deps() and set coq to auto start with vim
+    run = function()
+      require('coq').deps()
+    end
+  },
 }
 
 paq.install()
+
+-- start coq for autocompletion
+require('coq').Now()

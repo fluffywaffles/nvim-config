@@ -17,6 +17,21 @@ paq:setup(paq_config) {
       require('coq').deps()
     end
   },
+  -- add coq third-party sources
+  {
+    'ms-jpq/coq.thirdparty',
+    run = function()
+      require('coq_3p') {
+        -- automatically enable nvimlua for the neovim lua api
+        { src = "nvimlua" },
+        -- scientific calculator
+        { src = "bc", precision = 6 },
+        -- vim builtin sources
+        { src = "builtin/js" },
+        { src = "builtin/syntax" },
+      }
+    end
+  }
 }
 
 paq.install()

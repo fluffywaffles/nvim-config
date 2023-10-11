@@ -10,6 +10,8 @@ local paq_config = {
 paq:setup(paq_config) {
   -- let paq manage itself
   'savq/paq-nvim',
+  -- install community-supplied well-known lsp configurations
+  'neovim/nvim-lspconfig',
   -- coq-y autocompletion, very boisterous
   { 'ms-jpq/coq_nvim',
     -- automatically run coq.deps() and set coq to auto start with vim
@@ -41,4 +43,20 @@ vim.g.coq_settings = {
   auto_start = true,
   display = { icons = { mode = "none" } },
 }
-require('coq').Now()
+local coq = require('coq')
+coq.Now()
+
+-- configure some language servers
+local lsp = require('lspconfig')
+lsp.lua_ls.setup(coq.lsp_ensure_capabilities{
+  settings = {
+    Lua = {
+      runtime = { version = 'LuaJIT' },
+      workspace = {
+        checkThirdParty = false,
+        library = { vim.env.VIMRUNTIME },
+      },
+      telemetry = { enable = false },
+    }
+  }
+})

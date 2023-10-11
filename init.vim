@@ -470,3 +470,5 @@ augroup END
 " set viewoptions="folds,cursor,curdir"
 " autocmd BufWinLeave *.* mkview
 " autocmd BufWinEnter *.* silent! loadview
+
+lua require('init')

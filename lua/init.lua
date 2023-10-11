@@ -37,4 +37,8 @@ paq:setup(paq_config) {
 paq.install()
 
 -- start coq for autocompletion
+vim.g.coq_settings = {
+  auto_start = true,
+  display = { icons = { mode = "none" } },
+}
 require('coq').Now()

@@ -20,20 +20,7 @@ paq:setup(paq_config) {
     end
   },
   -- add coq third-party sources
-  {
-    'ms-jpq/coq.thirdparty',
-    build = function()
-      require('coq_3p') {
-        -- automatically enable nvimlua for the neovim lua api
-        { src = "nvimlua" },
-        -- scientific calculator
-        { src = "bc", precision = 6 },
-        -- vim builtin sources
-        { src = "builtin/js" },
-        { src = "builtin/syntax" },
-      }
-    end
-  }
+  'ms-jpq/coq.thirdparty',
 }
 
 paq.install()
@@ -41,10 +28,21 @@ paq.install()
 -- start coq for autocompletion
 vim.g.coq_settings = {
   auto_start = true,
-  display = { icons = { mode = "none" } },
+  -- display = { icons = { mode = "none" } },
 }
 local coq = require('coq')
 coq.Now()
+
+-- add third-party sources
+require('coq_3p') {
+  -- automatically enable nvimlua for the neovim lua api
+  { src = "nvimlua" },
+  -- scientific calculator
+  { src = "bc", precision = 6 },
+  -- vim builtin sources
+  { src = "builtin/js" },
+  { src = "builtin/syntax" },
+}
 
 -- configure some language servers
 local lsp = require('lspconfig')

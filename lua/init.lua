@@ -15,14 +15,14 @@ paq:setup(paq_config) {
   -- coq-y autocompletion, very boisterous
   { 'ms-jpq/coq_nvim',
     -- automatically run coq.deps() and set coq to auto start with vim
-    run = function()
+    build = function()
       require('coq').deps()
     end
   },
   -- add coq third-party sources
   {
     'ms-jpq/coq.thirdparty',
-    run = function()
+    build = function()
       require('coq_3p') {
         -- automatically enable nvimlua for the neovim lua api
         { src = "nvimlua" },

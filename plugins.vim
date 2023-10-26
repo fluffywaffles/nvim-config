@@ -76,9 +76,9 @@ call dein#add('ethereum/vim-solidity')
 " Markdown syntax highlighting, including code fences.
 call dein#add('preservim/vim-markdown')
 let g:vim_markdown_fenced_languages = [
-  'ts=typescript',
-  'js=javascript',
-]
+  \  'ts=typescript',
+  \  'js=javascript',
+\]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This is the shrine to tpope. Hi HATERS http://tpo.pe

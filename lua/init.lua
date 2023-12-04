@@ -60,6 +60,7 @@ lsp.lua_ls.setup(coq.lsp_ensure_capabilities{
   }
 })
 
+-- typescript tsserver
 function StartTsserver()
   -- find the typescript-language-server binary in global npm/yarn bins
   local bin_path = vim.fn.systemlist('yarn global bin typescript-language-server')[1]
@@ -70,8 +71,8 @@ function StartTsserver()
     return
   end
   print(
-  'found typescript-language-server binary: '
-  .. vim.fn.fnamemodify(lang_server, ':~:.')
+    'found typescript-language-server binary: '
+    .. vim.fn.fnamemodify(lang_server, ':~:.')
   )
   -- look for a tsserver.js local to the current buffer's project
   local node_modules = vim.fn.fnamemodify(
@@ -97,8 +98,6 @@ function StartTsserver()
       }
     }
   }))
-  -- set a tsserver_running flag for this buffer to prevent multiple
-  vim.g.tsserver_running = true
 end
 
 local au_typescript = vim.api.nvim_create_augroup('typescript', {})
@@ -107,8 +106,10 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   pattern = { 'typescript' },
   callback = function()
     -- start a tsserver connection if none is attached
-    if vim.g.tsserver_running == nil then
+    if vim.b.tsserver_running == nil then
       StartTsserver()
+      -- set a tsserver_running flag for this buffer
+      vim.b.tsserver_running = true
     end
   end
 })

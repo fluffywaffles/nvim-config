@@ -101,10 +101,10 @@ function StartTsserver()
   vim.g.tsserver_running = true
 end
 
-local au_typescript = vim.api.nvim_create_augroup("typescript", {})
-vim.api.nvim_create_autocmd({ "FileType" }, {
+local au_typescript = vim.api.nvim_create_augroup('typescript', {})
+vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = au_typescript,
-  pattern = { "typescript" },
+  pattern = { 'typescript' },
   callback = function()
     -- start a tsserver connection if none is attached
     if vim.g.tsserver_running == nil then
@@ -114,7 +114,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 -- set up lsp keybindings for normal mode in any buffer with a server
-vim.api.nvim_create_autocmd({'LspAttach'}, {
+vim.api.nvim_create_autocmd({ 'LspAttach' }, {
   callback = function(ev)
     -- Buffer local mappings.
     local opts = { buffer = ev.buf }

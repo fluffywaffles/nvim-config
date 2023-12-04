@@ -60,49 +60,56 @@ lsp.lua_ls.setup(coq.lsp_ensure_capabilities{
   }
 })
 
-local au_typescript = vim.api.nvim_create_augroup("typescript", {
-  clear = true
-})
+function StartTsserver()
+  -- find the typescript-language-server binary in global npm/yarn bins
+  local bin_path = vim.fn.systemlist('yarn global bin typescript-language-server')[1]
+  local lang_server = bin_path .. '/typescript-language-server'
+  -- if the binary does not exist, error out
+  if not vim.fn.filereadable(lang_server) then
+    print('cannot find typescript-language-server in yarn global bin')
+    return
+  end
+  print(
+  'found typescript-language-server binary: '
+  .. vim.fn.fnamemodify(lang_server, ':~:.')
+  )
+  -- look for a tsserver.js local to the current buffer's project
+  local node_modules = vim.fn.fnamemodify(
+  vim.fn.systemlist('yarn bin tsc')[1],
+  ':p:h:h'
+  )
+  local tsserverjs = node_modules .. '/typescript/lib/tsserver.js'
+  -- if the tslib tsserver.js file does not exist, error out
+  if not vim.fn.filereadable(tsserverjs) then
+    print 'cannot find tslib path for a project relative to this buffer'
+    return
+  end
+  print('found local tsserver: ' .. vim.fn.pathshorten(tsserverjs, 4))
+  -- actually start the language server and enable completion
+  vim.lsp.start(coq.lsp_ensure_capabilities({
+    name = 'typescript-language-server',
+    cmd = { lang_server, '--stdio' },
+    root_dir = vim.fs.dirname(vim.fs.find('package.json', { upward = true })[1]),
+    -- initialize the language server to use the local tsserver.js lib
+    init_options = {
+      tsserver = {
+        path = tsserverjs
+      }
+    }
+  }))
+  -- set a tsserver_running flag for this buffer to prevent multiple
+  vim.g.tsserver_running = true
+end
+
+local au_typescript = vim.api.nvim_create_augroup("typescript", {})
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = au_typescript,
   pattern = { "typescript" },
   callback = function()
-    -- find the typescript-language-server binary in global npm/yarn bins
-    local bin_path = vim.fn.systemlist('yarn global bin typescript-language-server')[1]
-    local lang_server = bin_path .. '/typescript-language-server'
-    -- if the binary does not exist, error out
-    if not vim.fn.filereadable(lang_server) then
-      print('cannot find typescript-language-server in yarn global bin')
-      return
+    -- start a tsserver connection if none is attached
+    if vim.g.tsserver_running == nil then
+      StartTsserver()
     end
-    print(
-      'found typescript-language-server binary: '
-      .. vim.fn.fnamemodify(lang_server, ':~:.')
-    )
-    -- look for a tsserver.js local to the current buffer's project
-    local node_modules = vim.fn.fnamemodify(
-      vim.fn.systemlist('yarn bin tsc')[1],
-      ':p:h:h'
-    )
-    local tsserverjs = node_modules .. '/typescript/lib/tsserver.js'
-    -- if the tslib tsserver.js file does not exist, error out
-    if not vim.fn.filereadable(tsserverjs) then
-      print 'cannot find tslib path for a project relative to this buffer'
-      return
-    end
-    print('found local tsserver: ' .. vim.fn.pathshorten(tsserverjs, 4))
-    -- actually start the language server and enable completion
-    vim.lsp.start(coq.lsp_ensure_capabilities({
-      name = 'typescript-language-server',
-      cmd = { lang_server, '--stdio' },
-      root_dir = vim.fs.dirname(vim.fs.find('package.json', { upward = true })[1]),
-      -- initialize the language server to use the local tsserver.js lib
-      init_options = {
-        tsserver = {
-          path = tsserverjs
-        }
-      }
-    }))
   end
 })
 

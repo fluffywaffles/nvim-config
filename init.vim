@@ -40,6 +40,23 @@ noremap <Leader>rc :source ~/.config/nvim/init.vim<CR>
 noremap <Leader>fp  :echom expand("%:p")<CR>
 noremap <Leader>cqf :call setqflist([])<CR>
 
+" Fancy folds
+noremap <Leader>fds :set foldmethod=syntax<CR>
+noremap <Leader>fdk :set foldmethod=marker<CR>
+noremap <Leader>fdm :set foldmethod=manual<CR>
+noremap <Leader>fdi :set foldmethod=indent<CR>
+noremap <Leader>fdd :set foldmethod=diff<CR>
+" open all folds recurisvely
+noremap <Leader>zo zR
+" close all folds recursively
+noremap <Leader>zc zM
+" > open current fold one step down
+noremap z> zo
+" < close current fold one step up
+noremap z< zc
+" open recursively
+noremap zo zO
+
 " Adapted from ":help [["
 " To use ]] and [[ as: "go to next/previous section open/close"
 map  ]] /\%({\\|}\)<CR>:nohl<CR>

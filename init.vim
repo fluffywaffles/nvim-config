@@ -453,7 +453,13 @@ endfunction
 
 augroup typescript
   autocmd!
-  autocmd FileType typescript call TSConfigure()
+  " FIXME: npx may not be correct if you're using yarn... sigh
+  " autocmd FileType typescript call TSConfigure()
+  "
+  " npx --global typescript-language-server
+  " we should in fact set up the command to be PATH-resilient, as before
+  " except now we want to use nvim's builtin lsp, which means we need to
+  " set this up in ./lua/init.lua
 augroup END
 
 " Bad bad bags

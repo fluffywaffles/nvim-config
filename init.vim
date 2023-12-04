@@ -479,6 +479,11 @@ augroup typescript
   " set this up in ./lua/init.lua
 augroup END
 
+augroup solidity
+  autocmd!
+  autocmd FileType solidity set tw=0
+augroup END
+
 " Bad bad bags
 augroup sizebag
   autocmd!

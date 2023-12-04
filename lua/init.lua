@@ -114,6 +114,47 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   end
 })
 
+-- set up solidity language server and custom settings
+local au_solidity = vim.api.nvim_create_augroup('solidity', {})
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  group = au_solidity,
+  pattern = { 'solidity' },
+  callback = function()
+    -- update filetype editor settings
+    vim.cmd([[
+      set tw=0
+    ]])
+    -- start a solc language server if none is attached
+    if vim.b.nomic_solidity_lsp_running == nil then
+      StartNomicSolidityLanguageServer()
+      -- set a nomic_solidity_lsp_running flag for this buffer
+      vim.b.nomic_solidity_lsp_running = true
+    end
+  end
+})
+
+-- nomic foundation solidity language server
+function StartNomicSolidityLanguageServer()
+  -- find the typescript-language-server binary in global npm/yarn bins
+  local bin_path = vim.fn.systemlist('yarn global bin nomicfoundation-solidity-language-server')[1]
+  local lang_server = bin_path .. '/nomicfoundation-solidity-language-server'
+  -- if the binary does not exist, error out
+  if not vim.fn.filereadable(lang_server) then
+    print('cannot find nomicfoundation-solidity-language-server in yarn global bin')
+    return
+  end
+  print(
+    'found nomicfoundation-solidity-language-server binary: '
+    .. vim.fn.fnamemodify(lang_server, ':~:.')
+  )
+  -- actually start the language server and enable completion
+  vim.lsp.start(coq.lsp_ensure_capabilities({
+    name = 'nomicfoundation-solidity-language-server',
+    cmd = { lang_server, '--stdio' },
+    root_dir = vim.fs.dirname(vim.fs.find({ 'foundry.toml', '.git' }, { upward = true })[1]),
+  }))
+end
+
 -- set up lsp keybindings for normal mode in any buffer with a server
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
   callback = function(ev)

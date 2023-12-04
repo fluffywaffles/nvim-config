@@ -36,7 +36,7 @@ coq.Now()
 -- add third-party sources
 require('coq_3p') {
   -- automatically enable nvimlua for the neovim lua api
-  { src = "nvimlua" },
+  { src = "nvimlua", conf_only = true },
   -- scientific calculator
   { src = "bc", precision = 6 },
   -- vim builtin sources

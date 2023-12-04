@@ -46,6 +46,7 @@ require('coq_3p') {
 
 -- configure some language servers
 local lsp = require('lspconfig')
+-- lua_ls
 lsp.lua_ls.setup(coq.lsp_ensure_capabilities{
   settings = {
     Lua = {

@@ -120,38 +120,58 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = au_solidity,
   pattern = { 'solidity' },
   callback = function()
+    -- set the lsp log level really high
+    vim.lsp.set_log_level('debug')
     -- update filetype editor settings
     vim.cmd([[
       set tw=0
     ]])
     -- start a solc language server if none is attached
     if vim.b.nomic_solidity_lsp_running == nil then
-      StartNomicSolidityLanguageServer()
+      StartSolidityLanguageServer()
       -- set a nomic_solidity_lsp_running flag for this buffer
       vim.b.nomic_solidity_lsp_running = true
     end
   end
 })
 
--- nomic foundation solidity language server
-function StartNomicSolidityLanguageServer()
-  -- find the typescript-language-server binary in global npm/yarn bins
-  local bin_path = vim.fn.systemlist('yarn global bin nomicfoundation-solidity-language-server')[1]
-  local lang_server = bin_path .. '/nomicfoundation-solidity-language-server'
+-- start solidity language server
+-- NOTE: server instances are re-used for the same name and rootdir
+function StartSolidityLanguageServer()
+  vim.lsp.set_log_level('debug')
+  -- find the vscode-solidity-langserver binary in global npm/yarn bins
+  local bin_path = vim.fn.systemlist('yarn global bin vscode-solidity-langserver')[1]
+  local lang_server = bin_path .. '/vscode-solidity-langserver'
   -- if the binary does not exist, error out
   if not vim.fn.filereadable(lang_server) then
-    print('cannot find nomicfoundation-solidity-language-server in yarn global bin')
+    print('cannot find vscode-solidity-langserver in yarn global bin')
     return
   end
   print(
-    'found nomicfoundation-solidity-language-server binary: '
+    'found vscode-solidity-langserver binary: '
     .. vim.fn.fnamemodify(lang_server, ':~:.')
   )
   -- actually start the language server and enable completion
   vim.lsp.start(coq.lsp_ensure_capabilities({
-    name = 'nomicfoundation-solidity-language-server',
+    name = 'vscode-solidity-langserver',
     cmd = { lang_server, '--stdio' },
-    root_dir = vim.fs.dirname(vim.fs.find({ 'foundry.toml', '.git' }, { upward = true })[1]),
+    root_dir = vim.fs.dirname(vim.fs.find(
+      { 'foundry.toml', 'remappings.txt', '.git' },
+      {
+        upward = true,
+        -- it seems like autochdir changes the directory after this
+        -- autocmd runs, which causes the current working directory to be
+        -- used instead of the directory containing the file loaded in the
+        -- buffer unless we add this flag. NOTE: 0 = current buffer.
+        path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+      }
+    )[1]),
+    init_options = "/home/fluffywaffles/.cache/solidity-language-server",
+    settings = {
+      ["solidity.defaultCompiler"] = "remote",
+      ["solidity.compileUsingRemoteVersion"] = "v0.8.19+commit.7dd6d404",
+      ["solidity.formatter"] = "forge",
+    },
   }))
 end
 

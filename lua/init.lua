@@ -76,8 +76,8 @@ function StartTsserver()
   )
   -- look for a tsserver.js local to the current buffer's project
   local node_modules = vim.fn.fnamemodify(
-  vim.fn.systemlist('yarn bin tsc')[1],
-  ':p:h:h'
+    vim.fn.systemlist('yarn bin tsc')[1],
+    ':p:h:h'
   )
   local tsserverjs = node_modules .. '/typescript/lib/tsserver.js'
   -- if the tslib tsserver.js file does not exist, error out

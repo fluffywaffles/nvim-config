@@ -126,17 +126,19 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     vim.cmd([[
       set tw=0
     ]])
-    -- start a solc language server if none is attached
-    if vim.b.nomic_solidity_lsp_running == nil then
+    -- start a solidity language server if none is attached
+    if vim.b.solidity_lsp_running == nil then
       StartSolidityLanguageServer()
-      -- set a nomic_solidity_lsp_running flag for this buffer
-      vim.b.nomic_solidity_lsp_running = true
+      -- set a solidity_lsp_running flag for this buffer
+      vim.b.solidity_lsp_running = true
     end
   end
 })
 
 -- start solidity language server
 -- NOTE: server instances are re-used for the same name and rootdir
+-- so right now the published package is @llllvvuu/vscode-solidity-langserver
+-- ... although presumably in the future it'll be @juanfranblanco/...
 function StartSolidityLanguageServer()
   vim.lsp.set_log_level('debug')
   -- find the vscode-solidity-langserver binary in global npm/yarn bins
@@ -188,12 +190,10 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     vim.keymap.set('n', '<space>td', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', '<space>rf', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<space>d', vim.diagnostic.setloclist, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<space>f', function()
       vim.lsp.buf.format { async = true }
-    end, opts)
-    vim.keymap.set('n', '<space>d', function()
-      vim.diagnostic.setloclist({ workspace = true })
     end, opts)
   end
 })

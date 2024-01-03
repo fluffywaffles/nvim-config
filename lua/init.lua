@@ -153,6 +153,8 @@ function StartSolidityLanguageServer()
     'found vscode-solidity-langserver binary: '
     .. vim.fn.fnamemodify(lang_server, ':~:.')
   )
+  -- load remappings
+  -- local remappings = vim.fn.readfile(vim.fs.normalize(vim.fs.find('remappings.txt', { upward = true })[1]));
   -- actually start the language server and enable completion
   vim.lsp.start(coq.lsp_ensure_capabilities({
     name = 'vscode-solidity-langserver',
@@ -173,6 +175,8 @@ function StartSolidityLanguageServer()
       ["solidity.defaultCompiler"] = "remote",
       ["solidity.compileUsingRemoteVersion"] = "v0.8.19+commit.7dd6d404",
       ["solidity.formatter"] = "forge",
+      -- need remappings...
+      -- ["solidity.remappings"] = remappings,
     },
   }))
 end

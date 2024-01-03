@@ -429,8 +429,6 @@ au Syntax * call matchadd('Todo', '\W\zs\EXPLANATION')
 " Open location list when make has errors, but don't move the cursor.
 let g:neomake_open_list=2
 
-let g:LanguageClient_loggingFile = '/home/fluffywaffles/lsp.log'
-
 function! SetupTypescriptLSP()
   if has_key(g:LanguageClient_serverCommands, &filetype)
     return

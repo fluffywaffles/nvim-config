@@ -166,13 +166,15 @@ function StartSolidityLanguageServer()
         path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
       }
     )[1]),
-    init_options = "/home/fluffywaffles/.cache/solidity-language-server",
+    init_options = vim.fn.stdpath('cache') .. '/solidity-language-server',
     settings = {
-      ["solidity.defaultCompiler"] = "remote",
-      ["solidity.compileUsingRemoteVersion"] = "latest",
-      ["solidity.formatter"] = "forge",
-      -- need remappings...
-      -- ["solidity.remappings"] = remappings,
+      solidity = {
+        defaultCompiler = 'embedded',
+        compileUsingRemoteVersion = 'v0.8.23+commit.f704f362',
+        formatter = 'forge',
+        -- need remappings...
+        -- ["solidity.remappings"] = remappings,
+      }
     },
   }))
 end

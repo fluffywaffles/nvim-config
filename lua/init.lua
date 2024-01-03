@@ -114,7 +114,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   end
 })
 
--- set up solidity language server and custom settings
+-- run solidity setup script on FileType
 local au_solidity = vim.api.nvim_create_augroup('solidity', {})
 vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = au_solidity,
@@ -126,12 +126,8 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     vim.cmd([[
       set tw=0
     ]])
-    -- start a solidity language server if none is attached
-    if vim.b.solidity_lsp_running == nil then
-      StartSolidityLanguageServer()
-      -- set a solidity_lsp_running flag for this buffer
-      vim.b.solidity_lsp_running = true
-    end
+    -- start a solidity language server
+    StartSolidityLanguageServer()
   end
 })
 
@@ -173,7 +169,7 @@ function StartSolidityLanguageServer()
     init_options = "/home/fluffywaffles/.cache/solidity-language-server",
     settings = {
       ["solidity.defaultCompiler"] = "remote",
-      ["solidity.compileUsingRemoteVersion"] = "v0.8.19+commit.7dd6d404",
+      ["solidity.compileUsingRemoteVersion"] = "latest",
       ["solidity.formatter"] = "forge",
       -- need remappings...
       -- ["solidity.remappings"] = remappings,

@@ -169,11 +169,11 @@ function StartSolidityLanguageServer()
     init_options = vim.fn.stdpath('cache') .. '/solidity-language-server',
     settings = {
       solidity = {
-        defaultCompiler = 'embedded',
-        compileUsingRemoteVersion = 'v0.8.23+commit.f704f362',
-        formatter = 'forge',
+        defaultCompiler = "local",
+        compileUsingLocalVersion = "/home/fluffywaffles/.local/share/svm/0.8.21/solc-0.8.21",
+        formatter = "forge",
         -- need remappings...
-        -- ["solidity.remappings"] = remappings,
+        -- remappings = remappings,
       }
     },
   }))

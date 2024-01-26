@@ -60,6 +60,46 @@ lsp.lua_ls.setup(coq.lsp_ensure_capabilities{
   }
 })
 
+-- elixirls
+function StartElixirLS()
+  -- find the binary installed from the AUR package elixir-ls
+  local lang_server = vim.fn.systemlist('which elixir-ls')[1]
+  -- if the binary does not exist, error out
+  if string.match(lang_server, '.*not found') ~= nil then
+    print('cannot find elixir-ls server in path')
+    return
+  end
+  -- find all mix project configuration files up to $HOME
+  local mix_hierarchy = vim.fs.find('mix.exs', {
+    upward = true,
+    stop = vim.loop.os_homedir(),
+    limit = math.huge, -- no effective limit
+  })
+  -- print('homedir: ' .. vim.loop.os_homedir())
+  -- print('found mix project structure: ' .. vim.inspect(mix_hierarchy))
+  -- print('root_dir will be: ' .. vim.fs.dirname(mix_hierarchy[#mix_hierarchy]))
+  -- include extra log messages, not only error / warning
+  vim.lsp.set_log_level('debug')
+  -- start the language server
+  vim.lsp.start(coq.lsp_ensure_capabilities({
+    name = 'elixirls',
+    cmd = { lang_server },
+    -- assume the topmost mix.esx file is the root of the project
+    --   ** use topmost assuming we may be in an umbrella app
+    root_dir = vim.fs.dirname(mix_hierarchy[#mix_hierarchy]),
+  }))
+end
+
+local au_elixir = vim.api.nvim_create_augroup('elixir', {})
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  group = au_elixir,
+  pattern = { 'elixir', 'heex' },
+  callback = function()
+    -- start the language server
+    StartElixirLS()
+  end
+})
+
 -- typescript tsserver
 function StartTsserver()
   -- find the typescript-language-server binary in global npm/yarn bins

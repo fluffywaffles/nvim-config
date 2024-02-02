@@ -97,6 +97,9 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   callback = function()
     -- start the language server
     StartElixirLS()
+    -- set up some custom keybindings
+    vim.keymap.set('n', ']}', [[/\s*\<end\>/e<cr>]], { silent = true })
+    vim.keymap.set('n', '[{', [[?\s*\<defp\=\>?e<cr>]], { silent = true })
   end
 })
 

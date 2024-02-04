@@ -98,8 +98,8 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     -- start the language server
     StartElixirLS()
     -- set up some custom keybindings
-    vim.keymap.set('n', ']}', [[/\s*\<end\>/e<cr>]], { silent = true })
-    vim.keymap.set('n', '[{', [[?\s*\<defp\=\>?e<cr>]], { silent = true })
+    vim.keymap.set('n', ']}', [[?\s*\<def\%(p\=\|module\)\>?e<cr>/\<do:\=\>/e<cr><Plug>(MatchitNormalForward):nohl<cr>]], { silent = true })
+    vim.keymap.set('n', '[{', [[/\s*\<end\>/e<cr><Plug>(MatchitNormalBackward):nohl<cr>]], { silent = true })
   end
 })
 

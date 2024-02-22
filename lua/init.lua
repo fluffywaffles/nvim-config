@@ -176,12 +176,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = au_typescript,
   pattern = { 'typescript' },
   callback = function()
-    -- start a tsserver connection if none is attached
-    if vim.b.tsserver_running == nil then
-      StartTsserver()
-      -- set a tsserver_running flag for this buffer
-      vim.b.tsserver_running = true
-    end
+    StartTsserver()
   end
 })
 

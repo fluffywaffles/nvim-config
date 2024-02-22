@@ -28,21 +28,51 @@ paq.install()
 -- start coq for autocompletion
 vim.g.coq_settings = {
   auto_start = true,
-  display = { icons = { mode = "none" } },
+  limits = {
+    completion_auto_timeout = 1,
+    completion_manual_timeout = 1.88,
+  },
+  clients = {
+    snippets = {
+      warn = {}
+    },
+    tmux        = { weight_adjust = -0.1 },
+    buffers     = { weight_adjust =  0.1 },
+    third_party = { weight_adjust =  0.1 },
+    lsp         = { weight_adjust =  0.2 },
+    paths       = { weight_adjust =  0.3 },
+  },
+  display = {
+    icons = {
+      mode = "none",
+    },
+  },
+  keymap = {
+    bigger_preview = "",
+  },
 }
-local coq = require('coq')
-coq.Now()
 
 -- add third-party sources
 require('coq_3p') {
-  -- automatically enable nvimlua for the neovim lua api
-  { src = "nvimlua", conf_only = true },
   -- scientific calculator
   { src = "bc", precision = 6 },
+  -- shell repl
+  {
+    src = "repl",
+    sh = "zsh",
+    deadline = 1000, -- ms to wait for response
+    unsafe = { "mv", "rm", "poweroff", "suspend" },
+  },
+  -- automatically enable nvimlua for the neovim lua api
+  { src = "nvimlua", short_name = "nLUA", conf_only = true },
   -- vim builtin sources
+  { src = "builtin/syntax", short_name = "SYN" },
   { src = "builtin/js" },
-  { src = "builtin/syntax" },
+  { src = "builtin/css" },
+  { src = "builtin/html" },
 }
+
+local coq = require('coq')
 
 -- configure some language servers
 local lsp = require('lspconfig')

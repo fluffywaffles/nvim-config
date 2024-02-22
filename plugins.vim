@@ -65,6 +65,7 @@ call dein#add('nathanaelkane/vim-indent-guides')
 " Enable indent_guides except on manpages, helppages
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_exclude_filetypes = [ 'help', 'man' ]
+let g:indent_guides_guide_size = 1
 " LLVM TableGen and .ll syntax
 call dein#add(expand('<sfile>:p:h') . '/llvm')
 " Terraform

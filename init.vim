@@ -229,8 +229,6 @@ function! UpdateDeopleteMenuWidth()
     \ . " menu_width " . b:menu_width
 endfunction
 
-" When completion is done, close the preview window.
-autocmd CompleteDone * silent! pclose!
 " Show a completion menu, even if only one candidate, and show additional
 " information in a popup preview window
 set completeopt=menuone,preview
@@ -428,54 +426,6 @@ au Syntax * call matchadd('Todo', '\W\zs\EXPLANATION')
 " Neomake configuration.
 " Open location list when make has errors, but don't move the cursor.
 let g:neomake_open_list=2
-
-function! SetupTypescriptLSP()
-  if has_key(g:LanguageClient_serverCommands, &filetype)
-    return
-  endif
-  "" look for typescript-language-server
-  let l:bin_path     = systemlist('yarn global bin typescript-language-server')[0]
-  let l:lang_server  = l:bin_path . '/typescript-language-server'
-  if (filereadable(l:lang_server))
-    echom 'found typescript-language-server: ' . fnamemodify(l:lang_server, ':~:.')
-  else
-    echom 'cannot find typescript-language-server in yarn global bin'
-    return
-  endif
-  "" look for local tsserver.js
-  let l:node_modules = fnamemodify(systemlist('yarn bin tsc')[0], ':p:h:h')
-  let l:tsserverjs   = l:node_modules . '/typescript/lib/tsserver.js'
-  if (filereadable(l:tsserverjs))
-    echom 'found local tsserver: ' . pathshorten(l:tsserverjs, 4)
-    let g:LanguageClient_serverCommands[&filetype] = {
-          \ 'name': 'typescript-language-server',
-          \ 'command': [ l:lang_server, '--stdio' ],
-          \ 'initializationOptions': {
-          \     'tsserver': {
-          \       'path': l:tsserverjs
-          \     }
-          \   }
-          \ }
-  else
-    echom 'cannot find tslib path for this typescript project'
-  endif
-endfunction
-
-function! TSConfigure()
-  call SetupTypescriptLSP()
-  let &makeprg = "npx tsc"
-endfunction
-
-augroup typescript
-  autocmd!
-  " FIXME: npx may not be correct if you're using yarn... sigh
-  " autocmd FileType typescript call TSConfigure()
-  "
-  " npx --global typescript-language-server
-  " we should in fact set up the command to be PATH-resilient, as before
-  " except now we want to use nvim's builtin lsp, which means we need to
-  " set this up in ./lua/init.lua
-augroup END
 
 augroup solidity
   autocmd!

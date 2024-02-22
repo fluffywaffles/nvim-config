@@ -256,6 +256,17 @@ function StartSolidityLanguageServer()
   }))
 end
 
+-- run rust setup script on FileType
+local au_rust = vim.api.nvim_create_augroup('rust', {})
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  group = au_rust,
+  pattern = { 'rust' },
+  callback = function()
+    -- update filetype editor settings
+    vim.g.indent_guides_guide_size = 3
+  end
+})
+
 -- set up lsp keybindings for normal mode in any buffer with a server
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
   callback = function(ev)

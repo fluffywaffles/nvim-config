@@ -126,6 +126,8 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     -- set up some custom keybindings
     vim.keymap.set('n', ']}', [[?\s*\<def\%(p\=\|module\)\>?e<cr>/\<do:\=\>/e<cr><Plug>(MatchitNormalForward):nohl<cr>]], { silent = true })
     vim.keymap.set('n', '[{', [[/\s*\<end\>/e<cr><Plug>(MatchitNormalBackward):nohl<cr>]], { silent = true })
+    -- don't shade the first indent level, that's defmodule
+    vim.g.indent_guides_start_level = 2
   end
 })
 

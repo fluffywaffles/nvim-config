@@ -105,18 +105,14 @@ function StartElixirLS()
     stop = vim.loop.os_homedir(),
     limit = math.huge, -- no effective limit
   })
-  -- print('homedir: ' .. vim.loop.os_homedir())
-  -- print('found mix project structure: ' .. vim.inspect(mix_hierarchy))
-  -- print('root_dir will be: ' .. vim.fs.dirname(mix_hierarchy[#mix_hierarchy]))
-  -- include extra log messages, not only error / warning
-  vim.lsp.set_log_level('debug')
   -- start the language server
   vim.lsp.start(coq.lsp_ensure_capabilities({
     name = 'elixirls',
+    cmd_env = { SHELL = "bash" },
     cmd = { lang_server },
     -- assume the topmost mix.esx file is the root of the project
     --   ** use topmost assuming we may be in an umbrella app
-    root_dir = vim.fs.dirname(mix_hierarchy[#mix_hierarchy]),
+    root_dir = vim.fs.dirname(mix_hierarchy[1]),
   }))
 end
 

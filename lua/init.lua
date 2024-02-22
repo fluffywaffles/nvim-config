@@ -194,6 +194,16 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     ]])
     -- start a solidity language server
     StartSolidityLanguageServer()
+    -- add keybindings
+    vim.api.nvim_create_autocmd({ 'LspAttach' }, {
+      callback = function(ev)
+        -- Buffer local mappings.
+        local opts = { buffer = ev.buf }
+        vim.keymap.set('n', '<space>f', function()
+          vim.cmd([[ !${HOME}/.config/.foundry/bin/forge fmt ]])
+        end, opts)
+      end
+    })
   end
 })
 
@@ -202,24 +212,23 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 -- so right now the published package is @llllvvuu/vscode-solidity-langserver
 -- ... although presumably in the future it'll be @juanfranblanco/...
 function StartSolidityLanguageServer()
-  vim.lsp.set_log_level('debug')
   -- find the vscode-solidity-langserver binary in global npm/yarn bins
-  local bin_path = vim.fn.systemlist('yarn global bin vscode-solidity-langserver')[1]
-  local lang_server = bin_path .. '/vscode-solidity-langserver'
+  local bin_path = vim.fn.systemlist('yarn global bin vscode-solidity-server')[1]
+  local lang_server = bin_path .. '/vscode-solidity-server'
   -- if the binary does not exist, error out
   if not vim.fn.filereadable(lang_server) then
-    print('cannot find vscode-solidity-langserver in yarn global bin')
+    print('cannot find vscode-solidity-server in yarn global bin')
     return
   end
   print(
-    'found vscode-solidity-langserver binary: '
+    'found vscode-solidity-server binary: '
     .. vim.fn.fnamemodify(lang_server, ':~:.')
   )
   -- load remappings
   -- local remappings = vim.fn.readfile(vim.fs.normalize(vim.fs.find('remappings.txt', { upward = true })[1]));
   -- actually start the language server and enable completion
   vim.lsp.start(coq.lsp_ensure_capabilities({
-    name = 'vscode-solidity-langserver',
+    name = 'vscode-solidity-server',
     cmd = { lang_server, '--stdio' },
     root_dir = vim.fs.dirname(vim.fs.find(
       { 'foundry.toml', 'remappings.txt', '.git' },
@@ -232,11 +241,13 @@ function StartSolidityLanguageServer()
         path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
       }
     )[1]),
-    init_options = vim.fn.stdpath('cache') .. '/solidity-language-server',
+    init_options = vim.fn.stdpath('cache') .. '/vscode-solidity-server',
     settings = {
       solidity = {
-        defaultCompiler = "remote",
-        compileUsingRemoteVersion = "v0.8.21+commit.d9974bed",
+        -- seems like remoteversion is broken since 0.0.165:
+        --   https://github.com/juanfranblanco/vscode-solidity/issues/431#issuecomment-1933086248
+        -- maintainer seems to not care / not understand.
+        compileUsingRemoteVersion = "v0.8.23+commit.f704f362",
         formatter = "forge"
         -- need remappings...
         -- remappings = remappings,

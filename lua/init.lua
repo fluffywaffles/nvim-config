@@ -189,6 +189,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     -- set the lsp log level really high
     vim.lsp.set_log_level('debug')
     -- update filetype editor settings
+    vim.g.indent_guides_guide_size = 3
     vim.cmd([[
       set tw=0
     ]])
@@ -200,7 +201,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
         -- Buffer local mappings.
         local opts = { buffer = ev.buf }
         vim.keymap.set('n', '<space>f', function()
-          vim.cmd([[ !${HOME}/.config/.foundry/bin/forge fmt ]])
+          vim.cmd([[ !${HOME}/.config/.foundry/bin/forge fmt % ]])
         end, opts)
       end
     })

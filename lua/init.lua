@@ -21,6 +21,8 @@ paq:setup(paq_config) {
   },
   -- add coq third-party sources
   'ms-jpq/coq.thirdparty',
+  -- multiple cursors support; terryma/vim-multiple-cursors is deprecated!
+  'mg979/vim-visual-multi',
   -- easier user-defined textobj
   'kana/vim-textobj-user',
   -- textobj definitions for folds

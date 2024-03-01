@@ -117,15 +117,6 @@ call dein#add('Shougo/context_filetype.vim')
 call dein#add('wakatime/vim-wakatime')
 " Git gutter —— +/- in sidebar gutter.
 call dein#add('airblade/vim-gitgutter')
-" Multiple cursors with <C-n>.
-call dein#add('terryma/vim-multiple-cursors')
-" Don't let multiple cursors break deoplete!
-function! g:Multiple_cursors_before()
-  call deoplete#custom#buffer_option('auto_complete', v:false)
-endfunction
-function! g:Multiple_cursors_after()
-  call deoplete#custom#buffer_option('auto_complete', v:true)
-endfunction
 " Show list of buffers in the statusline.
 call dein#add('bling/vim-bufferline')
 " FZF. Per https://github.com/Shougo/dein.vim/issues/74.

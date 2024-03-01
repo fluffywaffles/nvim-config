@@ -31,6 +31,8 @@ paq:setup(paq_config) {
   -- textobj definitions for matchit pairs (finally)
   -- NOTE: depends on vim-textobj-user
   'adriaanzon/vim-textobj-matchit',
+  -- elixir ftplugin
+  'elixir-editors/vim-elixir',
 }
 
 paq.install()

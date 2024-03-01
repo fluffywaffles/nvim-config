@@ -70,8 +70,6 @@ let g:indent_guides_guide_size = 1
 call dein#add(expand('<sfile>:p:h') . '/llvm')
 " Terraform
 call dein#add('hashivim/vim-terraform')
-" Elixir syntax highlighting.
-call dein#add('elixir-lang/vim-elixir')
 " Solidity syntax highlighting.
 call dein#add('ethereum/vim-solidity')
 " Markdown syntax highlighting, including code fences.

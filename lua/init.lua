@@ -21,6 +21,14 @@ paq:setup(paq_config) {
   },
   -- add coq third-party sources
   'ms-jpq/coq.thirdparty',
+  -- easier user-defined textobj
+  'kana/vim-textobj-user',
+  -- textobj definitions for folds
+  -- NOTE: depends on vim-textobj-user
+  'kana/vim-textobj-fold',
+  -- textobj definitions for matchit pairs (finally)
+  -- NOTE: depends on vim-textobj-user
+  'adriaanzon/vim-textobj-matchit',
 }
 
 paq.install()

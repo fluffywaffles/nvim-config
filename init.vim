@@ -46,7 +46,7 @@ noremap <Leader>fdk :set foldmethod=marker<CR>
 noremap <Leader>fdm :set foldmethod=manual<CR>
 noremap <Leader>fdi :set foldmethod=indent<CR>
 noremap <Leader>fdd :set foldmethod=diff<CR>
-" open all folds recurisvely
+" open all folds recursively
 noremap <Leader>zao zR
 " close all folds recursively
 noremap <Leader>zac zM

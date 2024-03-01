@@ -47,15 +47,20 @@ noremap <Leader>fdm :set foldmethod=manual<CR>
 noremap <Leader>fdi :set foldmethod=indent<CR>
 noremap <Leader>fdd :set foldmethod=diff<CR>
 " open all folds recurisvely
-noremap <Leader>zo zR
+noremap <Leader>zao zR
 " close all folds recursively
-noremap <Leader>zc zM
-" > open current fold one step down
-noremap z> zo
-" < close current fold one step up
-noremap z< zc
-" open recursively
+noremap <Leader>zac zM
+" default to open recursively
 noremap zo zO
+noremap zO :foldopen<CR>
+" > open current fold one step down
+noremap z> :foldopen<CR>
+noremap z] :foldopen<CR>
+" < close current fold one step up
+noremap z< :foldclose<CR>
+noremap z[ :foldclose<CR>
+" zc close recursive _deeper_
+nmap zc ]}m`[{:'.,'`foldclose!<CR>
 
 " Adapted from ":help [["
 " To use ]] and [[ as: "go to next/previous section open/close"

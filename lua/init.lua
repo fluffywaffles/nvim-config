@@ -35,7 +35,7 @@ paq:setup(paq_config) {
   'elixir-editors/vim-elixir',
 }
 
-paq.install()
+paq:sync()
 
 -- start coq for autocompletion
 vim.g.coq_settings = {

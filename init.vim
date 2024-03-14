@@ -60,7 +60,7 @@ noremap z] :foldopen<CR>
 noremap z< :foldclose<CR>
 noremap z[ :foldclose<CR>
 " zc close recursive _deeper_
-nmap zc ]}m`[{:'.,'`foldclose!<CR>
+nmap zc $]}m`[{:'.,'`foldclose!<CR>
 
 " Adapted from ":help [["
 " To use ]] and [[ as: "go to next/previous section open/close"

@@ -102,37 +102,71 @@ lsp.lua_ls.setup(coq.lsp_ensure_capabilities{
   }
 })
 
+-- elixirls
+function StartElixirLS()
+  -- find the binary installed from the AUR package elixir-ls
+  local lang_server = vim.fn.systemlist('which elixir-ls')[1]
+  -- if the binary does not exist, error out
+  if string.match(lang_server, '.*not found') ~= nil then
+    print('cannot find elixir-ls server in path')
+    return
+  end
+  -- find all mix project configuration files up to $HOME
+  local mix_hierarchy = vim.fs.find('mix.exs', {
+    upward = true,
+    stop = vim.loop.os_homedir(),
+    limit = math.huge, -- no effective limit
+  })
+  -- start the language server
+  vim.lsp.start(coq.lsp_ensure_capabilities({
+    name = 'elixirls',
+    cmd_env = { SHELL = "bash" },
+    cmd = { lang_server },
+    -- assume the topmost mix.esx file is the root of the project
+    --   ** use topmost assuming we may be in an umbrella app
+    root_dir = vim.fs.dirname(mix_hierarchy[1]),
+  }))
+end
+
+-- start elixir-ls via autocmd
+local au_elixir = vim.api.nvim_create_augroup('elixir', {})
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  group = au_elixir,
+  pattern = { 'elixir', 'heex' },
+  callback = function()
+    -- start the language server
+    StartElixirLS()
+  end
+})
+
 -- typescript tsserver
 function StartTsserver()
   -- find the typescript-language-server binary in global npm/yarn bins
-  local bin_path = vim.fn.systemlist('yarn global bin typescript-language-server')[1]
+  local bin_path = vim.loop.os_homedir() .. '/.npm/bin'
   local lang_server = bin_path .. '/typescript-language-server'
   -- if the binary does not exist, error out
   if not vim.fn.filereadable(lang_server) then
     print('cannot find typescript-language-server in yarn global bin')
     return
   end
-  print(
-    'found typescript-language-server binary: '
-    .. vim.fn.fnamemodify(lang_server, ':~:.')
-  )
   -- look for a tsserver.js local to the current buffer's project
-  local node_modules = vim.fn.fnamemodify(
-    vim.fn.systemlist('yarn bin tsc')[1],
-    ':p:h:h'
-  )
+  local gitroot = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+  local node_modules = vim.fs.find('node_modules', {
+    upward = true,
+    stop = gitroot,
+    type = 'directory'
+  })[1]
   local tsserverjs = node_modules .. '/typescript/lib/tsserver.js'
   -- if the tslib tsserver.js file does not exist, error out
   if not vim.fn.filereadable(tsserverjs) then
     print 'cannot find tslib path for a project relative to this buffer'
     return
   end
-  print('found local tsserver: ' .. vim.fn.pathshorten(tsserverjs, 4))
   -- actually start the language server and enable completion
   vim.lsp.start(coq.lsp_ensure_capabilities({
     name = 'typescript-language-server',
     cmd = { lang_server, '--stdio' },
-    root_dir = vim.fs.dirname(vim.fs.find('package.json', { upward = true })[1]),
+    root_dir = gitroot,
     -- initialize the language server to use the local tsserver.js lib
     init_options = {
       tsserver = {
@@ -166,8 +200,9 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     ]])
     -- start a solidity language server
     StartSolidityLanguageServer()
-    -- add keybindings
+    -- add local keybinding overrides
     vim.api.nvim_create_autocmd({ 'LspAttach' }, {
+      pattern = {'solidity'},
       callback = function(ev)
         -- Buffer local mappings.
         local opts = { buffer = ev.buf }
@@ -219,7 +254,9 @@ function StartSolidityLanguageServer()
         -- seems like remoteversion is broken since 0.0.165:
         --   https://github.com/juanfranblanco/vscode-solidity/issues/431#issuecomment-1933086248
         -- maintainer seems to not care / not understand.
-        compileUsingRemoteVersion = "v0.8.23+commit.f704f362",
+        -- NOTE: valid versions can be found at:
+        --  https://github.com/ethereum/solc-bin/blob/gh-pages/linux-amd64/list.txt
+        compileUsingRemoteVersion = "v0.8.24+commit.e11b9ed9",
         formatter = "forge"
         -- need remappings...
         -- remappings = remappings,

@@ -33,9 +33,18 @@ paq:setup(paq_config) {
   'adriaanzon/vim-textobj-matchit',
   -- elixir ftplugin
   'elixir-editors/vim-elixir',
+  -- faster gitgutter
+  'lewis6991/gitsigns.nvim',
 }
 
 paq:sync()
+
+-- set up gitsigns
+require('gitsigns').setup({})
+
+vim.api.nvim_set_hl(0, 'GitsignsAdd',    { link = 'DiffAdd'    })
+vim.api.nvim_set_hl(0, 'GitsignsChange', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'GitsignsDelete', { link = 'DiffDelete' })
 
 -- start coq for autocompletion
 vim.g.coq_settings = {

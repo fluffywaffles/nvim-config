@@ -113,8 +113,6 @@ call dein#add('tpope/vim-tbone')
 call dein#add('Shougo/context_filetype.vim')
 " Wakatime tracker.
 call dein#add('wakatime/vim-wakatime')
-" Git gutter —— +/- in sidebar gutter.
-call dein#add('airblade/vim-gitgutter')
 " Show list of buffers in the statusline.
 call dein#add('bling/vim-bufferline')
 " FZF. Per https://github.com/Shougo/dein.vim/issues/74.
@@ -165,3 +163,5 @@ call dein#add('godlygeek/tabular')
 " let g:AutoPairsFlyMode            = 0
 " let g:AutoPairsMultilineClose     = 0
 " autocmd FileType typescript let b:AutoPairs = AutoPairsDefine({ '<': '>' })
+" Git gutter —— +/- in sidebar gutter.
+" call dein#add('airblade/vim-gitgutter')

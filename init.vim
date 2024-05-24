@@ -111,7 +111,7 @@ command! -bang -nargs=* SvnAg call fzf#vim#ag(<q-args>, {
 
 " Helper to map dein#check_install() output to booleans for conditions
 function! s:is_installed(plugins)
-  let result = dein#check_install(a:plugins)
+  silent let result = dein#check_install(a:plugins)
   if     result ==  0 | return v:true  " plugins are installed
   elseif result == -1 | return v:false " plugins are invalid
   elseif result !=  0 | return v:false " plugins are not installed

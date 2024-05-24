@@ -3,7 +3,7 @@ local paq = require('paq-bootstrap').bootstrap('git@github.com:savq/paq-nvim')
 
 local paq_config = {
   -- opt = true, -- auto-lazy if true
-  verbose = true, -- tell me when a package is installed
+  verbose = false,                  -- tell me when a package is installed
   url_format = 'git@github.com:%s', -- prefer ssh over https
 }
 
@@ -35,33 +35,82 @@ paq:setup(paq_config) {
   'elixir-editors/vim-elixir',
   -- faster gitgutter
   'lewis6991/gitsigns.nvim',
+  -- treesitter
+  { 'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+  },
+  -- treesitter curent context header
+  'nvim-treesitter/nvim-treesitter-context',
+  -- indent guides
+  'nathanaelkane/vim-indent-guides',
 }
 
-paq:sync()
+-- general editor configuration
+vim.o.scrolloff = 10
+
+-- set up treesitter
+require('nvim-treesitter.configs').setup({
+  ensure_installed = { 'lua', 'vim' },
+  -- highlighting configuration
+  highlight = {
+    enable = true,
+    -- disable highlighting under various conditions
+    disable = function(_, _)
+      return false
+        -- turn off elixir treesitter highlighting, it's not good
+        or vim.o.filetype == "elixir"
+        -- disable highlighting on files larger than 1MB
+        or (function()
+          local counts = vim.fn.wordcount()
+          return counts['bytes'] > (1024 * 1024)
+        end)()
+    end
+  },
+})
+
+-- set up treesitter-context
+require('treesitter-context').setup({
+  enable = true,
+  separator = '─',
+})
+
+-- set up vim-indent-guides
+vim.g.indent_guides_guide_size = 1
+-- do not show indent guides in help files and man pages
+vim.g.indent_guides_exclude_filetypes = { 'help', 'man' }
+vim.g.indent_guides_enable_on_vim_startup = 1
 
 -- set up gitsigns
 require('gitsigns').setup({})
 
+-- gitsigns: highlighting
 vim.api.nvim_set_hl(0, 'GitsignsAdd',    { link = 'DiffAdd'    })
 vim.api.nvim_set_hl(0, 'GitsignsChange', { link = 'DiffChange' })
 vim.api.nvim_set_hl(0, 'GitsignsDelete', { link = 'DiffDelete' })
+
+-- gitsigns: mappings for manipulating and navigating hunks
+local gitsigns = require('gitsigns')
+vim.keymap.set('n', '<Leader>gg',  gitsigns.toggle_signs)
+vim.keymap.set('n', '<Leader>ghp', gitsigns.preview_hunk)
+vim.keymap.set('n', '<Leader>ghu', gitsigns.reset_hunk)
+vim.keymap.set('n', ']c', function() gitsigns.nav_hunk('next') end)
+vim.keymap.set('n', '[c', function() gitsigns.nav_hunk('prev') end)
+vim.keymap.set('n', 'gic', gitsigns.select_hunk)
 
 -- start coq for autocompletion
 vim.g.coq_settings = {
   auto_start = true,
   limits = {
-    completion_auto_timeout = 1,
     completion_manual_timeout = 1.88,
   },
   clients = {
-    snippets = {
+    snippets    = {
       warn = {}
     },
-    tmux        = { weight_adjust = -0.1 },
-    buffers     = { weight_adjust =  0.1 },
-    third_party = { weight_adjust =  0.1 },
-    lsp         = { weight_adjust =  0.2 },
-    paths       = { weight_adjust =  0.3 },
+    buffers     = { weight_adjust = 0.1 },
+    third_party = { weight_adjust = 0.1 },
+    lsp         = { weight_adjust = 0.2 },
+    paths       = { weight_adjust = 0.3 },
   },
   display = {
     icons = {
@@ -200,18 +249,32 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = au_solidity,
   pattern = { 'solidity' },
   callback = function()
-    -- set the lsp log level really high
-    vim.lsp.set_log_level('debug')
     -- update filetype editor settings
     vim.g.indent_guides_guide_size = 3
-    vim.cmd([[
-      set tw=0
-    ]])
+    -- fix formatoptions.
+    --
+    -- :help fo-table
+    --
+    -- c: auto-wrap comments
+    -- q: allow formatting comments with gq (indenting)
+    -- j: remove comment leaders when joining lines
+    -- t: auto-wrap text past textwidth
+    -- c: auto-wrap comments past textwidth
+    -- r: automatically continue comments when <Enter> is pressed
+    -- o: automatically continue comments when o or O are pressed
+    --
+    -- for some reason vim-solidity gets this wrong by default.
+    --
+    vim.bo.formatoptions = "cqjtro"
+    -- no hard-wrapping, no vertical rule
+    vim.bo.textwidth = 0
+    -- :help commentary -- relies on commentstring to format comments
+    vim.bo.commentstring = "// %s"
     -- start a solidity language server
     StartSolidityLanguageServer()
     -- add local keybinding overrides
     vim.api.nvim_create_autocmd({ 'LspAttach' }, {
-      pattern = {'solidity'},
+      pattern = { 'solidity' },
       callback = function(ev)
         -- Buffer local mappings.
         local opts = { buffer = ev.buf }

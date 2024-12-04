@@ -43,10 +43,15 @@ paq:setup(paq_config) {
   'nvim-treesitter/nvim-treesitter-context',
   -- indent guides
   'nathanaelkane/vim-indent-guides',
+  -- kitty-scrollback for opening the kitty scrollback buffer in neovim
+  'mikesmithgh/kitty-scrollback.nvim',
 }
 
 -- general editor configuration
 vim.o.scrolloff = 10
+
+-- set up kitty-scrollback
+require('kitty-scrollback').setup()
 
 -- set up treesitter
 require('nvim-treesitter.configs').setup({
@@ -368,3 +373,8 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     end, opts)
   end
 })
+
+if vim.env.KITTY_SCROLLBACK_NVIM == 'true' then
+  vim.cmd.colorscheme('default')
+  vim.o.signcolumn='no'
+end

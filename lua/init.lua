@@ -203,17 +203,20 @@ function StartTsserver()
   local lang_server = bin_path .. '/typescript-language-server'
   -- if the binary does not exist, error out
   if not vim.fn.filereadable(lang_server) then
-    print('cannot find typescript-language-server in yarn global bin')
+    print('cannot find typescript-language-server in npm global bin')
     return
   end
   -- look for a tsserver.js local to the current buffer's project
   local gitroot = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
-  local node_modules = vim.fs.find('node_modules', {
+  local node_modules_hierarchy = vim.fs.find('node_modules', {
     upward = true,
     stop = gitroot,
-    type = 'directory'
-  })[1]
-  local tsserverjs = node_modules .. '/typescript/lib/tsserver.js'
+    type = 'directory',
+    limit = math.huge, -- no effective limit
+  })
+  -- use the topmost node_modules in the repo, because workspaces
+  local root_node_modules = node_modules_hierarchy[#node_modules_hierarchy]
+  local tsserverjs = root_node_modules .. '/typescript/lib/tsserver.js'
   -- if the tslib tsserver.js file does not exist, error out
   if not vim.fn.filereadable(tsserverjs) then
     print 'cannot find tslib path for a project relative to this buffer'

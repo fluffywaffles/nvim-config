@@ -170,6 +170,18 @@ lsp.lua_ls.setup(coq.lsp_ensure_capabilities{
   }
 })
 
+-- setup sourcekit for swift
+lsp.sourcekit.setup(coq.lsp_ensure_capabilities{
+  -- https://www.swift.org/documentation/articles/zero-to-swift-nvim.html#file-updating
+  capabilities = {
+    workspace = {
+      didChangeWatchedFiles = {
+        dynamicRegistration = true,
+      }
+    }
+  }
+})
+
 -- elixirls
 require('elixir').setup {
   nextls = coq.lsp_ensure_capabilities({
@@ -242,6 +254,16 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   pattern = { 'typescript' },
   callback = function()
     StartTsserver()
+  end
+})
+
+local au_swift = vim.api.nvim_create_augroup('swift', {})
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  group = au_swift,
+  pattern = { 'swift' },
+  callback = function()
+    -- update filetype editor settings
+    vim.g.indent_guides_guide_size = 3
   end
 })
 

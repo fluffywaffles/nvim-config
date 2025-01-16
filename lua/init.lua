@@ -172,7 +172,7 @@ lsp.lua_ls.setup(coq.lsp_ensure_capabilities{
 
 -- elixirls
 require('elixir').setup {
-  nextls = {
+  nextls = coq.lsp_ensure_capabilities({
     enable = true,
     init_options = {
       experimental = {
@@ -181,19 +181,19 @@ require('elixir').setup {
         },
       },
     },
-  },
-  elixirls = {
+  }),
+  elixirls = coq.lsp_ensure_capabilities({
     enable = true,
     settings = require('elixir.elixirls').settings {
-      dialyzerEnabled = true,
+      dialyzerEnabled = false,
       enableTestLenses = false,
     },
     on_attach = function(_ --[[client]], _ --[[bufnr]])
-      vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
+      --vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
       vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
       vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
     end,
-  },
+  }),
 }
 
 -- typescript tsserver
@@ -355,11 +355,11 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
   callback = function(ev)
     -- Buffer local mappings.
     local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', 'gk', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', '<space>td', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', '<space>rf', vim.lsp.buf.references, opts)

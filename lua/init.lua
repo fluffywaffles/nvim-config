@@ -389,9 +389,21 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<Leader>f', function()
       vim.lsp.buf.format { async = true }
+      post_fmt(vim.api.nvim_get_current_buf())
     end, opts)
   end
 })
+
+function post_fmt(bufnr)
+  vim.api.nvim_create_autocmd({ 'LspNotify' }, {
+    once = true,
+    callback = function(ev)
+      if (bufnr == ev.buf and ev.data.method == "textDocument/didChange") then
+        vim.cmd([[normal zv]])
+      end
+    end,
+  })
+end
 
 if vim.env.KITTY_SCROLLBACK_NVIM == 'true' then
   vim.cmd.colorscheme('default')

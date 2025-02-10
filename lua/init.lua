@@ -382,12 +382,12 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', 'gk', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<space>td', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<space>rf', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>d', vim.diagnostic.setloclist, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<space>f', function()
+    vim.keymap.set('n', '<Leader>td', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<Leader>rf', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<Leader>d', vim.diagnostic.setloclist, opts)
+    vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', '<Leader>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
   end

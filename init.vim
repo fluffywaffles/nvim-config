@@ -41,7 +41,7 @@ noremap <Leader>fp  :echom expand("%:p")<CR>
 noremap <Leader>cqf :call setqflist([])<CR>
 
 " Fancy folds
-noremap <Leader>fds :set foldmethod=syntax<CR>
+noremap <Leader>fds :set foldmethod=syntax \| normal zv<CR>
 noremap <Leader>fdk :set foldmethod=marker<CR>
 noremap <Leader>fdm :set foldmethod=manual<CR>
 noremap <Leader>fdi :set foldmethod=indent<CR>

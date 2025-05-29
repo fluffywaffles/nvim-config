@@ -55,6 +55,17 @@ paq:setup(paq_config) {
 -- general editor configuration
 vim.o.scrolloff = 10
 
+-- in visual multi we need <CR> to work nicely when pumvisible()
+vim.api.nvim_create_autocmd({'User'}, {
+  pattern = 'visual_multi_mappings',
+  callback = function()
+    -- ensure that we accept completion without adding a newline
+    vim.keymap.set('i', '<CR>', function()
+      return vim.fn.pumvisible() == 1 and '<C-Y>' or '<Plug>(VM-I-Return)'
+    end, {expr = true, buffer = true})
+  end
+})
+
 -- set up kitty-scrollback
 require('kitty-scrollback').setup()
 

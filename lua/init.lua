@@ -220,6 +220,16 @@ require('elixir').setup {
   }),
 }
 
+local au_elixir = vim.api.nvim_create_augroup('elixir', {})
+vim.api.nvim_create_autocmd({'FileType'}, {
+  group = au_elixir,
+  pattern = { 'elixir' },
+  callback = function()
+    -- don't fold defmodules
+    vim.b.foldlevelstart = 2
+  end
+})
+
 -- typescript tsserver
 function StartTsserver()
   -- find the typescript-language-server binary in global npm/yarn bins

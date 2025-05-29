@@ -79,7 +79,7 @@ require('nvim-treesitter.configs').setup({
     disable = function(_, _)
       return false
         -- turn off elixir treesitter highlighting, it's not good
-        or vim.o.filetype == "elixir"
+        or vim.o.filetype == 'elixir'
         -- disable highlighting on files larger than 1MB
         or (function()
           local counts = vim.fn.wordcount()
@@ -125,7 +125,7 @@ vim.g.coq_settings = {
     completion_manual_timeout = 1.88,
   },
   clients = {
-    snippets    = {
+    snippets = {
       warn = {}
     },
     buffers     = { weight_adjust = 0.1 },
@@ -135,32 +135,33 @@ vim.g.coq_settings = {
   },
   display = {
     icons = {
-      mode = "none",
+      mode = 'none',
     },
   },
   keymap = {
-    bigger_preview = "",
+    bigger_preview = '<c-k>', -- show more docs
+    jump_to_mark = '<c-h>', -- move to next hole in snippet
   },
 }
 
 -- add third-party sources
 require('coq_3p') {
   -- scientific calculator
-  { src = "bc", precision = 6 },
+  { src = 'bc', precision = 6 },
   -- shell repl
   {
-    src = "repl",
-    sh = "zsh",
+    src = 'repl',
+    sh = 'zsh',
     deadline = 1000, -- ms to wait for response
-    unsafe = { "mv", "rm", "poweroff", "suspend" },
+    unsafe = { 'mv', 'rm', 'poweroff', 'suspend' },
   },
   -- automatically enable nvimlua for the neovim lua api
-  { src = "nvimlua", short_name = "nLUA", conf_only = true },
+  { src = 'nvimlua', short_name = 'nLUA', conf_only = true },
   -- vim builtin sources
-  { src = "builtin/syntax", short_name = "SYN" },
-  { src = "builtin/js" },
-  { src = "builtin/css" },
-  { src = "builtin/html" },
+  { src = 'builtin/syntax', short_name = 'SYN' },
+  { src = 'builtin/js' },
+  { src = 'builtin/css' },
+  { src = 'builtin/html' },
 }
 
 local coq = require('coq')

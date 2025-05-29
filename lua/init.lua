@@ -50,10 +50,13 @@ paq:setup(paq_config) {
   -- elixir-tools
   -- NOTE: depends on plenary.nvim
   'elixir-tools/elixir-tools.nvim',
+  -- windsurf / codeium
+  'Exafunction/windsurf.nvim',
 }
 
 -- general editor configuration
 vim.o.scrolloff = 10
+vim.o.statusline = '%<%f %h%m%r%=%-14.(%l,%c%V%) %P%3{v:lua.require("codeium.virtual_text").status_string()}'
 
 -- in visual multi we need <CR> to work nicely when pumvisible()
 vim.api.nvim_create_autocmd({'User'}, {
@@ -118,6 +121,24 @@ vim.keymap.set('n', ']c', function() gitsigns.nav_hunk('next') end)
 vim.keymap.set('n', '[c', function() gitsigns.nav_hunk('prev') end)
 vim.keymap.set('n', 'gic', gitsigns.select_hunk)
 
+-- set up codeium
+require('codeium').setup({
+  enable_cmp_source = false,
+  enable_chat = true,
+  virtual_text = {
+    enabled = true,
+    default_filetype_enabled = true,
+    map_keys = true,
+    key_bindings = {
+      accept = '<C-l>',
+      next = '<C-]>',
+      prev = '<C-[>',
+      accept_word = '<C-;>',
+      accept_line = '<C-\'>',
+    },
+  }
+})
+
 -- start coq for autocompletion
 vim.g.coq_settings = {
   auto_start = true,
@@ -128,10 +149,10 @@ vim.g.coq_settings = {
     snippets = {
       warn = {}
     },
+    third_party = { weight_adjust = 0.1, always_on_top = { 'codeium' } },
     buffers     = { weight_adjust = 0.1 },
-    third_party = { weight_adjust = 0.1 },
     lsp         = { weight_adjust = 0.2 },
-    paths       = { weight_adjust = 0.3 },
+    paths       = { weight_adjust = 0.3 }
   },
   display = {
     icons = {
@@ -146,6 +167,8 @@ vim.g.coq_settings = {
 
 -- add third-party sources
 require('coq_3p') {
+  -- windsurf / codeium
+  { src = 'codeium', short_name = 'AI' },
   -- scientific calculator
   { src = 'bc', precision = 6 },
   -- shell repl

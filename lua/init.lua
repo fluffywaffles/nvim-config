@@ -253,13 +253,41 @@ vim.api.nvim_create_autocmd({'FileType'}, {
   end
 })
 
+function NodeGetGlobalBinPaths()
+  local results = {}
+  -- try to find a global binary path for npm
+  local npm_prefix_maybe = vim.fn.systemlist('npm config get prefix')
+  if vim.v.shell_error == 0 then
+    table.insert(results, npm_prefix_maybe[1] .. '/bin')
+  end
+  -- try to find a global binary path for yarn
+  local yarn_bin_maybe = vim.fn.systemlist('yarn global bin')
+  if vim.v.shell_error == 0 then
+    table.insert(results, yarn_bin_maybe[1])
+  end
+  -- return the final list, which will only contain found binary paths
+  return results
+end
+
+function NodeFindGlobalBin(binary_name)
+  local paths = NodeGetGlobalBinPaths()
+  -- search for a readable binary with the expected name in any bin path
+  for _, path in ipairs(paths) do
+    local expected_bin_path = path .. '/' .. binary_name
+    if vim.fn.filereadable(path .. '/' .. binary_name) then
+      return expected_bin_path
+    end
+  end
+  -- if nothing is found, return nil
+  return nil
+end
+
 -- typescript tsserver
 function StartTsserver()
   -- find the typescript-language-server binary in global npm/yarn bins
-  local bin_path = vim.loop.os_homedir() .. '/.npm/bin'
-  local lang_server = bin_path .. '/typescript-language-server'
+  local lang_server_bin = NodeFindGlobalBin('typescript-language-server')
   -- if the binary does not exist, error out
-  if not vim.fn.filereadable(lang_server) then
+  if lang_server_bin == nil then
     print('cannot find typescript-language-server in npm global bin')
     return
   end
@@ -282,7 +310,7 @@ function StartTsserver()
   -- actually start the language server and enable completion
   vim.lsp.start(coq.lsp_ensure_capabilities({
     name = 'typescript-language-server',
-    cmd = { lang_server, '--stdio' },
+    cmd = { lang_server_bin, '--stdio' },
     root_dir = gitroot,
     -- initialize the language server to use the local tsserver.js lib
     init_options = {
@@ -361,23 +389,22 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 -- ... although presumably in the future it'll be @juanfranblanco/...
 function StartSolidityLanguageServer()
   -- find the vscode-solidity-langserver binary in global npm/yarn bins
-  local bin_path = vim.fn.systemlist('yarn global bin vscode-solidity-server')[1]
-  local lang_server = bin_path .. '/vscode-solidity-server'
+  local lang_server_bin = NodeFindGlobalBin('vscode-solidity-server')
   -- if the binary does not exist, error out
-  if not vim.fn.filereadable(lang_server) then
-    print('cannot find vscode-solidity-server in yarn global bin')
+  if lang_server_bin == nil then
+    print('cannot find vscode-solidity-server in global node binary paths')
     return
   end
   print(
     'found vscode-solidity-server binary: '
-    .. vim.fn.fnamemodify(lang_server, ':~:.')
+    .. vim.fn.fnamemodify(lang_server_bin, ':~:.')
   )
   -- load remappings
   -- local remappings = vim.fn.readfile(vim.fs.normalize(vim.fs.find('remappings.txt', { upward = true })[1]));
   -- actually start the language server and enable completion
   vim.lsp.start(coq.lsp_ensure_capabilities({
     name = 'vscode-solidity-server',
-    cmd = { lang_server, '--stdio' },
+    cmd = { lang_server_bin, '--stdio' },
     root_dir = vim.fs.dirname(vim.fs.find(
       { 'foundry.toml', 'remappings.txt', '.git' },
       {

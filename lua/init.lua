@@ -43,8 +43,6 @@ paq:setup(paq_config) {
   'nvim-treesitter/nvim-treesitter-context',
   -- indent guides
   'nathanaelkane/vim-indent-guides',
-  -- kitty-scrollback for opening the kitty scrollback buffer in neovim
-  'mikesmithgh/kitty-scrollback.nvim',
   -- plenary.nvim, a standard library of sorts
   'nvim-lua/plenary.nvim',
   -- elixir-tools
@@ -68,9 +66,6 @@ vim.api.nvim_create_autocmd({'User'}, {
     end, {expr = true, buffer = true})
   end
 })
-
--- set up kitty-scrollback
-require('kitty-scrollback').setup()
 
 -- set up treesitter
 require('nvim-treesitter.configs').setup({

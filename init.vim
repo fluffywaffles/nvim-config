@@ -309,23 +309,7 @@ command! -bang Q q<bang>
 command! -bang QA qa<bang>
 command! -bang Qa qa<bang>
 
-" Automatically bind "goto definition" and "get info" to LangClient, when
-" one is applicable for the current file type.
-function! BindToLangClientIfServerExists()
-  if has_key(g:LanguageClient_serverCommands, &filetype)
-    nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
-    nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    nnoremap <buffer> <silent> <C-W>d     :call GoToDefinitionInSplit()<CR>
-    nnoremap <buffer> <silent> <C-w><C-d> :call GoToDefinitionInSplit()<CR>
-    nnoremap <buffer> <silent> <Leader>gi :call LanguageClient_textDocument_implementation()<CR>
-    nnoremap <buffer> <silent> <Leader>gt :call LanguageClient_textDocument_typeDefinition()<CR>
-    nnoremap <buffer> <silent> <Leader>ee :call LanguageClient#explainErrorAtPoint()<CR>
-    nnoremap <buffer> <silent> <Leader>rn :call LanguageClient_textDocument_rename()<CR>
-    nnoremap <buffer> <silent> <Leader>rf :call LanguageClient_textDocument_references()<CR>
-    nnoremap <buffer> <silent> <Leader>ca :call LanguageClient_textDocument_codeAction()<CR>
-  endif
-endfunction
-
+" TODO(jordan): port this to lua and to vim.lsp.buf equivalent
 function GoToDefinitionInSplit()
   let cols = winwidth(0)
   let rows = winheight(0)
@@ -337,18 +321,6 @@ function GoToDefinitionInSplit()
   endif
   call LanguageClient_textDocument_definition()
 endfunction
-
-function! SendDidChangeLangClientIfServerExists()
-  if has_key(g:LanguageClient_serverCommands, &filetype)
-    call LanguageClient#textDocument_didChange()
-  endif
-endfunction
-augroup LangClient
-  autocmd!
-  autocmd FileType      *   call BindToLangClientIfServerExists()
-  autocmd ModeChanged   *:n call SendDidChangeLangClientIfServerExists()
-  autocmd FileWritePost *   call SendDidChangeLangClientIfServerExists()
-augroup END
 
 " NOTE(jordan): smartindent isn't perfect. Old attempts to improve it:
 " inoremap {<CR> <ESC>"xDa{<CR>}<ESC>O<C-r>x

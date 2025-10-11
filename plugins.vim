@@ -1,22 +1,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Completion and IDE - Deoplete, sources, language-specific plugins.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LanguageClient-neovim - language server protocol client.
-call dein#add('autozimu/LanguageClient-neovim', {
-  \ 'rev'   : 'next',
-  \ 'build' : 'bash install.sh',
-  \ })
-let g:LanguageClient_serverCommands = {
-  \ 'cpp': [
-  \   '/usr/bin/cquery',
-  \   '--logfile=/tmp/cq.log',
-  \   '--init={
-  \       "cacheDirectory": "/tmp/cquery",
-  \       "completion": { "filterAndSort": false }
-  \     }'
-  \   ],
-  \ 'rust': [ '/usr/bin/rust-analyzer' ],
-  \ }
 " Deoplete - because YCM is a PITA.
 call dein#add('Shougo/deoplete.nvim')
 " Syntax completion source for deoplete. (Loads from syntax files.)

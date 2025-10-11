@@ -45,9 +45,6 @@ paq:setup(paq_config) {
   'nathanaelkane/vim-indent-guides',
   -- plenary.nvim, a standard library of sorts
   'nvim-lua/plenary.nvim',
-  -- elixir-tools
-  -- NOTE: depends on plenary.nvim
-  'elixir-tools/elixir-tools.nvim',
   -- windsurf / codeium
   'Exafunction/windsurf.nvim',
 }
@@ -185,9 +182,8 @@ require('coq_3p') {
 local coq = require('coq')
 
 -- configure some language servers
-local lsp = require('lspconfig')
 -- lua_ls
-lsp.lua_ls.setup(coq.lsp_ensure_capabilities{
+vim.lsp.config('lua_ls', coq.lsp_ensure_capabilities {
   settings = {
     Lua = {
       runtime = { version = 'LuaJIT' },
@@ -200,8 +196,18 @@ lsp.lua_ls.setup(coq.lsp_ensure_capabilities{
   }
 })
 
+local au_lua = vim.api.nvim_create_augroup('lua', {})
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  group = au_lua,
+  pattern = { 'lua' },
+  callback = function()
+    -- enable lua_ls
+    vim.lsp.enable({ 'lua_ls' })
+  end
+})
+
 -- setup sourcekit for swift
-lsp.sourcekit.setup(coq.lsp_ensure_capabilities{
+vim.lsp.config('sourcekit', coq.lsp_ensure_capabilities{
   -- https://www.swift.org/documentation/articles/zero-to-swift-nvim.html#file-updating
   capabilities = {
     workspace = {
@@ -212,37 +218,36 @@ lsp.sourcekit.setup(coq.lsp_ensure_capabilities{
   }
 })
 
--- elixirls
-require('elixir').setup {
-  nextls = coq.lsp_ensure_capabilities({
-    enable = true,
-    init_options = {
-      experimental = {
-        completions = {
-          enable = true,
-        },
-      },
-    },
-  }),
-  elixirls = coq.lsp_ensure_capabilities({
-    enable = true,
-    settings = require('elixir.elixirls').settings {
-      dialyzerEnabled = false,
-      enableTestLenses = false,
-    },
-    on_attach = function(_ --[[client]], _ --[[bufnr]])
-      --vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
-      vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
-      vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
-    end,
-  }),
-}
+local au_swift = vim.api.nvim_create_augroup('swift', {})
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  group = au_swift,
+  pattern = { 'swift' },
+  callback = function()
+    -- enable the sourcekit lsp server
+    vim.lsp.enable('sourcekit')
+    -- update filetype editor settings
+    vim.g.indent_guides_guide_size = 3
+  end
+})
+
+-- elixir official lsp: expert-ls
+vim.lsp.config('expert', coq.lsp_ensure_capabilities{
+  cmd = { os.getenv('HOME') .. "/software/expert_darwin_arm64" },
+  root_markers = { 'mix.exs', '.git' },
+  filetypes = { "elixir", "eelixir", "heex" },
+  settings = {
+    -- cf. https://github.com/elixir-lang/expert/tree/main/apps/expert/lib/expert/configuration.ex
+    dialyzerEnabled = false
+  }
+})
 
 local au_elixir = vim.api.nvim_create_augroup('elixir', {})
 vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = au_elixir,
-  pattern = { 'elixir' },
+  pattern = { 'elixir', 'eelixir', 'heex' },
   callback = function()
+    -- enable the expert lsp server
+    vim.lsp.enable('expert')
     -- don't fold defmodules
     vim.b.foldlevelstart = 2
   end
@@ -327,16 +332,6 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   pattern = { 'typescript' },
   callback = function()
     StartTsserver()
-  end
-})
-
-local au_swift = vim.api.nvim_create_augroup('swift', {})
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-  group = au_swift,
-  pattern = { 'swift' },
-  callback = function()
-    -- update filetype editor settings
-    vim.g.indent_guides_guide_size = 3
   end
 })
 

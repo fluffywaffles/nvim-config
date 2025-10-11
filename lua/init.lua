@@ -57,13 +57,13 @@ vim.o.scrolloff = 10
 vim.o.statusline = '%<%f %h%m%r%=%-14.(%l,%c%V%) %P%3{v:lua.require("codeium.virtual_text").status_string()}'
 
 -- in visual multi we need <CR> to work nicely when pumvisible()
-vim.api.nvim_create_autocmd({'User'}, {
+vim.api.nvim_create_autocmd({ 'User' }, {
   pattern = 'visual_multi_mappings',
   callback = function()
     -- ensure that we accept completion without adding a newline
     vim.keymap.set('i', '<CR>', function()
       return vim.fn.pumvisible() == 1 and '<C-Y>' or '<Plug>(VM-I-Return)'
-    end, {expr = true, buffer = true})
+    end, { expr = true, buffer = true })
   end
 })
 
@@ -239,7 +239,7 @@ require('elixir').setup {
 }
 
 local au_elixir = vim.api.nvim_create_augroup('elixir', {})
-vim.api.nvim_create_autocmd({'FileType'}, {
+vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = au_elixir,
   pattern = { 'elixir' },
   callback = function()
@@ -461,12 +461,12 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<Leader>f', function()
       vim.lsp.buf.format { async = true }
-      post_fmt(vim.api.nvim_get_current_buf())
+      PostFmt(vim.api.nvim_get_current_buf())
     end, opts)
   end
 })
 
-function post_fmt(bufnr)
+function PostFmt(bufnr)
   vim.api.nvim_create_autocmd({ 'LspNotify' }, {
     once = true,
     callback = function(ev)
@@ -479,5 +479,5 @@ end
 
 if vim.env.KITTY_SCROLLBACK_NVIM == 'true' then
   vim.cmd.colorscheme('default')
-  vim.o.signcolumn='no'
+  vim.o.signcolumn = 'no'
 end

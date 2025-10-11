@@ -296,6 +296,11 @@ function StartTsserver()
   })
   -- use the topmost node_modules in the repo, because workspaces
   local root_node_modules = node_modules_hierarchy[#node_modules_hierarchy]
+  if root_node_modules == nil then
+    print 'cannot find node_modules path in any directory above this buffer up to the git root'
+    return
+  end
+  -- find the local installation of tsserver
   local tsserverjs = root_node_modules .. '/typescript/lib/tsserver.js'
   -- if the tslib tsserver.js file does not exist, error out
   if not vim.fn.filereadable(tsserverjs) then

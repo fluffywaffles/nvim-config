@@ -12,9 +12,6 @@ source ~/.config/nvim/plugins.vim
 " Notify dein that no more plugins will be `dein#add(...)`ed.
 call dein#end()
 
-" Set up python for the various plugins and neovim features that need it.
-let g:python3_host_prog = '/usr/sbin/python' " Tell vim where python3 is.
-
 " Set <Leader> to space.
 " Ensure the spacebar is loud and clicky for maximum satisfaction.
 let mapleader = ' '

@@ -133,7 +133,7 @@ require('codeium').setup({
 
 -- start coq for autocompletion
 vim.g.coq_settings = {
-  auto_start = true,
+  auto_start = 'shut-up',
   limits = {
     completion_manual_timeout = 1.88,
   },

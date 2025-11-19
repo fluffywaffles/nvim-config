@@ -360,6 +360,8 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     vim.bo.formatoptions = "cqjtro"
     -- no hard-wrapping, no vertical rule
     vim.bo.textwidth = 0
+    -- don't softwrap at the edges of the window
+    vim.o.wrap = false
     -- :help commentary -- relies on commentstring to format comments
     vim.bo.commentstring = "// %s"
     -- start a solidity language server

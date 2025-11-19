@@ -458,7 +458,10 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<Leader>f', function()
       vim.lsp.buf.format { async = true }
-      PostFmt(vim.api.nvim_get_current_buf())
+      -- don't refold markdown files when they change
+      if vim.bo.filetype ~= 'markdown' then
+        PostFmt(ev.buf)
+      end
     end, opts)
   end
 })

@@ -51,6 +51,26 @@ paq:setup(paq_config) {
   'mikesmithgh/kitty-scrollback.nvim',
 }
 
+-- helper functions
+function GetOs()
+  local uname_s = vim.uv.os_uname().sysname:lower()
+  if not ({linux = true, darwin = true})[uname_s] then
+    error("Operating system unsupported: " .. uname_s)
+  else
+    return uname_s
+  end
+end
+
+function GetArch()
+  local uname_m = vim.uv.os_uname().machine
+
+  local remapped = ({
+    x86_64 = 'amd64'
+  })[uname_m]
+
+  return remapped or uname_m
+end
+
 -- general editor configuration
 vim.o.scrolloff = 10
 vim.o.statusline = '%<%f %h%m%r%=%-14.(%l,%c%V%) %P%3{v:lua.require("codeium.virtual_text").status_string()}'
@@ -253,7 +273,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 
 -- elixir official lsp: expert-ls
 vim.lsp.config('expert', coq.lsp_ensure_capabilities{
-  cmd = { os.getenv('HOME') .. "/software/expert_darwin_arm64" },
+  cmd = { os.getenv('HOME') .. "/software/expert_" .. GetOs() .. "_" .. GetArch() },
   root_markers = { 'mix.exs', '.git' },
   filetypes = { "elixir", "eelixir", "heex" },
   settings = {

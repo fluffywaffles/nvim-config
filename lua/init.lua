@@ -47,11 +47,32 @@ paq:setup(paq_config) {
   'nvim-lua/plenary.nvim',
   -- windsurf / codeium
   'Exafunction/windsurf.nvim',
+  -- kitty-scrollback.nvim, attempt #2
+  'mikesmithgh/kitty-scrollback.nvim',
 }
 
 -- general editor configuration
 vim.o.scrolloff = 10
 vim.o.statusline = '%<%f %h%m%r%=%-14.(%l,%c%V%) %P%3{v:lua.require("codeium.virtual_text").status_string()}'
+
+-- set up kitty-scrollback.nvim
+require('kitty-scrollback').setup({
+  {
+    -- get rid of that stupid fkn paste buffer
+    callbacks = {
+      after_ready = function()
+        vim.keymap.set('v', 'y', '<Plug>(KsbVisualYank)')
+        vim.keymap.set('v', 'Y', '<Plug>(KsbVisualYankLine)')
+        vim.keymap.set('n', 'y', '<Plug>(KsbNormalYank)')
+        vim.keymap.set('n', 'yy', '<Plug>(KsbNormalYankLine)')
+      end
+    },
+    -- NO NERD FONTS jesus this was plugin was made by an asshole
+    status_window = {style_simple = true},
+    -- i don't even know, just make selections visible please
+    visual_selection_highlight_mode = 'reverse',
+  },
+})
 
 -- in visual multi we need <CR> to work nicely when pumvisible()
 vim.api.nvim_create_autocmd({ 'User' }, {

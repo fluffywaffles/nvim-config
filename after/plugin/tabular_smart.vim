@@ -2,6 +2,8 @@ if !exists(':Tabularize')
   finish
 endif
 
+" Variable to pass the alignment format (e.g., 'l1') from the s:TabularizeWrapper
+" command to the s:DoAlign function, which is called by the pipeline.
 let s:target_format = 'l1'
 
 " Default allowed filetypes for smart backslash alignment

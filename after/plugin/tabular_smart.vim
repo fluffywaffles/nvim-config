@@ -3,19 +3,23 @@ if !exists(':Tabularize')
 endif
 
 " Variable to pass the alignment format (e.g., 'l1') from the s:TabularizeWrapper
-" command to the s:DoAlign function, which is called by the pipeline.
-let s:target_format = 'l1'
+" command to the DoAlign function.
+" Note: Must be global or accessible by the global function.
+let g:tabular_smart_target_format = 'l1'
 
 " Default allowed filetypes for smart backslash alignment
 if !exists('g:tabular_smart_filetypes')
   let g:tabular_smart_filetypes = ['dockerfile', 'sh', 'zsh', 'bash']
 endif
 
-function! s:DoAlign(lines)
+" Helper function to perform alignment.
+" Must be global because it is called via 'exe' in the Tabular plugin context.
+function! TabularSmartDoAlign(lines)
   " TabularizeStrings returns a new list of strings, so we must map it back to a:lines
-  let l:aligned = tabular#TabularizeStrings(a:lines, '\\', s:target_format)
+  let l:aligned = tabular#TabularizeStrings(a:lines, '\\', g:tabular_smart_target_format)
   call map(a:lines, 'l:aligned[v:key]')
-  return []
+  " Return 0 to indicate no replacement of lines list (we modified in-place)
+  return 0
 endfunction
 
 " Custom pipeline to align backslashes without stripping indentation
@@ -23,7 +27,7 @@ endfunction
 " We use strdisplaywidth() to ensure we generate enough NBSPs to match the visual width (handling tabs).
 AddTabularPipeline! AlignBackslash /\\/
   \ map(a:lines, "substitute(v:val, '^\\s*', '\\=repeat(\"\u00A0\", strdisplaywidth(submatch(0)))', '')")
-  \ | call s:DoAlign(a:lines)
+  \ | TabularSmartDoAlign(a:lines)
   \ | map(a:lines, "substitute(v:val, '\u00A0', ' ', 'g')")
 
 " Wrapper around Tabularize to selectively use AlignBackslash
@@ -53,7 +57,7 @@ function! s:TabularizeWrapper(bang, args) range
   endif
 
   if l:use_custom
-    let s:target_format = l:format
+    let g:tabular_smart_target_format = l:format
     " Call the global Tabularize function directly with the custom pipeline name
     execute a:firstline . ',' . a:lastline . 'call Tabularize("AlignBackslash")'
   else

@@ -148,7 +148,7 @@ endif
 " Tabular
 "
 if s:is_installed(['tabular'])
-  noremap <Leader>t  :SmartTabularize /
+  noremap <Leader>t  :Tabularize/
 endif
 
 "

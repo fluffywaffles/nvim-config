@@ -499,9 +499,6 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256
   call <sid>X('SignifySignAdd',    s:duo_2,         '', '')
   call <sid>X('SignifySignChange', s:uno_1,         '', '')
   call <sid>X('SignifySignDelete', s:syntax_accent, '', '')
-  hi link GitGutterAdd    SignifySignAdd
-  hi link GitGutterChange SignifySignChange
-  hi link GitGutterDelete SignifySignDelete
   call <sid>X('diffAdded',   s:duo_2,         '', '')
   call <sid>X('diffRemoved', s:syntax_accent, '', '')
   " }}}

@@ -142,5 +142,3 @@ call dein#add('godlygeek/tabular')
 " let g:AutoPairsFlyMode            = 0
 " let g:AutoPairsMultilineClose     = 0
 " autocmd FileType typescript let b:AutoPairs = AutoPairsDefine({ '<': '>' })
-" Git gutter —— +/- in sidebar gutter.
-" call dein#add('airblade/vim-gitgutter')

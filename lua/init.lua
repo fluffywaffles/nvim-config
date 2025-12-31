@@ -154,6 +154,13 @@ vim.keymap.set('n', ']c', function() gitsigns.nav_hunk('next') end)
 vim.keymap.set('n', '[c', function() gitsigns.nav_hunk('prev') end)
 vim.keymap.set('n', 'gic', gitsigns.select_hunk)
 
+-- gitsigns: quickfix
+vim.keymap.set('n', '<Leader>gqf', function() gitsigns.setqflist('all') end)
+
+-- gitsigns: text objects
+vim.keymap.set({'o', 'x'}, 'ic', gitsigns.select_hunk)
+vim.keymap.set({'o', 'x'}, 'ac', gitsigns.select_hunk)
+
 -- set up codeium
 require('codeium').setup({
   enable_cmp_source = false,

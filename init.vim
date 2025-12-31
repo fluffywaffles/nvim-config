@@ -115,35 +115,6 @@ function! s:is_installed(plugins)
   endif
 endfunction
 
-" GitGutter configuration
-"
-if s:is_installed(['vim-gitgutter'])
-  noremap <Leader>gg :GitGutterToggle<CR>
-  " Turn off default mappings
-  let g:gitgutter_map_keys = 0
-  " Preview hunk under cursor
-  nmap <Leader>ghp <Plug>(GitGutterPreviewHunk)
-  " Undo hunk under cursor
-  nmap <Leader>ghu <Plug>(GitGutterUndoHunk)
-  " Fold all unchanged lines
-  nnoremap ghf :GitGutterFold<CR>
-  " Load all hunks into list of links in quickfix
-  command! Gchanges GitGutterQuickFix | cope
-  nnoremap <Leader>gqf :Gchanges<CR>
-  " Hunk navigation
-  nmap ]c  <Plug>(GitGutterNextHunk)
-  nmap [c  <Plug>(GitGutterPrevHunk)
-  " Hunk textobjects?!
-  omap ic <Plug>(GitGutterTextObjectInnerPending)
-  omap ac <Plug>(GitGutterTextObjectOuterPending)
-  xmap ic <Plug>(GitGutterTextObjectInnerVisual)
-  xmap ac <Plug>(GitGutterTextObjectOuterVisual)
-  " Update GitGutter on buffer write
-  augroup GitGutter
-    autocmd!
-    autocmd BufWritePost * GitGutter
-  augroup END
-endif
 
 " Tabular
 "

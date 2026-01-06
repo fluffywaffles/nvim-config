@@ -31,14 +31,10 @@ function! s:TabularizeWrapper(bang, args) range
   let l:args = a:args
 
   " Check if filetype is allowed and args match backslash pattern
-  if index(g:tabular_runon_commands_filetypes, &filetype) != -1 && l:args =~# '^/\\/\?'
+  " We check for exact match '/\\' or prefix '/\\/' to avoid capturing patterns like '/\\$'
+  if index(g:tabular_runon_commands_filetypes, &filetype) != -1 && (l:args ==# '/\\' || l:args =~# '^/\\/')
     " Extract format if present
     let l:extracted_format = matchstr(l:args, '^/\\/\?\zs.*')
-    " If the extraction picked up a regex anchor '$' (e.g. from /\\$), strip it.
-    if l:extracted_format =~# '^\$'
-      let l:extracted_format = strpart(l:extracted_format, 1)
-    endif
-
     if !empty(l:extracted_format)
       let g:tabular_runon_commands_format = l:extracted_format
     else

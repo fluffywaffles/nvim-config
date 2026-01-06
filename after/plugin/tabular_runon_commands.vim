@@ -34,6 +34,11 @@ function! s:TabularizeWrapper(bang, args) range
   if index(g:tabular_runon_commands_filetypes, &filetype) != -1 && l:args =~# '^/\\/\?'
     " Extract format if present
     let l:extracted_format = matchstr(l:args, '^/\\/\?\zs.*')
+    " If the extraction picked up a regex anchor '$' (e.g. from /\\$), strip it.
+    if l:extracted_format =~# '^\$'
+      let l:extracted_format = strpart(l:extracted_format, 1)
+    endif
+
     if !empty(l:extracted_format)
       let g:tabular_runon_commands_format = l:extracted_format
     else

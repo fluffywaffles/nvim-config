@@ -34,15 +34,14 @@ function! s:TabularizeWrapper(bang, args) range
 
   " Check if filetype is allowed and args look like a regex pattern (start with /)
   if index(g:tabular_runon_commands_filetypes, &filetype) != -1 && l:args =~# '^/'
-    " Parse pattern and format.
-    " Regex matches: ^/ (start)
-    " \(.\{-}\) (Pattern: match anything non-greedy)
-    " \%(\%(\%(\\\\\)*\\\)\@<!/\(.*\)\)\? (Optional group: separator / not preceded by odd backslashes, followed by Format)
-    let l:matches = matchlist(l:args, '^/\(.\{-}\)\%(\%(\%(\\\\\)*\\\)\@<!/\(.*\)\)\?$')
+    " Parse pattern and format by splitting on unescaped slashes.
+    " Regex matches a slash not preceded by an odd number of backslashes.
+    let l:parts = split(l:args, '\%(\%(\\\\\)*\\\)\@<!/', 1)
 
-    if !empty(l:matches)
-      let g:tabular_smart_pattern = l:matches[1]
-      let l:format = l:matches[2]
+    " l:parts[0] is empty (text before first slash).
+    if len(l:parts) >= 2
+      let g:tabular_smart_pattern = l:parts[1]
+      let l:format = get(l:parts, 2, '')
 
       if !empty(l:format)
         let g:tabular_runon_commands_format = l:format

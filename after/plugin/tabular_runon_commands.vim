@@ -4,6 +4,8 @@ endif
 
 " Sets the default formatting parameters.
 let g:tabular_runon_commands_format = 'l1'
+" Sets the default pattern for smart alignment.
+let g:tabular_smart_pattern = '\\'
 
 " Default allowed filetypes for smart backslash alignment
 if !exists('g:tabular_runon_commands_filetypes')
@@ -11,7 +13,7 @@ if !exists('g:tabular_runon_commands_filetypes')
 endif
 
 function! TabularSmartDoAlign(lines)
-  let l:aligned = tabular#TabularizeStrings(a:lines, '\\', g:tabular_runon_commands_format)
+  let l:aligned = tabular#TabularizeStrings(a:lines, g:tabular_smart_pattern, g:tabular_runon_commands_format)
   call map(a:lines, 'l:aligned[v:key]')
 endfunction
 
@@ -30,21 +32,30 @@ command! -nargs=* -range -bang Tabularize <line1>,<line2>call s:TabularizeWrappe
 function! s:TabularizeWrapper(bang, args) range
   let l:args = a:args
 
-  " Check if filetype is allowed and args match backslash pattern
-  " We check for exact match '/\\' or prefix '/\\/' to avoid capturing patterns like '/\\$'
-  if index(g:tabular_runon_commands_filetypes, &filetype) != -1 && (l:args ==# '/\\' || l:args =~# '^/\\/')
-    " Extract format if present
-    let l:extracted_format = matchstr(l:args, '^/\\/\?\zs.*')
-    if !empty(l:extracted_format)
-      let g:tabular_runon_commands_format = l:extracted_format
-    else
-      let g:tabular_runon_commands_format = 'l1'
-    endif
+  " Check if filetype is allowed and args look like a regex pattern (start with /)
+  if index(g:tabular_runon_commands_filetypes, &filetype) != -1 && l:args =~# '^/'
+    " Parse pattern and format.
+    " Regex matches: ^/ (start)
+    " \(.\{-}\) (Pattern: match anything non-greedy)
+    " \%(\%(\%(\\\\\)*\\\)\@<!/\(.*\)\)\? (Optional group: separator / not preceded by odd backslashes, followed by Format)
+    let l:matches = matchlist(l:args, '^/\(.\{-}\)\%(\%(\%(\\\\\)*\\\)\@<!/\(.*\)\)\?$')
 
-    " Call the global Tabularize function directly with the custom pipeline name
-    execute a:firstline . ',' . a:lastline . 'call Tabularize("AlignBackslash")'
-  else
-    " Fallback to original behavior. Call the global Tabularize function directly.
-    execute a:firstline . ',' . a:lastline . 'call Tabularize("' . escape(l:args, '"') . '")'
+    if !empty(l:matches)
+      let g:tabular_smart_pattern = l:matches[1]
+      let l:format = l:matches[2]
+
+      if !empty(l:format)
+        let g:tabular_runon_commands_format = l:format
+      else
+        let g:tabular_runon_commands_format = 'l1'
+      endif
+
+      " Call the global Tabularize function directly with the custom pipeline name
+      execute a:firstline . ',' . a:lastline . 'call Tabularize("AlignBackslash")'
+      return
+    endif
   endif
+
+  " Fallback to original behavior. Call the global Tabularize function directly.
+  execute a:firstline . ',' . a:lastline . 'call Tabularize("' . escape(l:args, '"') . '")'
 endfunction

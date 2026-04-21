@@ -99,7 +99,7 @@ function! s:TabularizeWrapper(bang, args) range
     " Tabularize function do the validation and present the user an error.
     if len(l:parts) >= 2
       " The 2nd element is the pattern to match.
-      let g:tabular_smart_pattern = l:parts[1]
+      let g:tabular_runon_commands_pattern = l:parts[1]
       " The 3rd, optional, argument is an alignment specifier; if none
       " specified, default to l1.
       let g:tabular_runon_commands_format = get(l:parts, 2, 'l1')

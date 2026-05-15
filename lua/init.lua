@@ -46,7 +46,7 @@ paq:setup(paq_config) {
   -- plenary.nvim, a standard library of sorts
   'nvim-lua/plenary.nvim',
   -- windsurf / codeium
-  'Exafunction/windsurf.nvim',
+  -- 'Exafunction/windsurf.nvim',
   -- kitty-scrollback.nvim, attempt #2
   'mikesmithgh/kitty-scrollback.nvim',
 }
@@ -73,7 +73,8 @@ end
 
 -- general editor configuration
 vim.o.scrolloff = 10
-vim.o.statusline = '%<%f %h%m%r%=%-14.(%l,%c%V%) %P%3{v:lua.require("codeium.virtual_text").status_string()}'
+vim.o.statusline = '%<%f %h%m%r%=%-14.(%l,%c%V%) %P'
+-- vim.o.statusline = vim.o.statusline .. '%3{v:lua.require("codeium.virtual_text").status_string()}'
 
 -- set up kitty-scrollback.nvim
 require('kitty-scrollback').setup({
@@ -106,7 +107,7 @@ vim.api.nvim_create_autocmd({ 'User' }, {
 })
 
 -- set up treesitter
-require('nvim-treesitter.configs').setup({
+require('nvim-treesitter').setup({
   ensure_installed = { 'lua', 'vim' },
   -- highlighting configuration
   highlight = {
@@ -161,6 +162,7 @@ vim.keymap.set('n', '<Leader>gqf', function() gitsigns.setqflist('all') end)
 vim.keymap.set({'o', 'x'}, 'ic', gitsigns.select_hunk)
 vim.keymap.set({'o', 'x'}, 'ac', gitsigns.select_hunk)
 
+--[[
 -- set up codeium
 require('codeium').setup({
   enable_cmp_source = false,
@@ -178,6 +180,7 @@ require('codeium').setup({
     },
   }
 })
+--]]
 
 -- start coq for autocompletion
 vim.g.coq_settings = {
@@ -189,7 +192,7 @@ vim.g.coq_settings = {
     snippets = {
       warn = {}
     },
-    third_party = { weight_adjust = 0.1, always_on_top = { 'codeium' } },
+    -- third_party = { weight_adjust = 0.1, always_on_top = { 'codeium' } },
     buffers     = { weight_adjust = 0.1 },
     lsp         = { weight_adjust = 0.2 },
     paths       = { weight_adjust = 0.3 }
@@ -208,7 +211,7 @@ vim.g.coq_settings = {
 -- add third-party sources
 require('coq_3p') {
   -- windsurf / codeium
-  { src = 'codeium', short_name = 'AI' },
+  -- { src = 'codeium', short_name = 'AI' },
   -- scientific calculator
   { src = 'bc', precision = 6 },
   -- shell repl

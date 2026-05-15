@@ -283,7 +283,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 
 -- elixir official lsp: expert-ls
 vim.lsp.config('expert', coq.lsp_ensure_capabilities{
-  cmd = { os.getenv('HOME') .. "/software/expert_" .. GetOs() .. "_" .. GetArch() },
+  cmd = { os.getenv('HOME') .. "/software/expert_" .. GetOs() .. "_" .. GetArch(), "--stdio" },
   root_markers = { 'mix.exs', '.git' },
   filetypes = { "elixir", "eelixir", "heex" },
   settings = {

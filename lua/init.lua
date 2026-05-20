@@ -45,6 +45,8 @@ paq:setup(paq_config) {
   'nathanaelkane/vim-indent-guides',
   -- plenary.nvim, a standard library of sorts
   'nvim-lua/plenary.nvim',
+  -- conform.nvim, a lightweight formatter plugin
+  'stevearc/conform.nvim',
   -- windsurf / codeium
   -- 'Exafunction/windsurf.nvim',
   -- kitty-scrollback.nvim, attempt #2
@@ -69,6 +71,13 @@ function GetArch()
   })[uname_m]
 
   return remapped or uname_m
+end
+
+function GitRoot()
+  local toplevel = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+  if vim.v.shell_error == 0 and toplevel ~= nil and toplevel ~= '' then
+    return toplevel
+  end
 end
 
 -- general editor configuration
@@ -108,7 +117,7 @@ vim.api.nvim_create_autocmd({ 'User' }, {
 
 -- set up treesitter
 require('nvim-treesitter').setup({
-  ensure_installed = { 'lua', 'vim' },
+  ensure_installed = { 'lua', 'vim', 'python' },
   -- highlighting configuration
   highlight = {
     enable = true,
@@ -343,7 +352,7 @@ function StartTsserver()
     return
   end
   -- look for a tsserver.js local to the current buffer's project
-  local gitroot = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+  local gitroot = GitRoot() or vim.fn.getcwd()
   local node_modules_hierarchy = vim.fs.find('node_modules', {
     upward = true,
     stop = gitroot,
@@ -492,6 +501,40 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   end
 })
 
+-- python ty lsp server
+local au_python = vim.api.nvim_create_augroup('python', {})
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  group = au_python,
+  pattern = { 'python' },
+  callback = function()
+    -- start python ty lsp server
+    local gitroot = GitRoot() or vim.fn.getcwd()
+    vim.lsp.start(coq.lsp_ensure_capabilities({
+      name = 'ty',
+      cmd = { 'uv', 'run', 'ty', 'lsp' },
+      root_dir = gitroot,
+    }))
+
+    -- start python ruff lsp server
+    vim.lsp.start(coq.lsp_ensure_capabilities({
+      name = 'ruff',
+      cmd = { 'uv', 'run', 'ruff', 'server' },
+      root_dir = gitroot,
+    }))
+
+    -- configure syntax-based folding with treesitter
+    vim.opt_local.foldmethod = 'expr'
+    vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+  end
+})
+
+-- set up conform.nvim
+require('conform').setup({
+  default_format_opts = {
+    lsp_format = "fallback",
+  },
+})
+
 -- set up lsp keybindings for normal mode in any buffer with a server
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
   callback = function(ev)
@@ -508,7 +551,7 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     vim.keymap.set('n', '<Leader>d', vim.diagnostic.setloclist, opts)
     vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<Leader>f', function()
-      vim.lsp.buf.format { async = true }
+      require('conform').format({ async = true, lsp_format = "fallback" })
       -- don't refold markdown files when they change
       if vim.bo.filetype ~= 'markdown' then
         PostFmt(ev.buf)

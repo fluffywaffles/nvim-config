@@ -513,7 +513,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     local gitroot = GetRoot()
     vim.lsp.start(coq.lsp_ensure_capabilities({
       name = 'ty',
-      cmd = { 'uv', 'run', 'ty', 'lsp' },
+      cmd = { 'uv', 'run', 'ty', 'server' },
       root_dir = gitroot,
     }))
 

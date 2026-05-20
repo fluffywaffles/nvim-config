@@ -513,20 +513,20 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     local gitroot = GetRoot()
     vim.lsp.start(coq.lsp_ensure_capabilities({
       name = 'ty',
-      cmd = { 'ty', 'lsp' },
+      cmd = { 'uv', 'run', 'ty', 'lsp' },
       root_dir = gitroot,
     }))
 
     -- start python ruff lsp server
     vim.lsp.start(coq.lsp_ensure_capabilities({
       name = 'ruff',
-      cmd = { 'ruff', 'server' },
+      cmd = { 'uv', 'run', 'ruff', 'server' },
       root_dir = gitroot,
     }))
 
     -- configure syntax-based folding with treesitter
-    vim.wo.foldmethod = 'expr'
-    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.opt_local.foldmethod = 'expr'
+    vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
   end
 })
 

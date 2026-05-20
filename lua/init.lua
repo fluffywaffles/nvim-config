@@ -73,7 +73,7 @@ function GetArch()
   return remapped or uname_m
 end
 
-function GetGitRoot()
+function GetRoot()
   local toplevel = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
   if vim.v.shell_error == 0 and toplevel ~= nil and toplevel ~= '' then
     return toplevel
@@ -354,7 +354,7 @@ function StartTsserver()
     return
   end
   -- look for a tsserver.js local to the current buffer's project
-  local gitroot = GetGitRoot()
+  local gitroot = GetRoot()
   local node_modules_hierarchy = vim.fs.find('node_modules', {
     upward = true,
     stop = gitroot,
@@ -510,7 +510,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   pattern = { 'python' },
   callback = function()
     -- start python ty lsp server
-    local gitroot = GetGitRoot()
+    local gitroot = GetRoot()
     vim.lsp.start(coq.lsp_ensure_capabilities({
       name = 'ty',
       cmd = { 'ty', 'lsp' },

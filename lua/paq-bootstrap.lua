@@ -4,6 +4,13 @@ local function bootstrap(paq_url)
   if not is_installed then
     print('installing paq.nvim into ' .. install_path .. '...')
     vim.fn.system { 'git', 'clone', '--depth=1', paq_url, install_path }
+    -- forcibly write refs/heads/main since git will by default leave the
+    -- refs all packed up into a single packed object... but Paq expects
+    -- to be able to directly inspect .git/refs/heads/main, sadly.
+    vim.system(
+      { 'git', 'rev-parse', 'HEAD', '>', '.git/refs/heads/main' },
+      { cwd = install_path }
+    ):wait()
     io.write(' done.\n')
   end
   -- add paq to the runtimepath

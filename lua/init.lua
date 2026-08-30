@@ -93,6 +93,7 @@ end
 
 -- general editor configuration
 vim.o.scrolloff = 10
+vim.o.completetimeout = 1880
 vim.o.statusline = '%<%f %h%m%r%=%-14.(%l,%c%V%) %P'
 -- vim.o.statusline = vim.o.statusline .. '%3{v:lua.require("codeium.virtual_text").status_string()}'
 
@@ -214,9 +215,6 @@ require('codeium').setup({
 -- start coq for autocompletion
 vim.g.coq_settings = {
   auto_start = 'shut-up',
-  limits = {
-    completion_manual_timeout = 1.88,
-  },
   clients = {
     snippets = {
       warn = {}

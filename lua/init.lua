@@ -5,6 +5,9 @@ local paq_config = {
   -- opt = true, -- auto-lazy if true
   verbose = false,                  -- tell me when a package is installed
   url_format = 'git@github.com:%s', -- prefer ssh over https
+  -- partial clones: retain commit history (vs. shallow), but only the most-recent version of each file
+  -- (inspired by lazy.nvim)
+  clone_args = { '--filter=blob:none' },
 }
 
 paq:setup(paq_config) {

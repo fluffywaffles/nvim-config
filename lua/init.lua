@@ -260,7 +260,7 @@ local coq = require('coq')
 
 -- configure some language servers
 -- lua_ls
-vim.lsp.config('lua_ls', coq.lsp_ensure_capabilities {
+vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
       runtime = { version = 'LuaJIT' },
@@ -284,7 +284,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 })
 
 -- setup sourcekit for swift
-vim.lsp.config('sourcekit', coq.lsp_ensure_capabilities{
+vim.lsp.config('sourcekit', {
   -- https://www.swift.org/documentation/articles/zero-to-swift-nvim.html#file-updating
   capabilities = {
     workspace = {
@@ -308,10 +308,10 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 })
 
 -- elixir official lsp: expert-ls
-vim.lsp.config('expert', coq.lsp_ensure_capabilities{
-  cmd = { os.getenv('HOME') .. "/software/expert_" .. GetOs() .. "_" .. GetArch(), "--stdio" },
+vim.lsp.config('expert', {
+  cmd = { os.getenv('HOME') .. '/software/expert_' .. GetOs() .. '_' .. GetArch(), '--stdio' },
   root_markers = { 'mix.exs', '.git' },
-  filetypes = { "elixir", "eelixir", "heex" },
+  filetypes = { 'elixir', 'eelixir', 'heex' },
   settings = {
     -- cf. https://github.com/elixir-lang/expert/tree/main/apps/expert/lib/expert/configuration.ex
     dialyzerEnabled = false
@@ -390,7 +390,7 @@ function StartTsserver()
     return
   end
   -- actually start the language server and enable completion
-  vim.lsp.start(coq.lsp_ensure_capabilities({
+  vim.lsp.start({
     name = 'typescript-language-server',
     cmd = { lang_server_bin, '--stdio' },
     root_dir = gitroot,
@@ -400,7 +400,7 @@ function StartTsserver()
         path = tsserverjs
       }
     }
-  }))
+  })
 end
 
 local au_typescript = vim.api.nvim_create_augroup('typescript', {})
@@ -476,7 +476,7 @@ function StartSolidityLanguageServer()
   -- load remappings
   -- local remappings = vim.fn.readfile(vim.fs.normalize(vim.fs.find('remappings.txt', { upward = true })[1]));
   -- actually start the language server and enable completion
-  vim.lsp.start(coq.lsp_ensure_capabilities({
+  vim.lsp.start({
     name = 'vscode-solidity-server',
     cmd = { lang_server_bin, '--stdio' },
     root_dir = vim.fs.dirname(vim.fs.find(
@@ -504,7 +504,7 @@ function StartSolidityLanguageServer()
         -- remappings = remappings,
       },
     },
-  }))
+  })
 end
 
 -- run rust setup script on FileType
@@ -526,18 +526,18 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   callback = function()
     -- start python ty lsp server
     local gitroot = GetRoot()
-    vim.lsp.start(coq.lsp_ensure_capabilities({
+    vim.lsp.start({
       name = 'ty',
       cmd = { 'uv', 'run', 'ty', 'server' },
       root_dir = gitroot,
-    }))
+    })
 
     -- start python ruff lsp server
-    vim.lsp.start(coq.lsp_ensure_capabilities({
+    vim.lsp.start({
       name = 'ruff',
       cmd = { 'uv', 'run', 'ruff', 'server' },
       root_dir = gitroot,
-    }))
+    })
 
     -- configure syntax-based folding with treesitter
     vim.wo.foldmethod = 'expr'

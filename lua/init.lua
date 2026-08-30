@@ -215,9 +215,6 @@ require('codeium').setup({
 -- start coq for autocompletion
 vim.g.coq_settings = {
   clients = {
-    snippets = {
-      warn = {}
-    },
     -- third_party = { weight_adjust = 0.1, always_on_top = { 'codeium' } },
     buffers     = { weight_adjust = 0.1 },
     lsp         = { weight_adjust = 0.2 },
@@ -229,10 +226,10 @@ vim.g.coq_settings = {
     },
   },
   keymap = {
-    bigger_preview = '<c-k>', -- show more docs
-    jump_to_mark = '<c-h>', -- move to next hole in snippet
+    bigger_preview = '<c-k>',
   },
 }
+vim.keymap.set({ 'i', 's' }, '<C-h>', function() vim.snippet.jump(1) end)
 
 -- add third-party sources
 require('coq_3p') {

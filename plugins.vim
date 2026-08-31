@@ -45,8 +45,6 @@ let g:colorizer_auto_filetype = 'stylus,css,html'
 " let g:indent_guides_enable_on_vim_startup = 1
 " let g:indent_guides_exclude_filetypes = [ 'help', 'man' ]
 " let g:indent_guides_guide_size = 1
-" LLVM TableGen and .ll syntax
-call dein#add(expand('<sfile>:p:h') . '/llvm')
 " Terraform
 call dein#add('hashivim/vim-terraform')
 " Solidity syntax highlighting.

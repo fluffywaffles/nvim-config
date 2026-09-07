@@ -50,6 +50,10 @@ paq:setup(paq_config) {
   'nvim-lua/plenary.nvim',
   -- conform.nvim, a lightweight formatter plugin
   'stevearc/conform.nvim',
+  -- octo.nvim, for github PR reviews
+  'pwntester/octo.nvim',
+  -- fzf-lua, to use as picker for octo
+  'ibhagwan/fzf-lua',
   -- windsurf / codeium
   -- 'Exafunction/windsurf.nvim',
   -- kitty-scrollback.nvim, attempt #2
@@ -589,3 +593,96 @@ if vim.env.KITTY_SCROLLBACK_NVIM == 'true' then
   vim.cmd.colorscheme('default')
   vim.o.signcolumn = 'no'
 end
+
+-- set up octo.nvim
+require('octo').setup({
+  picker = "fzf-lua",
+})
+
+-- Define ReviewPR user command
+vim.api.nvim_create_user_command('ReviewPR', function(opts)
+  local pr_number = vim.fn.shellescape(opts.args)
+  if opts.args == "" then
+    print("Please provide a PR number")
+    return
+  end
+
+  -- Use GitHub CLI to get the PR branch name
+  local cmd_get_branch = string.format("gh pr view %s --json headRefName -q .headRefName", pr_number)
+  local handle = io.popen(cmd_get_branch)
+  if not handle then
+    print("Failed to run gh command")
+    return
+  end
+  local branch_name = handle:read("*a"):gsub("%s+", "")
+  handle:close()
+
+  if branch_name == "" then
+    print("Could not retrieve branch name for PR " .. pr_number)
+    return
+  end
+
+  print("Found branch: " .. branch_name)
+
+  -- Get current repo root
+  local gitroot_handle = io.popen("git rev-parse --show-toplevel")
+  local gitroot = gitroot_handle:read("*a"):gsub("%s+", "")
+  gitroot_handle:close()
+
+  if gitroot == "" then
+    print("Not in a git repository")
+    return
+  end
+
+  -- We will create the worktree as a sibling directory to the repo root
+  -- e.g. ../<branch_name>
+  local parent_dir = vim.fn.fnamemodify(gitroot, ":h")
+  local worktree_path = parent_dir .. "/" .. branch_name
+
+  -- Check if worktree directory already exists
+  if vim.fn.isdirectory(worktree_path) == 0 then
+    print("Creating worktree at " .. worktree_path .. " ...")
+
+    -- Add a detached worktree first
+    local exit_code = os.execute(string.format("git worktree add -d %s", vim.fn.shellescape(worktree_path)))
+    if exit_code ~= 0 and exit_code ~= true then
+        print("Failed to create detached worktree")
+        return
+    end
+  else
+    print("Worktree already exists at " .. worktree_path)
+  end
+
+  -- Change Neovim's working directory to the new worktree
+  vim.cmd("cd " .. vim.fn.fnameescape(worktree_path))
+
+  -- Checkout PR branch via gh cli so it tracks correctly
+  os.execute(string.format("gh pr checkout %s", pr_number))
+
+  -- Need to defer the remaining logic so the buffers update and
+  -- Octo can pick up the git state correctly
+  vim.schedule(function()
+    -- Try to start a review.
+    vim.cmd("Octo review start")
+
+    -- In some states where a review is already started but not resumed
+    -- 'Octo review start' does not throw an error, nor does resume.
+    -- However, calling 'Octo review start' should transition to the correct state
+    -- if it wasn't there. We just unconditionally run it. If it fails, that's fine.
+
+    -- Try to resume to the hunk last on, or to the first hunk if we just started
+    -- Using defer_fn gives Octo a moment to initialize the review buffers
+    vim.defer_fn(function()
+      vim.cmd("Octo review resume")
+
+      -- Give the resume UI a moment, then if we still need to, go to the first hunk
+      -- If we resumed, we will be in the correct file, but if it was just started,
+      -- we might need to jump to the first diff hunk
+      vim.defer_fn(function()
+         pcall(function()
+           vim.cmd("normal! ]c")
+         end)
+      end, 500)
+    end, 1000)
+  end)
+end, { nargs = 1 })

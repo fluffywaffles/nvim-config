@@ -1,5 +1,5 @@
 -- set up our fancy new neovim package manager, paq
-local paq = require('paq-bootstrap').bootstrap('git@github.com:savq/paq-nvim')
+local paq = require('paq-bootstrap').bootstrap('git@github.com:fluffywaffles/paq-nvim', 'waffles/packed-refs')
 
 local paq_config = {
   -- opt = true, -- auto-lazy if true
@@ -11,8 +11,7 @@ local paq_config = {
 }
 
 paq:setup(paq_config) {
-  -- let paq manage itself
-  'savq/paq-nvim',
+  { 'fluffywaffles/paq-nvim', branch = 'waffles/packed-refs' },
   -- install community-supplied well-known lsp configurations
   'neovim/nvim-lspconfig',
   -- coq-y autocompletion, very boisterous

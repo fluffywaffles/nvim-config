@@ -319,7 +319,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256
   call <sid>X('Search',       s:syntax_bg,      s:uno_4,              '')
   call <sid>X('SpecialKey',   s:syntax_rule_fg, '',                   '')
   call <sid>X('StatusLine',   s:syntax_fg,      s:syntax_cursor_line, 'none')
-  call <sid>X('StatusLineNC', s:uno_4,          '',                   '')
+  call <sid>X('StatusLineNC', s:uno_4,          s:syntax_cursor_line, 'none')
   call <sid>X('TabLine',      s:uno_4,          '',                   '')
   call <sid>X('TabLineFill',  '',               '',                   'none')
   call <sid>X('TabLineSel',   s:syntax_fg,      '',                   '')

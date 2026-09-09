@@ -238,8 +238,8 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256
   if &background ==? 'light'
     let s:uno_1 = '2d2006'
     let s:uno_2 = '896724'
-    let s:uno_3 = 'B29762'
-    let s:uno_4 = 'B6ad9a'
+    let s:uno_3 = 'b29762'
+    let s:uno_4 = 'b6ad9a'
 
     let s:duo_1 = '065289'
     let s:duo_2 = '718ecd'
@@ -251,13 +251,13 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256
     let s:syntax_color_removed  = 'e05252'
 
     let s:syntax_fg               = s:uno_2
-    let s:syntax_bg               = 'FAF8F5'
-    let s:syntax_accent           = '447EBB'
-    let s:syntax_gutter           = 'EAE1D2'
-    let s:syntax_selection        = 'E5DDCB'
-    let s:syntax_rule_fg          = 'D1CEC7'
-    let s:syntax_fold_bg          = 'D1CEC7'
-    let s:syntax_cursor_line      = 'F3EFE7'
+    let s:syntax_bg               = 'faf8f5'
+    let s:syntax_accent           = '447ebb'
+    let s:syntax_gutter           = 'eae1d2'
+    let s:syntax_selection        = 'e5ddcb'
+    let s:syntax_rule_fg          = 'd1cec7'
+    let s:syntax_fold_bg          = 'd1cec7'
+    let s:syntax_cursor_line      = 'f3efe7'
     let s:syntax_statusline_nc_bg = 'f2f0ed'
   else
     "let s:uno_1 = 'd6e9ff'

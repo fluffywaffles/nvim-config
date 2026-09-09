@@ -258,6 +258,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256
     let s:syntax_rule_fg          = 'D1CEC7'
     let s:syntax_fold_bg          = 'D1CEC7'
     let s:syntax_cursor_line      = 'F3EFE7'
+    let s:syntax_statusline_nc_bg = 'f2f0ed'
   else
     "let s:uno_1 = 'd6e9ff'
     "let s:uno_2 = '91c1f8'
@@ -286,6 +287,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256
     let s:syntax_rule_fg          = '5c6370'
     let s:syntax_fold_bg          = '333943'
     let s:syntax_cursor_line      = '2c323c'
+    let s:syntax_statusline_nc_bg = '242830'
   endif
 
   "}}}
@@ -319,7 +321,7 @@ if has('gui_running') || &t_Co == 88 || &t_Co == 256
   call <sid>X('Search',       s:syntax_bg,      s:uno_4,              '')
   call <sid>X('SpecialKey',   s:syntax_rule_fg, '',                   '')
   call <sid>X('StatusLine',   s:syntax_fg,      s:syntax_cursor_line, 'none')
-  call <sid>X('StatusLineNC', s:uno_4,          s:syntax_cursor_line, 'none')
+  call <sid>X('StatusLineNC', s:uno_4,          s:syntax_statusline_nc_bg, 'none')
   call <sid>X('TabLine',      s:uno_4,          '',                   '')
   call <sid>X('TabLineFill',  '',               '',                   'none')
   call <sid>X('TabLineSel',   s:syntax_fg,      '',                   '')

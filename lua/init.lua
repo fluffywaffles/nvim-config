@@ -175,16 +175,6 @@ require('vimade').setup({
   recipe = { "default", { animate = true } },
   enablefocusfading = true,
   fadelevel = 0.4,
-  blocklist = {
-    -- ignore status lines and bars between vim windows / splits
-    preserve_separators = {
-      highlights = {
-        'StatusLineNC',
-        'WinSeparator',
-        'VertSplit',
-      },
-    },
-  },
 })
 
 --[[

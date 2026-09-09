@@ -59,6 +59,9 @@ paq:setup(paq_config) {
   'pwntester/octo.nvim',
 }
 
+-- always run PaqInstall
+paq:install()
+
 -- helper functions
 function GetOs()
   local uname_s = vim.uv.os_uname().sysname:lower()

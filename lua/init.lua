@@ -57,6 +57,8 @@ paq:setup(paq_config) {
   'georgeguimaraes/review.nvim',
   -- octo.nvim
   'pwntester/octo.nvim',
+  -- tint for dimming when focus lost
+  'TaDaa/vimade',
 }
 
 -- always run PaqInstall
@@ -171,6 +173,13 @@ require('review').setup({})
 require('octo').setup({
   picker = 'default',
   use_icons = false,
+})
+
+-- set up vimade
+require('vimade').setup({
+  recipe = { "default", { animate = true } },
+  enablefocusfading = true,
+  fadelevel = 0.4,
 })
 
 --[[

@@ -54,6 +54,8 @@ paq:setup(paq_config) {
   'pwntester/octo.nvim',
   -- tint for dimming when focus lost
   'TaDaa/vimade',
+  -- color picker and highlighter
+  'uga-rosa/ccc.nvim',
 }
 
 -- always run PaqInstall
@@ -186,6 +188,17 @@ require('vimade').setup({
   enablefocusfading = true,
   fadelevel = 0.4,
 })
+
+-- set up ccc (color picker + highlighter)
+local ccc = require('ccc')
+ccc.setup({
+  highlighter = {
+    auto_enable = true, -- Automatically highlight colors
+    lsp = true,
+  },
+})
+-- Use <Leader>cp to open the interactive color picker on the color under the cursor
+vim.keymap.set('n', '<Leader>cp', '<Cmd>CccPick<CR>')
 
 --[[
 -- set up codeium

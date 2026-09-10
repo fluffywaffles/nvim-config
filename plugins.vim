@@ -34,11 +34,6 @@ call dein#add('wavded/vim-stylus')
 call dein#add('wlangstroth/vim-racket')
 " Tmux configuration syntax highlighting.
 call dein#add('tmux-plugins/vim-tmux')
-" Highlight hexcode colors.
-" <Leader>cC toggle, <Leader>cT cycle contrast, <Leader>cF cycle fg/bg.
-call dein#add('chrisbra/Colorizer')
-let g:colorizer_auto_map      = 1
-let g:colorizer_auto_filetype = 'stylus,css,html'
 " Nice indentation guides.
 " call dein#add('nathanaelkane/vim-indent-guides')
 " Enable indent_guides except on manpages, helppages

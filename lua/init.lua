@@ -56,6 +56,8 @@ paq:setup(paq_config) {
   'TaDaa/vimade',
   -- color picker and highlighter
   'uga-rosa/ccc.nvim',
+  -- distraction free mode
+  'folke/zen-mode.nvim',
 }
 
 -- always run PaqInstall
@@ -599,3 +601,27 @@ if vim.env.KITTY_SCROLLBACK_NVIM == 'true' then
   vim.cmd.colorscheme('default')
   vim.o.signcolumn = 'no'
 end
+
+-- set up zen-mode
+require('zen-mode').setup({
+  window = {
+    width = 80,
+    options = {
+      number = false,
+      relativenumber = false,
+      signcolumn = "no",
+    }
+  }
+})
+
+vim.keymap.set('n', '<Leader>z', '<Cmd>ZenMode<CR>', { silent = true })
+
+-- Automatically open Zen Mode for plain text files
+local au_zen = vim.api.nvim_create_augroup('zen_mode_auto', {})
+vim.api.nvim_create_autocmd('FileType', {
+  group = au_zen,
+  pattern = { 'text', 'markdown' },
+  callback = function()
+    require('zen-mode').open()
+  end
+})

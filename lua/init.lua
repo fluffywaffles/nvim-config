@@ -15,12 +15,7 @@ paq:setup(paq_config) {
   -- install community-supplied well-known lsp configurations
   'neovim/nvim-lspconfig',
   -- coq-y autocompletion, very boisterous
-  { 'ms-jpq/coq_nvim',
-    -- automatically run coq.deps() and set coq to auto start with vim
-    build = function()
-      require('coq').deps()
-    end
-  },
+  'ms-jpq/coq_nvim',
   -- add coq third-party sources
   'ms-jpq/coq.thirdparty',
   -- multiple cursors support; terryma/vim-multiple-cursors is deprecated!

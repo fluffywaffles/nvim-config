@@ -638,12 +638,26 @@ local au_zen = vim.api.nvim_create_augroup('zen_mode_auto', {})
 vim.api.nvim_create_autocmd('BufEnter', {
   group = au_zen,
   pattern = { '*.txt', '*.md', '*.markdown' },
-  callback = function()
-    if vim.b.zen_auto_opened then return end
-    vim.b.zen_auto_opened = true
+  callback = function(args)
+    if vim.b[args.buf].zen_auto_opened then return end
+    vim.b[args.buf].zen_auto_opened = true
     
-    vim.schedule(function()
-      require('zen-mode').open({ window = { width = get_zen_width() } })
-    end)
+    local function do_zen()
+      -- Ensure we are still in the markdown buffer if this was deferred
+      if vim.api.nvim_get_current_buf() == args.buf then
+        require('zen-mode').open({ window = { width = get_zen_width() } })
+      end
+    end
+
+    if vim.v.vim_did_enter == 1 then
+      -- Neovim is already running, open synchronously to avoid flicker
+      do_zen()
+    else
+      -- Neovim is starting up. VimEnter fires before the first redraw, preventing the jump.
+      vim.api.nvim_create_autocmd('VimEnter', {
+        once = true,
+        callback = do_zen
+      })
+    end
   end
 })

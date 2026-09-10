@@ -197,6 +197,7 @@ ccc.setup({
   highlighter = {
     auto_enable = true, -- Automatically highlight colors
     lsp = true,
+    excludes = { "markdown", "text" },
   },
 })
 -- Use <Leader>cp to open the interactive color picker on the color under the cursor

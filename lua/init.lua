@@ -618,6 +618,7 @@ require('zen-mode').setup({
       number = false,
       relativenumber = false,
       signcolumn = "no",
+      colorcolumn = "",
     }
   },
   on_open = function()

@@ -199,6 +199,8 @@ ccc.setup({
 })
 -- Use <Leader>cp to open the interactive color picker on the color under the cursor
 vim.keymap.set('n', '<Leader>cp', '<Cmd>CccPick<CR>')
+-- Use <Leader>ch to toggle color highlighting
+vim.keymap.set('n', '<Leader>ch', '<Cmd>CccHighlighterToggle<CR>')
 
 --[[
 -- set up codeium

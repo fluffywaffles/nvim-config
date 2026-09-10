@@ -602,26 +602,47 @@ if vim.env.KITTY_SCROLLBACK_NVIM == 'true' then
   vim.o.signcolumn = 'no'
 end
 
+-- Helper for dynamic Zen Mode width
+local function get_zen_width()
+  return math.max(vim.bo.textwidth, 100)
+end
+
 -- set up zen-mode
 require('zen-mode').setup({
   window = {
-    width = 80,
+    width = 100,
     options = {
       number = false,
       relativenumber = false,
       signcolumn = "no",
     }
-  }
+  },
+  on_open = function()
+    -- Disable Vimade so it doesn't conflict with Zen's backdrop
+    vim.cmd('VimadeDisable')
+  end,
+  on_close = function()
+    -- Re-enable Vimade when leaving
+    vim.cmd('VimadeEnable')
+  end,
 })
 
-vim.keymap.set('n', '<Leader>z', '<Cmd>ZenMode<CR>', { silent = true })
+-- Toggle Zen Mode
+vim.keymap.set('n', '<Leader>z', function()
+  require('zen-mode').toggle({ window = { width = get_zen_width() } })
+end, { silent = true })
 
--- Automatically open Zen Mode for plain text files
+-- Automatically open Zen Mode for plain text files once when opened
 local au_zen = vim.api.nvim_create_augroup('zen_mode_auto', {})
-vim.api.nvim_create_autocmd('FileType', {
+vim.api.nvim_create_autocmd('BufEnter', {
   group = au_zen,
-  pattern = { 'text', 'markdown' },
+  pattern = { '*.txt', '*.md', '*.markdown' },
   callback = function()
-    require('zen-mode').open()
+    if vim.b.zen_auto_opened then return end
+    vim.b.zen_auto_opened = true
+    
+    vim.schedule(function()
+      require('zen-mode').open({ window = { width = get_zen_width() } })
+    end)
   end
 })

@@ -50,6 +50,7 @@ let g:vim_markdown_fenced_languages = [
   \  'ts=typescript',
   \  'js=javascript',
 \]
+let g:vim_markdown_folding_disabled = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This is the shrine to tpope. Hi HATERS http://tpo.pe

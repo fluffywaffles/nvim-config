@@ -186,7 +186,7 @@ require('octo').setup({
 
 -- set up vimade
 require('vimade').setup({
-  recipe = { "default", { animate = true } },
+  recipe = { "default", { animate = false } },
   enablefocusfading = true,
   fadelevel = 0.4,
 })

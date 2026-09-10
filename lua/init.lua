@@ -58,8 +58,6 @@ paq:setup(paq_config) {
   'uga-rosa/ccc.nvim',
   -- distraction free mode
   'folke/zen-mode.nvim',
-  -- smart seamless navigation between vim splits and tmux panes
-  'mrjones2014/smart-splits.nvim',
 }
 
 -- always run PaqInstall
@@ -664,16 +662,3 @@ vim.api.nvim_create_autocmd('BufEnter', {
     end
   end
 })
-
--- set up smart-splits
-require('smart-splits').setup({
-  -- Wrap to tmux when reaching the edge of the Neovim layout
-  at_edge = 'wrap',
-})
-
--- Map the incoming keys from tmux (or manual pressing) to smart-splits
--- We use C-w h/j/k/l since it's the standard Vim split navigation, and Tmux sends this.
-vim.keymap.set('n', '<C-w>h', require('smart-splits').move_cursor_left)
-vim.keymap.set('n', '<C-w>j', require('smart-splits').move_cursor_down)
-vim.keymap.set('n', '<C-w>k', require('smart-splits').move_cursor_up)
-vim.keymap.set('n', '<C-w>l', require('smart-splits').move_cursor_right)

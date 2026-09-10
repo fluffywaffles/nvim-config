@@ -137,6 +137,16 @@ vim.g.indent_guides_guide_size = 1
 vim.g.indent_guides_exclude_filetypes = { 'help', 'man' }
 vim.g.indent_guides_enable_on_vim_startup = 1
 
+-- fix netrw / coq_nvim buffer invalidation error
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'netrw',
+  callback = function(args)
+    -- force netrw buffers to hide instead of wipe when leaving the window,
+    -- keeping the buffer ID valid so coq_nvim's BufEnter doesn't crash on it.
+    vim.bo[args.buf].bufhidden = 'hide'
+  end
+})
+
 -- set up gitsigns
 require('gitsigns').setup({})
 

@@ -46,12 +46,8 @@ paq:setup(paq_config) {
   'stevearc/conform.nvim',
   -- windsurf / codeium
   -- 'Exafunction/windsurf.nvim',
-  -- review.nvim and dependencies
+  -- diff viewer
   'esmuellert/codediff.nvim',
-  'MunifTanjim/nui.nvim',
-  'georgeguimaraes/review.nvim',
-  -- octo.nvim
-  'pwntester/octo.nvim',
   -- tint for dimming when focus lost
   'TaDaa/vimade',
   -- color picker and highlighter
@@ -175,14 +171,6 @@ vim.keymap.set('n', '<Leader>gqf', function() gitsigns.setqflist('all') end)
 vim.keymap.set({'o', 'x'}, 'ic', gitsigns.select_hunk)
 vim.keymap.set({'o', 'x'}, 'ac', gitsigns.select_hunk)
 
--- set up review.nvim
-require('review').setup({})
-
--- set up octo.nvim
-require('octo').setup({
-  picker = 'default',
-  use_icons = false,
-})
 
 -- set up vimade
 require('vimade').setup({

@@ -214,7 +214,7 @@ scriptencoding utf-8      " Use UTF-8!
 set formatoptions+=t      " Yes, auto-wrap text while typing.
 
 set tw=74           " Column width: 74 characters.
-set wrap            " Force hard-wrap lines after 74 characters.
+set nowrap          " Do not visually wrap lines past edge of screen.
 set linebreak       " Force wrapping line-breaks on word boundaries.
 set colorcolumn=+1  " Light up the column +1 after TextWidth.
 set sw=2 ts=2 sts=2 " ShiftWidth = Tabstop = SoftTabstop = 2.

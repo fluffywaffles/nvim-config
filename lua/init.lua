@@ -172,6 +172,9 @@ vim.keymap.set({'o', 'x'}, 'ic', gitsigns.select_hunk)
 vim.keymap.set({'o', 'x'}, 'ac', gitsigns.select_hunk)
 
 
+-- set up annotate (local code review)
+require('annotate').setup()
+
 -- set up vimade
 require('vimade').setup({
   recipe = { "default", { animate = false } },
